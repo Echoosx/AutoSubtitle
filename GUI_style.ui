@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>635</width>
-    <height>204</height>
+    <width>632</width>
+    <height>281</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -15,6 +15,9 @@
     <horstretch>0</horstretch>
     <verstretch>0</verstretch>
    </sizepolicy>
+  </property>
+  <property name="mouseTracking">
+   <bool>false</bool>
   </property>
   <property name="contextMenuPolicy">
    <enum>Qt::NoContextMenu</enum>
@@ -26,186 +29,540 @@
    <bool>false</bool>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QPushButton" name="startButton">
+   <widget class="QTabWidget" name="tabWidget">
     <property name="geometry">
      <rect>
-      <x>120</x>
-      <y>150</y>
-      <width>331</width>
-      <height>41</height>
+      <x>0</x>
+      <y>0</y>
+      <width>631</width>
+      <height>281</height>
      </rect>
     </property>
-    <property name="font">
-     <font>
-      <pointsize>12</pointsize>
-      <italic>false</italic>
-      <bold>false</bold>
-      <kerning>true</kerning>
-     </font>
+    <property name="autoFillBackground">
+     <bool>false</bool>
     </property>
-    <property name="text">
-     <string>开始打轴</string>
+    <property name="styleSheet">
+     <string notr="true"/>
     </property>
-   </widget>
-   <widget class="QLabel" name="Title">
-    <property name="enabled">
-     <bool>true</bool>
+    <property name="currentIndex">
+     <number>0</number>
     </property>
-    <property name="geometry">
-     <rect>
-      <x>20</x>
-      <y>10</y>
-      <width>341</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>等线</family>
-      <pointsize>15</pointsize>
-      <stylestrategy>PreferDefault</stylestrategy>
-      <kerning>true</kerning>
-     </font>
-    </property>
-    <property name="text">
-     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;自动打轴机&lt;span style=&quot; color:#353535;&quot;&gt; - By Yellowstone&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-    </property>
-   </widget>
-   <widget class="QToolButton" name="chooseButtom">
-    <property name="geometry">
-     <rect>
-      <x>520</x>
-      <y>70</y>
-      <width>81</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>选择打开视频</string>
-    </property>
-   </widget>
-   <widget class="QToolButton" name="saveButtom">
-    <property name="geometry">
-     <rect>
-      <x>520</x>
-      <y>110</y>
-      <width>81</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>选择保存位置</string>
-    </property>
-   </widget>
-   <widget class="DragAcceptableQLine" name="OpenFilePathEdit">
-    <property name="geometry">
-     <rect>
-      <x>20</x>
-      <y>70</y>
-      <width>481</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>10</pointsize>
-     </font>
-    </property>
-    <property name="statusTip">
-     <string/>
-    </property>
-    <property name="placeholderText">
-     <string>请选择输入视频文件路径</string>
-    </property>
-   </widget>
-   <widget class="QLineEdit" name="SaveFilePathEdit">
-    <property name="geometry">
-     <rect>
-      <x>20</x>
-      <y>110</y>
-      <width>481</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>10</pointsize>
-     </font>
-    </property>
-    <property name="placeholderText">
-     <string>请选择轴保存路径</string>
-    </property>
-   </widget>
-   <widget class="QComboBox" name="videoTypeList">
-    <property name="geometry">
-     <rect>
-      <x>370</x>
-      <y>40</y>
-      <width>231</width>
-      <height>21</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QLabel" name="Title_2">
-    <property name="enabled">
-     <bool>true</bool>
-    </property>
-    <property name="geometry">
-     <rect>
-      <x>360</x>
-      <y>10</y>
-      <width>251</width>
-      <height>21</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>等线</family>
-      <pointsize>13</pointsize>
-      <stylestrategy>PreferDefault</stylestrategy>
-      <kerning>true</kerning>
-     </font>
-    </property>
-    <property name="text">
-     <string>  请选择视频类型</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="setSavePathToDefaultButton">
-    <property name="geometry">
-     <rect>
-      <x>460</x>
-      <y>140</y>
-      <width>41</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>9</pointsize>
-      <italic>false</italic>
-      <bold>false</bold>
-      <kerning>true</kerning>
-     </font>
-    </property>
-    <property name="text">
-     <string>默认</string>
-    </property>
-   </widget>
-   <widget class="QCheckBox" name="FlagNewOPcheckBox">
-    <property name="geometry">
-     <rect>
-      <x>510</x>
-      <y>11</y>
-      <width>101</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Flag系列新OP</string>
-    </property>
-    <property name="checked">
-     <bool>true</bool>
-    </property>
+    <widget class="QWidget" name="runsub">
+     <attribute name="title">
+      <string>运行</string>
+     </attribute>
+     <widget class="QLabel" name="Title">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>20</y>
+        <width>341</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>等线</family>
+        <pointsize>23</pointsize>
+        <bold>false</bold>
+        <stylestrategy>PreferDefault</stylestrategy>
+        <kerning>true</kerning>
+       </font>
+      </property>
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;自动打轴机&lt;span style=&quot; color:#353535;&quot;&gt; v2.0.0&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+     <widget class="DragAcceptableQLine" name="VideoPathEdit">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>80</y>
+        <width>461</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="statusTip">
+       <string/>
+      </property>
+      <property name="placeholderText">
+       <string>可以将视频拖拽到这里</string>
+      </property>
+     </widget>
+     <widget class="QToolButton" name="chooseButton">
+      <property name="geometry">
+       <rect>
+        <x>500</x>
+        <y>80</y>
+        <width>101</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="contextMenuPolicy">
+       <enum>Qt::DefaultContextMenu</enum>
+      </property>
+      <property name="text">
+       <string>选择视频</string>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="FlagNewOPcheckBox">
+      <property name="geometry">
+       <rect>
+        <x>500</x>
+        <y>11</y>
+        <width>101</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>flag系列新OP</string>
+      </property>
+      <property name="checked">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QComboBox" name="videoTypeList">
+      <property name="geometry">
+       <rect>
+        <x>370</x>
+        <y>40</y>
+        <width>231</width>
+        <height>25</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="SubtitleSavePathEdit">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>130</y>
+        <width>461</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="acceptDrops">
+       <bool>false</bool>
+      </property>
+      <property name="placeholderText">
+       <string>请选择字幕文件保存路径</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="Title_2">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>360</x>
+        <y>10</y>
+        <width>131</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>等线</family>
+        <pointsize>13</pointsize>
+        <stylestrategy>PreferDefault</stylestrategy>
+        <kerning>true</kerning>
+       </font>
+      </property>
+      <property name="text">
+       <string>  请选择视频类型</string>
+      </property>
+     </widget>
+     <widget class="QToolButton" name="saveButton">
+      <property name="geometry">
+       <rect>
+        <x>500</x>
+        <y>130</y>
+        <width>101</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>选择保存位置</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="startButton">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>180</y>
+        <width>581</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>11</pointsize>
+        <italic>false</italic>
+        <bold>false</bold>
+        <kerning>true</kerning>
+       </font>
+      </property>
+      <property name="cursor">
+       <cursorShape>ArrowCursor</cursorShape>
+      </property>
+      <property name="mouseTracking">
+       <bool>false</bool>
+      </property>
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
+      <property name="text">
+       <string>开始打轴</string>
+      </property>
+      <property name="autoRepeat">
+       <bool>false</bool>
+      </property>
+      <property name="autoRepeatDelay">
+       <number>301</number>
+      </property>
+      <property name="autoDefault">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <zorder>Title</zorder>
+     <zorder>VideoPathEdit</zorder>
+     <zorder>FlagNewOPcheckBox</zorder>
+     <zorder>videoTypeList</zorder>
+     <zorder>SubtitleSavePathEdit</zorder>
+     <zorder>Title_2</zorder>
+     <zorder>saveButton</zorder>
+     <zorder>startButton</zorder>
+     <zorder>chooseButton</zorder>
+    </widget>
+    <widget class="QWidget" name="default">
+     <attribute name="title">
+      <string>默认</string>
+     </attribute>
+     <widget class="DragAcceptableQLine" name="flagStylePathEdit">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>20</y>
+        <width>441</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="acceptDrops">
+       <bool>false</bool>
+      </property>
+      <property name="statusTip">
+       <string/>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="placeholderText">
+       <string>请选择全力回避flag酱打轴默认样式</string>
+      </property>
+     </widget>
+     <widget class="DragAcceptableQLine" name="mixedStylePathEdit">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>70</y>
+        <width>441</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="acceptDrops">
+       <bool>false</bool>
+      </property>
+      <property name="statusTip">
+       <string/>
+      </property>
+      <property name="placeholderText">
+       <string>请选择混血万事屋打轴默认样式</string>
+      </property>
+     </widget>
+     <widget class="QToolButton" name="flagStyleSelect">
+      <property name="geometry">
+       <rect>
+        <x>480</x>
+        <y>20</y>
+        <width>121</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>选择flag默认样式</string>
+      </property>
+     </widget>
+     <widget class="QToolButton" name="mixedStyleSelect">
+      <property name="geometry">
+       <rect>
+        <x>480</x>
+        <y>70</y>
+        <width>121</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>选择混血默认样式</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="saveDefaultButton">
+      <property name="geometry">
+       <rect>
+        <x>220</x>
+        <y>200</y>
+        <width>171</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>保存</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>160</y>
+        <width>361</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>注：保存后，下次运行会默认使用当前设定</string>
+      </property>
+     </widget>
+     <widget class="QRadioButton" name="flagRadioButton">
+      <property name="geometry">
+       <rect>
+        <x>120</x>
+        <y>110</y>
+        <width>110</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>全力回避flag酱</string>
+      </property>
+      <property name="checked">
+       <bool>true</bool>
+      </property>
+      <attribute name="buttonGroup">
+       <string notr="true">defaultVideoTypeGroup</string>
+      </attribute>
+     </widget>
+     <widget class="QRadioButton" name="mixedRadioButton">
+      <property name="geometry">
+       <rect>
+        <x>240</x>
+        <y>110</y>
+        <width>95</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>混血万事屋</string>
+      </property>
+      <property name="checked">
+       <bool>false</bool>
+      </property>
+      <attribute name="buttonGroup">
+       <string notr="true">defaultVideoTypeGroup</string>
+      </attribute>
+     </widget>
+     <widget class="QLabel" name="label_3">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>100</y>
+        <width>111</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>默认视频类型：</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_5">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>130</y>
+        <width>91</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>默认字幕文本：</string>
+      </property>
+     </widget>
+     <widget class="QRadioButton" name="useDebugSubtextRadioButton">
+      <property name="geometry">
+       <rect>
+        <x>120</x>
+        <y>140</y>
+        <width>95</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>示范性字幕n</string>
+      </property>
+      <property name="checked">
+       <bool>true</bool>
+      </property>
+      <attribute name="buttonGroup">
+       <string notr="true">isDebugSubtextGroup</string>
+      </attribute>
+     </widget>
+     <widget class="QRadioButton" name="unuseDebugSubtextRadioButton">
+      <property name="geometry">
+       <rect>
+        <x>240</x>
+        <y>140</y>
+        <width>95</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>空白</string>
+      </property>
+      <property name="checkable">
+       <bool>true</bool>
+      </property>
+      <property name="checked">
+       <bool>false</bool>
+      </property>
+      <attribute name="buttonGroup">
+       <string notr="true">isDebugSubtextGroup</string>
+      </attribute>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="advanced">
+     <attribute name="title">
+      <string>高级</string>
+     </attribute>
+     <widget class="QLabel" name="label_2">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>10</y>
+        <width>81</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>样式名对照表</string>
+      </property>
+     </widget>
+     <widget class="QPlainTextEdit" name="styleSheetEdit">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>30</y>
+        <width>461</width>
+        <height>221</height>
+       </rect>
+      </property>
+      <property name="plainText">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="saveStyleSheetButton">
+      <property name="geometry">
+       <rect>
+        <x>500</x>
+        <y>220</y>
+        <width>111</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>保存</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="defaultStyleSheetButton">
+      <property name="geometry">
+       <rect>
+        <x>500</x>
+        <y>180</y>
+        <width>111</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>重置</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_4">
+      <property name="geometry">
+       <rect>
+        <x>490</x>
+        <y>40</y>
+        <width>131</width>
+        <height>131</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>自定义样式名对照表
+参照格式：
+说话人 = 样式名
+
+[flag]和[mixed-blood]
+下方分别是两类视频的
+样式名对照表</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+      </property>
+     </widget>
+    </widget>
    </widget>
   </widget>
  </widget>
@@ -222,14 +579,14 @@
  <resources/>
  <connections>
   <connection>
-   <sender>chooseButtom</sender>
+   <sender>chooseButton</sender>
    <signal>clicked()</signal>
    <receiver>AutoSubtitle</receiver>
    <slot>raiseOpenFile()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>427</x>
-     <y>68</y>
+     <x>502</x>
+     <y>104</y>
     </hint>
     <hint type="destinationlabel">
      <x>411</x>
@@ -238,14 +595,14 @@
    </hints>
   </connection>
   <connection>
-   <sender>saveButtom</sender>
+   <sender>saveButton</sender>
    <signal>clicked()</signal>
    <receiver>AutoSubtitle</receiver>
    <slot>raiseSaveFile()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>450</x>
-     <y>110</y>
+     <x>502</x>
+     <y>154</y>
     </hint>
     <hint type="destinationlabel">
      <x>484</x>
@@ -260,8 +617,8 @@
    <slot>tryToStart()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>284</x>
-     <y>150</y>
+     <x>286</x>
+     <y>204</y>
     </hint>
     <hint type="destinationlabel">
      <x>404</x>
@@ -270,14 +627,14 @@
    </hints>
   </connection>
   <connection>
-   <sender>OpenFilePathEdit</sender>
+   <sender>VideoPathEdit</sender>
    <signal>editingFinished()</signal>
    <receiver>AutoSubtitle</receiver>
    <slot>updateOpenPath()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>190</x>
-     <y>69</y>
+     <x>192</x>
+     <y>104</y>
     </hint>
     <hint type="destinationlabel">
      <x>389</x>
@@ -286,14 +643,14 @@
    </hints>
   </connection>
   <connection>
-   <sender>SaveFilePathEdit</sender>
+   <sender>SubtitleSavePathEdit</sender>
    <signal>editingFinished()</signal>
    <receiver>AutoSubtitle</receiver>
    <slot>updateSavePath()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>104</x>
-     <y>96</y>
+     <x>106</x>
+     <y>154</y>
     </hint>
     <hint type="destinationlabel">
      <x>25</x>
@@ -308,28 +665,12 @@
    <slot>updateVideoType()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>545</x>
-     <y>50</y>
+     <x>547</x>
+     <y>74</y>
     </hint>
     <hint type="destinationlabel">
      <x>572</x>
      <y>168</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>setSavePathToDefaultButton</sender>
-   <signal>clicked()</signal>
-   <receiver>AutoSubtitle</receiver>
-   <slot>setSavePathToDefault()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>494</x>
-     <y>149</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>508</x>
-     <y>166</y>
     </hint>
    </hints>
   </connection>
@@ -340,8 +681,8 @@
    <slot>updateOPstyle()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>584</x>
-     <y>27</y>
+     <x>586</x>
+     <y>51</y>
     </hint>
     <hint type="destinationlabel">
      <x>624</x>
@@ -350,18 +691,98 @@
    </hints>
   </connection>
   <connection>
-   <sender>OpenFilePathEdit</sender>
+   <sender>VideoPathEdit</sender>
    <signal>dropAccepted()</signal>
    <receiver>AutoSubtitle</receiver>
    <slot>updateOpenPath()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>292</x>
-     <y>85</y>
+     <x>294</x>
+     <y>109</y>
     </hint>
     <hint type="destinationlabel">
      <x>293</x>
      <y>47</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>defaultStyleSheetButton</sender>
+   <signal>clicked()</signal>
+   <receiver>AutoSubtitle</receiver>
+   <slot>defaultStyleSheet()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>557</x>
+     <y>219</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>315</x>
+     <y>140</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>saveStyleSheetButton</sender>
+   <signal>clicked()</signal>
+   <receiver>AutoSubtitle</receiver>
+   <slot>saveStyleSheet()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>557</x>
+     <y>259</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>315</x>
+     <y>140</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>saveDefaultButton</sender>
+   <signal>clicked()</signal>
+   <receiver>AutoSubtitle</receiver>
+   <slot>saveDefaultConfig()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>307</x>
+     <y>244</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>315</x>
+     <y>140</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>flagStyleSelect</sender>
+   <signal>clicked()</signal>
+   <receiver>AutoSubtitle</receiver>
+   <slot>raiseFlagStyleSelect()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>542</x>
+     <y>59</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>315</x>
+     <y>140</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>mixedStyleSelect</sender>
+   <signal>clicked()</signal>
+   <receiver>AutoSubtitle</receiver>
+   <slot>raiseMixedStyleSelect()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>542</x>
+     <y>109</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>315</x>
+     <y>140</y>
     </hint>
    </hints>
   </connection>
@@ -372,9 +793,13 @@
   <slot>tryToStart()</slot>
   <slot>updateOpenPath()</slot>
   <slot>updateSavePath()</slot>
-  <slot>exit()</slot>
+  <slot>saveDefaultConfig()</slot>
   <slot>updateVideoType()</slot>
   <slot>updateOPstyle()</slot>
   <slot>setSavePathToDefault()</slot>
  </slots>
+ <buttongroups>
+  <buttongroup name="isDebugSubtextGroup"/>
+  <buttongroup name="defaultVideoTypeGroup"/>
+ </buttongroups>
 </ui>

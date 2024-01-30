@@ -1,6 +1,4 @@
-﻿PyQt6
-opencv-python
-numpy
-pyinstaller
-PyWin32
-requests
+pyqt6~=6.4.2
+opencv-python~=4.9.0.80
+numpy~=1.26.3
+requests~=2.31.0

@@ -8,15 +8,17 @@ import configparser
 
 # import easygui as eg
 
-stylecode = open('config/flag_bk.txt', 'r', encoding="utf-8").read()
+stylecode = open('config/flag.txt', 'r', encoding="utf-8").read()
 config = configparser.ConfigParser()
 config.read('config/config.ini')
-debug = False if {section: dict(config[section]) for section in config.sections()}['config']['debugsubtext'] == "0" else True
+debug = False if {section: dict(config[section]) for section in config.sections()}['config'][
+                     'debugsubtext'] == "0" else True
 
 opening_old = ['1000011010001100010000000000000000000000000000000000000000000000',
                '1100100000010000110010111001011101100100001000000001001011000001',
                '1100100000010000110010111001011001100100001000000001001011000001']
 opening_new = ['1110010111001100000100010111000010010000000100000001001100000110',
+               '1110010110001110000100110010001010011000000110000000001100000110',
                '1101010010110011010000111001000101100000000100000011100010000001']
 
 subtitle_head = """
@@ -95,22 +97,28 @@ def get_people(img):
     renai_rate = get_color_rate(img, np.array([150, 70, 225]), np.array([160, 90, 255]))
     seizon_rate = get_color_rate(img, np.array([75, 150, 230]), np.array([80, 190, 255]))
     mobumi_rate = get_color_rate(img, np.array([20, 90, 245]), np.array([25, 120, 255]))
-    purple_rate = get_color_rate(img, np.array([125, 105, 190]), np.array([135, 135, 220]))
-    kaqi_rate = get_color_rate(img, np.array([15, 95, 225]), np.array([25, 130, 255]))
-    kaqi_rate = 0  # 这个奇葩颜色貌似不常见，禁用算了
+    lightpurple_rate = get_color_rate(img, np.array([123, 101, 181]), np.array([132, 131, 222]))
     dongyun_rate = get_color_rate(img, np.array([0, 83, 225]), np.array([10, 125, 255]))
-    yanghong_rate = get_color_rate(img, np.array([162, 140, 215]), np.array([170, 180, 255]))
-    yanghong2_rate = get_color_rate(img, np.array([160, 200, 205]), np.array([165, 220, 230]))
+    yanghong_rate = get_color_rate(img, np.array([160, 147, 202]), np.array([173, 194, 255]))
     siturenn_rate = get_color_rate(img, np.array([90, 75, 205]), np.array([95, 145, 255]))
     darkgreen_rate = get_color_rate(img, np.array([70, 210, 120]), np.array([75, 255, 155]))
-    rose_rate = get_color_rate(img, np.array([160, 210, 195]), np.array([165, 250, 240]))
+    # rose_rate = get_color_rate(img, np.array([160, 210, 195]), np.array([165, 250, 240]))
+    rose_rate = 0
     kami_rate = get_color_rate(img, np.array([25, 110, 245]), np.array([35, 130, 255]))
     darkred_rate = get_color_rate(img, np.array([175, 240, 210]), np.array([180, 255, 225]))
+    green_rate = get_color_rate(img, np.array([62, 79, 205]), np.array([70, 255, 255]))
+    hametsu_rate = get_color_rate(img, np.array([85, 209, 181]), np.array([90, 255, 211]))
+    nana_rate = get_color_rate(img, np.array([7, 151, 240]), np.array([10, 187, 255]))
+    red_rate = get_color_rate(img, np.array([175, 148, 214]), np.array([180, 175, 251]))
+    lightpink_rate = get_color_rate(img, np.array([161, 104, 232]), np.array([169, 134, 255]))
+    blue_rate = get_color_rate(img, np.array([119, 115, 221]), np.array([122, 134, 249]))
+
     narrator_rate = get_color_rate(img, np.array([0, 0, 225]), np.array([175, 5, 255]))
-    rate_list = [mobuo_rate, flag_rate, renai_rate, seizon_rate, mobumi_rate, purple_rate, kaqi_rate, dongyun_rate,
-                 yanghong_rate, yanghong2_rate, siturenn_rate, darkgreen_rate, rose_rate, kami_rate, darkred_rate]
-    people_list = ["mobuo", "flag", "renai", "seizon", "mobumi", "purple", "kaqi", "dongyun", "yanghong", "yanghong",
-                   "siturenn", "darkgreen", "rose", "kami", "darkred"]
+    rate_list = [mobuo_rate, flag_rate, renai_rate, seizon_rate, mobumi_rate, blue_rate, lightpurple_rate, dongyun_rate, red_rate,
+                 yanghong_rate, siturenn_rate, darkgreen_rate, rose_rate, kami_rate, darkred_rate,
+                 green_rate, hametsu_rate, nana_rate, lightpink_rate]
+    people_list = ["mobuo", "flag", "renai", "seizon", "mobumi", "blue", "lightpurple", "dongyun", "red", "yanghong",
+                   "siturenn", "darkgreen", "rose", "kami", "darkred", "green", "hametsu", "nana", "lightpink"]
     max_rate = max(rate_list)
     if (max_rate < 0.2):
         if (len([x for x in rate_list if x > 4]) > 1):
@@ -132,24 +140,10 @@ def people2style(people):
 
 def add_sub(subtext, begintime, endingtime, subpeople):
     global sub_num
-    global subtitle
     style = people2style(subpeople)
-    if debug:
-        subtitle = (
-                f'{subtitle}Dialogue: 1,{begintime},{endingtime},{style},{subpeople}'
-                + ",0,0,0,,"
-                + subtext
-                + str(sub_num)
-                + "\n"
-        )
-    else:
-        subtitle = (
-                f'{subtitle}Dialogue: 1,{begintime},{endingtime},{style},{subpeople}'
-                + ",0,0,0,,"
-                + subtext
-                + "\n"
-        )
+    newsub = f'Dialogue: 1,{begintime},{endingtime},{style},{subpeople},0,0,0,,{subtext}{str(sub_num) if debug else ""}\n'
 
+    outputFile.write(newsub)
     sub_num += 1
 
 
@@ -199,8 +193,11 @@ def autosub(videopath, subpath, newOP=False):
     global people_hash
     global people
     global Err
+    global outputFile
     opening = opening_new if newOP else opening_old
-    subtitle = subtitle_head.replace("$$FILE$$", os.path.abspath(videopath))
+    # subtitle = subtitle_head.replace("$$FILE$$", os.path.abspath(videopath))
+    outputFile = open(subpath, 'w', encoding='utf-8')
+    outputFile.write(subtitle_head.replace("$$FILE$$", os.path.abspath(videopath)))
     source_video = cv2.VideoCapture(videopath)
     global op_bg_num
     isOpened = bool(source_video.isOpened())
@@ -224,10 +221,11 @@ def autosub(videopath, subpath, newOP=False):
                 match_op_pic = frame
                 match_op_hash = phash(match_op_pic)
                 # print(match_op_hash)
-                # print(hamming_distance(match_op_hash,opening[0]))
+                # print(hamming_distance(match_op_hash, opening[0]))
+                # print(op_match_times)
                 if match_op_hash in opening:
                     if op_match_times == 0:
-                        # print(str(current_frame_num) + " | 开场白起点")
+                        print(str(current_frame_num) + " | 开场白起点")
                         op_bg_num = current_frame_num
                         add_op(frame_rate, op_bg_num, newOP)
                     op = bool(1 - op)
@@ -254,7 +252,8 @@ def autosub(videopath, subpath, newOP=False):
                     print(
                         f'{sub_num} | {current_frame_num - 1} <-> {current_frame_num} | hmdst: {hmdistant} | gap: {current_frame_num - last_frame_num} | {frames_to_timecode(frame_rate, begin_frame_num)} --> {frames_to_timecode(frame_rate, current_frame_num)} | people: {people}')
 
-                    add_sub("示范性字幕" if debug else "", frames_to_timecode(frame_rate, begin_frame_num), frames_to_timecode(frame_rate, current_frame_num), people)
+                    add_sub("示范性字幕" if debug else "", frames_to_timecode(frame_rate, begin_frame_num),
+                            frames_to_timecode(frame_rate, current_frame_num), people)
 
                 begin_frame_num = current_frame_num
                 last_frame_num = current_frame_num
@@ -267,9 +266,9 @@ def autosub(videopath, subpath, newOP=False):
         print("源视频读取出错")
         Err = True
     print("finish!")
-    if not Err:
-        with open(subpath, 'w+', encoding='utf-8') as q:
-            q.write(subtitle)
+    # if not Err:
+    #     with open(subpath, 'w+', encoding='utf-8') as q:
+    #         q.write(subtitle)
     end = time.time()
     print(f'耗时：{str(end - start)}秒')
     return Err

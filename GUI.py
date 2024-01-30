@@ -4,6 +4,7 @@ from pathlib import Path
 
 from PyQt6 import QtWidgets
 from PyQt6.QtWidgets import QFileDialog, QMessageBox, QLineEdit
+from PyQt6.QtCore import Qt
 
 from GUI_style import Ui_AutoSubtitle
 from verifyPath import is_path_exists_or_creatable
@@ -26,6 +27,7 @@ class AutoSubtitle_class(QtWidgets.QMainWindow, Ui_AutoSubtitle):
         self.finish = False
         self.newOP = True
         self.initAll()
+        # self.setWindowFlag(Qt.WindowType.WindowStaysOnTopHint, True)
 
     def closeEvent(self, event):
         if not self.finish:

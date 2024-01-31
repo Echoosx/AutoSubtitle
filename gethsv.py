@@ -10,7 +10,8 @@ def nothing(x):
     pass
 
 
-img_original = cv2.imread("temp/demo_6.jpg")[940:1060, 360:1540]
+# img_original = cv2.imread("temp/demo_5.jpg")[940:1060, 360:1540]
+img_original = cv2.imread("temp/demo09.jpg")[960:1080, 360:1540]
 # 颜色空间的转换
 img_hsv = cv2.cvtColor(img_original, cv2.COLOR_BGR2HSV)
 # 新建窗口

@@ -5,14 +5,15 @@ import time
 import os
 import numpy as np
 import configparser
+from config import flagStylePath, globalConfigPath, styleSheetPath
 
 # import easygui as eg
 
-stylecode = open('config/flag.txt', 'r', encoding="utf-8").read()
+stylecode = open(flagStylePath, 'r', encoding="utf-8").read()
 config = configparser.ConfigParser()
-config.read('config/config.ini')
+config.read(globalConfigPath)
 debug = False if {section: dict(config[section]) for section in config.sections()}['config'][
-                     'debugsubtext'] == "0" else True
+                     'debug_subtitle'] == "0" else True
 
 opening_old = ['1000011010001100010000000000000000000000000000000000000000000000',
                '1100100000010000110010111001011101100100001000000001001011000001',
@@ -97,9 +98,11 @@ def get_people(img):
     renai_rate = get_color_rate(img, np.array([150, 70, 225]), np.array([160, 90, 255]))
     seizon_rate = get_color_rate(img, np.array([75, 150, 230]), np.array([80, 190, 255]))
     mobumi_rate = get_color_rate(img, np.array([20, 90, 245]), np.array([25, 120, 255]))
-    lightpurple_rate = get_color_rate(img, np.array([123, 101, 181]), np.array([132, 131, 222]))
+    # lightpurple_rate = get_color_rate(img, np.array([123, 101, 181]), np.array([132, 131, 222]))
+    lightpurple_rate = get_color_rate(img, np.array([125, 93, 194]), np.array([132, 125, 221]))
     dongyun_rate = get_color_rate(img, np.array([0, 83, 225]), np.array([10, 125, 255]))
-    yanghong_rate = get_color_rate(img, np.array([160, 147, 202]), np.array([173, 194, 255]))
+    # yanghong_rate = get_color_rate(img, np.array([160, 147, 202]), np.array([173, 194, 255]))
+    yanghong_rate = get_color_rate(img, np.array([158, 164, 207]), np.array([171, 194, 255]))
     siturenn_rate = get_color_rate(img, np.array([90, 75, 205]), np.array([95, 145, 255]))
     darkgreen_rate = get_color_rate(img, np.array([70, 210, 120]), np.array([75, 255, 155]))
     # rose_rate = get_color_rate(img, np.array([160, 210, 195]), np.array([165, 250, 240]))
@@ -110,15 +113,17 @@ def get_people(img):
     hametsu_rate = get_color_rate(img, np.array([85, 209, 181]), np.array([90, 255, 211]))
     nana_rate = get_color_rate(img, np.array([7, 151, 240]), np.array([10, 187, 255]))
     red_rate = get_color_rate(img, np.array([175, 148, 214]), np.array([180, 175, 251]))
-    lightpink_rate = get_color_rate(img, np.array([161, 104, 232]), np.array([169, 134, 255]))
+    # lightpink_rate = get_color_rate(img, np.array([161, 104, 232]), np.array([169, 134, 255]))
+    lightpink_rate = get_color_rate(img, np.array([159, 103, 219]), np.array([169, 137, 255]))
     blue_rate = get_color_rate(img, np.array([119, 115, 221]), np.array([122, 134, 249]))
+    lightgreen_rate = get_color_rate(img, np.array([50, 85, 231]), np.array([63, 134, 255]))
 
     narrator_rate = get_color_rate(img, np.array([0, 0, 225]), np.array([175, 5, 255]))
     rate_list = [mobuo_rate, flag_rate, renai_rate, seizon_rate, mobumi_rate, blue_rate, lightpurple_rate, dongyun_rate, red_rate,
                  yanghong_rate, siturenn_rate, darkgreen_rate, rose_rate, kami_rate, darkred_rate,
-                 green_rate, hametsu_rate, nana_rate, lightpink_rate]
+                 green_rate, hametsu_rate, nana_rate, lightpink_rate, lightgreen_rate]
     people_list = ["mobuo", "flag", "renai", "seizon", "mobumi", "blue", "lightpurple", "dongyun", "red", "yanghong",
-                   "siturenn", "darkgreen", "rose", "kami", "darkred", "green", "hametsu", "nana", "lightpink"]
+                   "siturenn", "darkgreen", "rose", "kami", "darkred", "green", "hametsu", "nana", "lightpink", "lightgreen"]
     max_rate = max(rate_list)
     if (max_rate < 0.2):
         if (len([x for x in rate_list if x > 4]) > 1):
@@ -132,7 +137,7 @@ def get_people(img):
 
 def people2style(people):
     config = configparser.ConfigParser()
-    config.read('config/style.ini', encoding='utf-8')
+    config.read(styleSheetPath, encoding='utf-8')
 
     style_dict = {section: dict(config[section]) for section in config.sections()}['flag']
     return style_dict[people.lower()]

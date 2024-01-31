@@ -1,6 +1,7 @@
 import GUI
 import argparse
 import sys
+from config import configInit
 
 
 def getInput():
@@ -39,4 +40,5 @@ def main():
 
 
 if __name__ == '__main__':
+    configInit()
     main()

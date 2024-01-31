@@ -3,16 +3,16 @@ import cv2
 import itertools
 import time
 import os
-import sys
 import numpy as np
 import configparser
-
+from config import mixedStylePath, globalConfigPath, styleSheetPath
 # import easygui as eg
 
-stylecode = open('config/mixed.txt', 'r', encoding="utf-8").read()
+stylecode = open(mixedStylePath, 'r', encoding="utf-8").read()
 config = configparser.ConfigParser()
-config.read('config/config.ini')
-debug = False if {section: dict(config[section]) for section in config.sections()}['config']['debugsubtext'] == "0" else True
+config.read(globalConfigPath)
+debug = False if {section: dict(config[section]) for section in config.sections()}['config'][
+                     'debug_subtitle'] == "0" else True
 
 opening = ['1001000110010001011010010110011010010110010010010100101010010010',
            '1100001101101100001111101101001111100001001111101001011101101001']
@@ -88,24 +88,32 @@ def frames_to_timecode(framerate, frames):
 
 
 def get_people(img):
-    Q_rate_1 = get_color_rate(img, np.array([0, 210, 245]), np.array([180, 210, 255]))
-    Q_rate_2 = get_color_rate(img, np.array([0, 190, 195]), np.array([180, 200, 255]))
-    E_rate = get_color_rate(img, np.array([85, 95, 140]), np.array([95, 110, 255]))
-    W_rate_1 = get_color_rate(img, np.array([15, 110, 245]), np.array([30, 110, 255]))
-    W_rate_2 = get_color_rate(img, np.array([15, 190, 245]), np.array([30, 210, 255]))
-    darkgreen_rate = get_color_rate(img, np.array([75, 90, 135]), np.array([85, 210, 255]))
-    gray_rate = get_color_rate(img, np.array([5, 50, 155]), np.array([15, 75, 180]))
-    brown_rate = get_color_rate(img, np.array([15, 55, 180]), np.array([23, 135, 195]))
-    orange_rate = get_color_rate(img, np.array([10, 240, 240]), np.array([15, 255, 255]))
-    lightgreen_rate = get_color_rate(img, np.array([60, 70, 235]), np.array([70, 90, 250]))
-    flesh_rate = get_color_rate(img, np.array([0, 95, 230]), np.array([10, 115, 255]))
-    pink_rate = get_color_rate(img, np.array([145, 105, 240]), np.array([150, 120, 255]))
-    khaki_rate = get_color_rate(img, np.array([20, 75, 230]), np.array([25, 100, 255]))
+    kage_rate = get_color_rate(img, np.array([0, 196, 235]), np.array([180, 216, 255]))
+    shidi_rate = get_color_rate(img, np.array([29, 173, 242]), np.array([32, 233, 255]))
+    hisa_rate = get_color_rate(img, np.array([88, 71, 244]), np.array([98, 111, 255]))
+    yome_rate = 0
+    botisu_rate = 0
+    owner_rate = 0
+    lightyellow_rate = get_color_rate(img, np.array([21, 65, 238]), np.array([28, 103, 255]))
+    pink_rate = 0
+    lightgreen_rate = 0
+    brown_rate = get_color_rate(img, np.array([5, 55, 159]), np.array([18, 81, 185]))
+    darkblue_rate = 0
+    brightpurple_rate = get_color_rate(img, np.array([132, 120, 230]), np.array([141, 145, 255]))
+    redbrown_rate = 0
+    fleshpink_rate = 0
+    yellowbrown_rate = get_color_rate(img, np.array([5, 55, 159]), np.array([18, 81, 185]))
+    darkgreen_rate = get_color_rate(img, np.array([77, 87, 131]), np.array([83, 126, 155]))
+    brightgreen_rate = 0
+    orangered_rate = 0
+    lightorange_rate = get_color_rate(img, np.array([13, 87, 227]), np.array([18, 144, 255]))
+    lightbluegreen_rate = 0
 
-    rate_list = [Q_rate_1, Q_rate_2, W_rate_1, W_rate_2, E_rate, darkgreen_rate, gray_rate, brown_rate, orange_rate,
-                 lightgreen_rate, flesh_rate, pink_rate, khaki_rate]
-    people_list = ["Q", "Q", "W", "W", "E", "darkgreen", "gray", "brown", "orange", "lightgreen", "flesh", "pink",
-                   "khaki"]
+    rate_list = [kage_rate, shidi_rate, hisa_rate, yome_rate, botisu_rate, owner_rate, lightyellow_rate, pink_rate,
+                 lightgreen_rate, brown_rate, darkblue_rate, brightpurple_rate, redbrown_rate, fleshpink_rate,
+                 yellowbrown_rate, darkgreen_rate, brightgreen_rate, orangered_rate, lightorange_rate, lightbluegreen_rate]
+    people_list = ["kage", "shidi", "hisa", "yome", "botisu", "owner", "lightyellow", "pink", "lightgreen", "brown", "darkblue",
+                   "brightpurple", "redbrown", "fleshpink", "yellowbrown", "darkgreen", "brightgreen", "orangered", "lightorange", "lightbluegreen"]
 
     max_rate = max(rate_list)
     if max_rate < 0.2 or len([x for x in rate_list if x > 4]) > 1:
@@ -118,7 +126,7 @@ def get_people(img):
 
 def people2style(people):
     config = configparser.ConfigParser()
-    config.read('config/style.ini', encoding='utf-8')
+    config.read(styleSheetPath, encoding='utf-8')
 
     style_dict = {section: dict(config[section]) for section in config.sections()}['mixed-blood']
     return style_dict[people.lower()]
@@ -126,24 +134,10 @@ def people2style(people):
 
 def add_sub(subtext, begintime, endingtime, subpeople):
     global sub_num
-    global subtitle
     style = people2style(subpeople)
-    if debug:
-        subtitle = (
-                f'{subtitle}Dialogue: 1,{begintime},{endingtime},{style},{subpeople}'
-                + ",0,0,0,,"
-                + subtext
-                + str(sub_num)
-                + "\n"
-        )
-    else:
-        subtitle = (
-                f'{subtitle}Dialogue: 1,{begintime},{endingtime},{style},{subpeople}'
-                + ",0,0,0,,"
-                + subtext
-                + "\n"
-        )
+    newsub = f'Dialogue: 1,{begintime},{endingtime},{style},{subpeople},0,0,0,,{subtext}{str(sub_num) if debug else ""}\n'
 
+    outputFile.write(newsub)
     sub_num += 1
 
 
@@ -189,7 +183,10 @@ def autosub(videopath, subpath):
     global people_hash
     global people
     global Err
-    subtitle = subtitle_head.replace("$$FILE$$", os.path.abspath(videopath))
+    global outputFile
+    # subtitle = subtitle_head.replace("$$FILE$$", os.path.abspath(videopath))
+    outputFile = open(subpath, 'w', encoding='utf-8')
+    outputFile.write(subtitle_head.replace("$$FILE$$", os.path.abspath(videopath)))
     source_video = cv2.VideoCapture(videopath)
     global op_bg_num
     isOpened = bool(source_video.isOpened())
@@ -261,16 +258,16 @@ def autosub(videopath, subpath):
                 last_frame_num = current_frame_num
 
             last_pic_hash = pic_current_hash
-            people_pic = frame[940:1060, 700:1300]
+            people_pic = frame[960:1080, 800:1100]
             people_hash = phash(people_pic)
             current_frame_num += 1
     else:
         print("源视频读取出错")
         Err = True
     print("finish!")
-    if not Err:
-        with open(subpath, 'w+', encoding='utf-8') as q:
-            q.write(subtitle)
+    # if not Err:
+    #     with open(subpath, 'w+', encoding='utf-8') as q:
+    #         q.write(subtitle)
     end = time.time()
     print(f'耗时：{str(end - start)}秒')
     return Err

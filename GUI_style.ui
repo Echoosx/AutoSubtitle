@@ -38,6 +38,11 @@
       <height>281</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <family>Microsoft YaHei</family>
+     </font>
+    </property>
     <property name="autoFillBackground">
      <bool>false</bool>
     </property>
@@ -65,15 +70,21 @@
       </property>
       <property name="font">
        <font>
-        <family>等线</family>
+        <family>Microsoft YaHei</family>
         <pointsize>23</pointsize>
         <bold>false</bold>
         <stylestrategy>PreferDefault</stylestrategy>
         <kerning>true</kerning>
        </font>
       </property>
+      <property name="mouseTracking">
+       <bool>true</bool>
+      </property>
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
       <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;自动打轴机&lt;span style=&quot; color:#353535;&quot;&gt; v2.0.0&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       <string>&lt;a href=&quot;https://github.com/GayWindTech/AutoSubtitle&quot; style=&quot;color: black;text-decoration: none;&quot;&gt;自动打轴机 v2.0.0&lt;/a&gt;</string>
       </property>
      </widget>
      <widget class="DragAcceptableQLine" name="VideoPathEdit">
@@ -87,6 +98,7 @@
       </property>
       <property name="font">
        <font>
+        <family>Microsoft YaHei</family>
         <pointsize>10</pointsize>
        </font>
       </property>
@@ -106,6 +118,11 @@
         <height>31</height>
        </rect>
       </property>
+      <property name="font">
+       <font>
+        <family>Microsoft YaHei</family>
+       </font>
+      </property>
       <property name="contextMenuPolicy">
        <enum>Qt::DefaultContextMenu</enum>
       </property>
@@ -121,6 +138,11 @@
         <width>101</width>
         <height>20</height>
        </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Microsoft YaHei</family>
+       </font>
       </property>
       <property name="text">
        <string>flag系列新OP</string>
@@ -138,6 +160,14 @@
         <height>25</height>
        </rect>
       </property>
+      <property name="font">
+       <font>
+        <family>Microsoft YaHei</family>
+       </font>
+      </property>
+      <property name="mouseTracking">
+       <bool>true</bool>
+      </property>
      </widget>
      <widget class="QLineEdit" name="SubtitleSavePathEdit">
       <property name="geometry">
@@ -150,6 +180,7 @@
       </property>
       <property name="font">
        <font>
+        <family>Microsoft YaHei</family>
         <pointsize>10</pointsize>
        </font>
       </property>
@@ -174,7 +205,7 @@
       </property>
       <property name="font">
        <font>
-        <family>等线</family>
+        <family>Microsoft YaHei</family>
         <pointsize>13</pointsize>
         <stylestrategy>PreferDefault</stylestrategy>
         <kerning>true</kerning>
@@ -193,6 +224,11 @@
         <height>31</height>
        </rect>
       </property>
+      <property name="font">
+       <font>
+        <family>Microsoft YaHei</family>
+       </font>
+      </property>
       <property name="text">
        <string>选择保存位置</string>
       </property>
@@ -208,6 +244,7 @@
       </property>
       <property name="font">
        <font>
+        <family>Microsoft YaHei</family>
         <pointsize>11</pointsize>
         <italic>false</italic>
         <bold>false</bold>
@@ -261,6 +298,7 @@
       </property>
       <property name="font">
        <font>
+        <family>Microsoft YaHei</family>
         <pointsize>10</pointsize>
        </font>
       </property>
@@ -288,6 +326,7 @@
       </property>
       <property name="font">
        <font>
+        <family>Microsoft YaHei</family>
         <pointsize>10</pointsize>
        </font>
       </property>
@@ -310,6 +349,11 @@
         <height>31</height>
        </rect>
       </property>
+      <property name="font">
+       <font>
+        <family>Microsoft YaHei</family>
+       </font>
+      </property>
       <property name="text">
        <string>选择flag默认样式</string>
       </property>
@@ -322,6 +366,11 @@
         <width>121</width>
         <height>31</height>
        </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Microsoft YaHei</family>
+       </font>
       </property>
       <property name="text">
        <string>选择混血默认样式</string>
@@ -338,6 +387,7 @@
       </property>
       <property name="font">
        <font>
+        <family>Microsoft YaHei</family>
         <pointsize>10</pointsize>
        </font>
       </property>
@@ -356,6 +406,7 @@
       </property>
       <property name="font">
        <font>
+        <family>Microsoft YaHei</family>
         <pointsize>10</pointsize>
        </font>
       </property>
@@ -371,6 +422,11 @@
         <width>110</width>
         <height>20</height>
        </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Microsoft YaHei</family>
+       </font>
       </property>
       <property name="text">
        <string>全力回避flag酱</string>
@@ -390,6 +446,11 @@
         <width>95</width>
         <height>20</height>
        </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Microsoft YaHei</family>
+       </font>
       </property>
       <property name="text">
        <string>混血万事屋</string>
@@ -412,6 +473,7 @@
       </property>
       <property name="font">
        <font>
+        <family>Microsoft YaHei</family>
         <pointsize>10</pointsize>
        </font>
       </property>
@@ -430,6 +492,7 @@
       </property>
       <property name="font">
        <font>
+        <family>Microsoft YaHei</family>
         <pointsize>10</pointsize>
        </font>
       </property>
@@ -445,6 +508,11 @@
         <width>95</width>
         <height>20</height>
        </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Microsoft YaHei</family>
+       </font>
       </property>
       <property name="text">
        <string>示范性字幕n</string>
@@ -464,6 +532,11 @@
         <width>95</width>
         <height>20</height>
        </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Microsoft YaHei</family>
+       </font>
       </property>
       <property name="text">
        <string>空白</string>
@@ -494,6 +567,7 @@
       </property>
       <property name="font">
        <font>
+        <family>Microsoft YaHei</family>
         <pointsize>10</pointsize>
        </font>
       </property>
@@ -509,6 +583,12 @@
         <width>461</width>
         <height>221</height>
        </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Microsoft YaHei</family>
+        <pointsize>10</pointsize>
+       </font>
       </property>
       <property name="plainText">
        <string/>
@@ -623,22 +703,6 @@
     <hint type="destinationlabel">
      <x>404</x>
      <y>152</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>VideoPathEdit</sender>
-   <signal>editingFinished()</signal>
-   <receiver>AutoSubtitle</receiver>
-   <slot>updateOpenPath()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>192</x>
-     <y>104</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>389</x>
-     <y>40</y>
     </hint>
    </hints>
   </connection>
@@ -799,7 +863,7 @@
   <slot>setSavePathToDefault()</slot>
  </slots>
  <buttongroups>
-  <buttongroup name="isDebugSubtextGroup"/>
   <buttongroup name="defaultVideoTypeGroup"/>
+  <buttongroup name="isDebugSubtextGroup"/>
  </buttongroups>
 </ui>

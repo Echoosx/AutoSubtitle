@@ -1,4 +1,10 @@
-pyqt6~=6.4.2
-opencv-python~=4.9.0.80
-numpy~=1.26.3
-requests~=2.31.0
+PyQt6
+PyQt6-Qt6
+PyQt6-sip
+numpy
+opencv-python
+pyinstaller
+pyinstaller-hooks-contrib
+pywin32
+pywin32-ctypes
+requests

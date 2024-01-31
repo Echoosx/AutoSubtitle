@@ -36,7 +36,7 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: AutoSubtitle
-        path: dist/AutoSubtitle
+        path: AutoSubtitle.zip
 
     - name: release
       uses: xresloader/upload-to-github-release@v1

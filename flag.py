@@ -20,7 +20,8 @@ opening_old = ['1000011010001100010000000000000000000000000000000000000000000000
                '1100100000010000110010111001011001100100001000000001001011000001']
 opening_new = ['1110010111001100000100010111000010010000000100000001001100000110',
                '1110010110001110000100110010001010011000000110000000001100000110',
-               '1101010010110011010000111001000101100000000100000011100010000001']
+               '1101010010110011010000111001000101100000000100000011100010000001',
+               '1110010111000100000100010111000010010000000100000001001100000110']
 
 subtitle_head = """
 [Script Info]
@@ -225,9 +226,8 @@ def autosub(videopath, subpath, newOP=False):
             if op_match_times < 2:
                 match_op_pic = frame
                 match_op_hash = phash(match_op_pic)
-                # print(match_op_hash)
-                # print(hamming_distance(match_op_hash, opening[0]))
-                # print(op_match_times)
+                print(match_op_hash)
+                print(op_match_times)
                 if match_op_hash in opening:
                     if op_match_times == 0:
                         print(str(current_frame_num) + " | 开场白起点")

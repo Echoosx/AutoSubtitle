@@ -226,8 +226,8 @@ def autosub(videopath, subpath, newOP=False):
             if op_match_times < 2:
                 match_op_pic = frame
                 match_op_hash = phash(match_op_pic)
-                print(match_op_hash)
-                print(op_match_times)
+                # print(match_op_hash)
+                # print(op_match_times)
                 if match_op_hash in opening:
                     if op_match_times == 0:
                         print(str(current_frame_num) + " | 开场白起点")

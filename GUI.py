@@ -241,7 +241,6 @@ class AutoSubtitle_class(QtWidgets.QMainWindow, Ui_AutoSubtitle):
                                         QMessageBox.StandardButton.Ok)
                     isSuccess = False
 
-            print("success")
             # 默认视频类型
             config = configparser.ConfigParser()
             globalConfigDict = {}

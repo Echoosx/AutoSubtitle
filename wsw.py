@@ -116,7 +116,7 @@ def get_people(img):
 
     max_rate = max(rate_list)
     if max_rate < 0.2:
-        print(max_rate)
+        # print(max_rate)
         return "undefined"
     else:
         return people_list[rate_list.index(max_rate)]

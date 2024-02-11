@@ -273,7 +273,7 @@ class Ui_AutoSubtitle(object):
     def retranslateUi(self, AutoSubtitle):
         _translate = QtCore.QCoreApplication.translate
         AutoSubtitle.setWindowTitle(_translate("AutoSubtitle", "AutoSubtitle"))
-        self.Title.setText(_translate("AutoSubtitle", "<a href=\"https://github.com/GayWindTech/AutoSubtitle\" style=\"color: black;text-decoration: none;\">自动打轴机 v2.0.0</a>"))
+        self.Title.setText(_translate("AutoSubtitle", "<a href=\"https://github.com/Echoosx/AutoSubtitle\" style=\"color: black;text-decoration: none;\">自动打轴机 v1.2.0</a>"))
         self.VideoPathEdit.setPlaceholderText(_translate("AutoSubtitle", "可以将视频拖拽到这里"))
         self.chooseButton.setText(_translate("AutoSubtitle", "选择视频"))
         self.FlagNewOPcheckBox.setText(_translate("AutoSubtitle", "flag系列新OP"))

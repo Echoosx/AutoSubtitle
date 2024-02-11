@@ -23,6 +23,7 @@ opening_new = ['1110010111001100000100010111000010010000000100000001001100000110
                '1101010010110011010000111001000101100000000100000011100010000001',
                '1110010111000100000100010111000010010000000100000001001100000110']
 
+
 subtitle_head = """
 [Script Info]
 Title: AutoSubtitle Aegisub file
@@ -99,14 +100,11 @@ def get_people(img):
     renai_rate = get_color_rate(img, np.array([150, 70, 225]), np.array([160, 90, 255]))
     seizon_rate = get_color_rate(img, np.array([75, 150, 230]), np.array([80, 190, 255]))
     mobumi_rate = get_color_rate(img, np.array([20, 90, 245]), np.array([25, 120, 255]))
-    # lightpurple_rate = get_color_rate(img, np.array([123, 101, 181]), np.array([132, 131, 222]))
     lightpurple_rate = get_color_rate(img, np.array([125, 93, 194]), np.array([132, 125, 221]))
     dongyun_rate = get_color_rate(img, np.array([0, 83, 225]), np.array([10, 125, 255]))
-    # yanghong_rate = get_color_rate(img, np.array([160, 147, 202]), np.array([173, 194, 255]))
     yanghong_rate = get_color_rate(img, np.array([158, 164, 207]), np.array([171, 194, 255]))
     siturenn_rate = get_color_rate(img, np.array([90, 75, 205]), np.array([95, 145, 255]))
     darkgreen_rate = get_color_rate(img, np.array([70, 210, 120]), np.array([75, 255, 155]))
-    # rose_rate = get_color_rate(img, np.array([160, 210, 195]), np.array([165, 250, 240]))
     rose_rate = 0
     kami_rate = get_color_rate(img, np.array([25, 110, 245]), np.array([35, 130, 255]))
     darkred_rate = get_color_rate(img, np.array([175, 240, 210]), np.array([180, 255, 225]))
@@ -114,7 +112,6 @@ def get_people(img):
     hametsu_rate = get_color_rate(img, np.array([85, 209, 181]), np.array([90, 255, 211]))
     nana_rate = get_color_rate(img, np.array([7, 151, 240]), np.array([10, 187, 255]))
     red_rate = get_color_rate(img, np.array([175, 148, 214]), np.array([180, 175, 251]))
-    # lightpink_rate = get_color_rate(img, np.array([161, 104, 232]), np.array([169, 134, 255]))
     lightpink_rate = get_color_rate(img, np.array([159, 103, 219]), np.array([169, 137, 255]))
     blue_rate = get_color_rate(img, np.array([119, 115, 221]), np.array([122, 134, 249]))
     lightgreen_rate = get_color_rate(img, np.array([50, 85, 231]), np.array([63, 134, 255]))
@@ -126,13 +123,14 @@ def get_people(img):
     people_list = ["mobuo", "flag", "renai", "seizon", "mobumi", "blue", "lightpurple", "dongyun", "red", "yanghong",
                    "siturenn", "darkgreen", "rose", "kami", "darkred", "green", "hametsu", "nana", "lightpink", "lightgreen"]
     max_rate = max(rate_list)
-    if (max_rate < 0.2):
-        if (len([x for x in rate_list if x > 4]) > 1):
-            return "undefined"
-        elif (narrator_rate > 25):
+    if max_rate < 0.2:
+        if narrator_rate > 25:
             return "narrator"
         else:
             return "undefined"
+    # else:
+    #     if len([x for x in rate_list if x > 4]) > 1:
+    #         return "undefined"
     return people_list[rate_list.index(max_rate)]
 
 
@@ -169,7 +167,7 @@ def add_op(frame_rate, begin_frame_num, new=False):
         add_sub("立起来了!", frames_to_timecode(frame_rate, begin_frame_num + (2.63 * frame_rate)),
                 frames_to_timecode(frame_rate, begin_frame_num + (3.59 * frame_rate)), "Opening")
         add_sub("全力回避flag酱!", frames_to_timecode(frame_rate, begin_frame_num + (4.9 * frame_rate)),
-                frames_to_timecode(frame_rate, begin_frame_num + (6.61 * frame_rate)), "Opening")
+                frames_to_timecode(frame_rate, begin_frame_num + (7.44 * frame_rate)), "Opening")
 
 
 # 视频帧总数
@@ -252,7 +250,7 @@ def autosub(videopath, subpath, newOP=False):
                     if trans:
                         people = "trans"
                         trans = False
-                        begin_frame_num += int(frame_rate / 10)
+                        begin_frame_num = begin_frame_num + int(frame_rate / 10) - 3
 
                     print(
                         f'{sub_num} | {current_frame_num - 1} <-> {current_frame_num} | hmdst: {hmdistant} | gap: {current_frame_num - last_frame_num} | {frames_to_timecode(frame_rate, begin_frame_num)} --> {frames_to_timecode(frame_rate, current_frame_num)} | people: {people}')

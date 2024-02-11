@@ -11,17 +11,17 @@ def nothing(x):
 
 
 # img_original = cv2.imread("temp/demo_5.jpg")[940:1060, 360:1540]
-img_original = cv2.imread("temp/demo09.jpg")[960:1080, 360:1540]
+img_original = cv2.imread("temp/mixed/lightorange.jpg")[970:1070, 360:1540]
 # 颜色空间的转换
 img_hsv = cv2.cvtColor(img_original, cv2.COLOR_BGR2HSV)
 # 新建窗口
 cv2.namedWindow(winName)
 # 新建6个滑动条，表示颜色范围的上下边界，这里滑动条的初始化位置即为黄色的颜色范围
-cv2.createTrackbar('LowerbH', winName, 27, 255, nothing)
-cv2.createTrackbar('UpperbH', winName, 83, 255, nothing)
-cv2.createTrackbar('LowerbS', winName, 160, 255, nothing)
+cv2.createTrackbar('LowerbH', winName, 0, 255, nothing)
+cv2.createTrackbar('UpperbH', winName, 255, 255, nothing)
+cv2.createTrackbar('LowerbS', winName, 0, 255, nothing)
 cv2.createTrackbar('UpperbS', winName, 255, 255, nothing)
-cv2.createTrackbar('LowerbV', winName, 215, 255, nothing)
+cv2.createTrackbar('LowerbV', winName, 0, 255, nothing)
 cv2.createTrackbar('UpperbV', winName, 255, 255, nothing)
 while (1):
     # 函数cv2.getTrackbarPos()范围当前滑块对应的值

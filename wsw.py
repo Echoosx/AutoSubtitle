@@ -6,7 +6,6 @@ import os
 import numpy as np
 import configparser
 from config import mixedStylePath, globalConfigPath, styleSheetPath
-# import easygui as eg
 
 stylecode = open(mixedStylePath, 'r', encoding="utf-8").read()
 config = configparser.ConfigParser()
@@ -88,26 +87,26 @@ def frames_to_timecode(framerate, frames):
 
 
 def get_people(img):
-    kage_rate = get_color_rate(img, np.array([0, 196, 235]), np.array([180, 216, 255]))
-    shidi_rate = get_color_rate(img, np.array([29, 173, 242]), np.array([32, 233, 255]))
-    hisa_rate = get_color_rate(img, np.array([88, 71, 244]), np.array([98, 111, 255]))
-    yome_rate = 0
-    botisu_rate = 0
-    owner_rate = 0
-    lightyellow_rate = get_color_rate(img, np.array([21, 65, 238]), np.array([28, 103, 255]))
-    pink_rate = 0
-    lightgreen_rate = 0
-    brown_rate = get_color_rate(img, np.array([5, 55, 159]), np.array([18, 81, 185]))
-    darkblue_rate = 0
-    brightpurple_rate = get_color_rate(img, np.array([132, 120, 230]), np.array([141, 145, 255]))
+    kage_rate = get_color_rate(img, np.array([174, 187, 193]), np.array([180, 255, 255]))
+    shidi_rate = get_color_rate(img, np.array([28, 147, 249]), np.array([33, 207, 255]))
+    hisa_rate = get_color_rate(img, np.array([84, 74, 247]), np.array([95, 107, 255]))
+    yome_rate = get_color_rate(img, np.array([15, 187, 223]), np.array([19, 255, 255]))
+    botisu_rate = get_color_rate(img, np.array([139, 58, 200]), np.array([149, 86, 226]))
+    owner_rate = get_color_rate(img, np.array([0, 74, 165]), np.array([179, 106, 196]))
+    lightyellow_rate = get_color_rate(img, np.array([21, 63, 238]), np.array([27, 97, 255]))
+    pink_rate = get_color_rate(img, np.array([144, 96, 223]), np.array([155, 137, 255]))
+    lightgreen_rate = get_color_rate(img, np.array([60, 59, 248]), np.array([67, 84, 255]))
+    brown_rate = get_color_rate(img, np.array([3, 47, 156]), np.array([16, 72, 177]))
+    darkblue_rate = get_color_rate(img, np.array([116, 88, 226]), np.array([122, 117, 255]))
+    brightpurple_rate = get_color_rate(img, np.array([134, 131, 224]), np.array([140, 160, 255]))
     redbrown_rate = 0
-    fleshpink_rate = 0
-    yellowbrown_rate = get_color_rate(img, np.array([5, 55, 159]), np.array([18, 81, 185]))
-    darkgreen_rate = get_color_rate(img, np.array([77, 87, 131]), np.array([83, 126, 155]))
-    brightgreen_rate = 0
-    orangered_rate = 0
-    lightorange_rate = get_color_rate(img, np.array([13, 87, 227]), np.array([18, 144, 255]))
-    lightbluegreen_rate = 0
+    fleshpink_rate = get_color_rate(img, np.array([0, 78, 228]), np.array([4, 106, 251]))
+    yellowbrown_rate = get_color_rate(img, np.array([20, 85, 178]), np.array([25, 123, 195]))
+    darkgreen_rate = get_color_rate(img, np.array([73, 80, 144]), np.array([79, 117, 161]))
+    brightgreen_rate = get_color_rate(img, np.array([46, 200, 244]), np.array([54, 255, 255]))
+    orangered_rate = get_color_rate(img, np.array([3, 214, 211]), np.array([11, 255, 248]))
+    lightorange_rate = get_color_rate(img, np.array([12, 94, 215]), np.array([17, 128, 248]))
+    lightbluegreen_rate = get_color_rate(img, np.array([76, 36, 195]), np.array([92, 62, 213]))
 
     rate_list = [kage_rate, shidi_rate, hisa_rate, yome_rate, botisu_rate, owner_rate, lightyellow_rate, pink_rate,
                  lightgreen_rate, brown_rate, darkblue_rate, brightpurple_rate, redbrown_rate, fleshpink_rate,
@@ -116,12 +115,11 @@ def get_people(img):
                    "brightpurple", "redbrown", "fleshpink", "yellowbrown", "darkgreen", "brightgreen", "orangered", "lightorange", "lightbluegreen"]
 
     max_rate = max(rate_list)
-    if max_rate < 0.2 or len([x for x in rate_list if x > 4]) > 1:
-        # print(people_list)
-        # print(rate_list)
+    if max_rate < 0.2:
+        print(max_rate)
         return "undefined"
-    # return "undefined"
-    return people_list[rate_list.index(max_rate)]
+    else:
+        return people_list[rate_list.index(max_rate)]
 
 
 def people2style(people):
@@ -236,6 +234,8 @@ def autosub(videopath, subpath):
                 if current_frame_num - last_frame_num > (frame_rate / 2):
                     people = get_people(people_pic)
 
+                    # cv2.imwrite(f'output/undefined_{current_frame_num}.jpg', frame)
+
                     print(
                         f'{str(sub_num)} | {str(current_frame_num - 1)} <-> '
                         + str(current_frame_num)
@@ -258,7 +258,8 @@ def autosub(videopath, subpath):
                 last_frame_num = current_frame_num
 
             last_pic_hash = pic_current_hash
-            people_pic = frame[960:1080, 800:1100]
+            # people_pic = frame[960:1080, 800:1100]
+            people_pic = frame[980:1050, 800:1120]
             people_hash = phash(people_pic)
             current_frame_num += 1
     else:

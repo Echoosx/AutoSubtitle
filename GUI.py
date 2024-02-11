@@ -44,7 +44,8 @@ class AutoSubtitle_class(QtWidgets.QMainWindow, Ui_AutoSubtitle):
             self.SubtitleSavePathEdit.setText(defaultSubtitlePath)
         else:
             self.askforNonVideoFile_box = QMessageBox(QMessageBox.Icon.Question, '文件格式未识别',
-                                                      '该文件疑似非视频文件，确认要选择该文件吗？\t\t\n', flags=Qt.WindowType.WindowStaysOnTopHint)
+                                                      '该文件疑似非视频文件，确认要选择该文件吗？\t\t\n',
+                                                      flags=Qt.WindowType.WindowStaysOnTopHint)
             self.askforNonVideoFile_box.setFixedSize(380, 135)
             status_insist = self.askforNonVideoFile_box.addButton('确认', QMessageBox.ButtonRole.NoRole)
             self.askforNonVideoFile_box.addButton('重新选择', QMessageBox.ButtonRole.YesRole)
@@ -64,7 +65,8 @@ class AutoSubtitle_class(QtWidgets.QMainWindow, Ui_AutoSubtitle):
             self.openPath = path
         else:
             self.askforNonVideoFile_box = QMessageBox(QMessageBox.Icon.Question, '文件格式未识别',
-                                                      '该文件疑似非视频文件，确认要选择该文件吗？\t\t\n', flags=Qt.WindowType.WindowStaysOnTopHint)
+                                                      '该文件疑似非视频文件，确认要选择该文件吗？\t\t\n',
+                                                      flags=Qt.WindowType.WindowStaysOnTopHint)
             self.askforNonVideoFile_box.setFixedSize(380, 135)
             status_insist = self.askforNonVideoFile_box.addButton('确认', QMessageBox.ButtonRole.NoRole)
             self.askforNonVideoFile_box.addButton('重新选择', QMessageBox.ButtonRole.YesRole)
@@ -81,7 +83,8 @@ class AutoSubtitle_class(QtWidgets.QMainWindow, Ui_AutoSubtitle):
             print("源文件路径有误")
         if not self.checkStyle(styleFilePath):
             self.askforNonStyleFile_box = QMessageBox(QMessageBox.Icon.Question, '文件格式未识别',
-                                                      '该文件不是ass文件，确认要选择该文件吗？\t\t\n', flags=Qt.WindowType.WindowStaysOnTopHint)
+                                                      '该文件不是ass文件，确认要选择该文件吗？\t\t\n',
+                                                      flags=Qt.WindowType.WindowStaysOnTopHint)
             self.askforNonStyleFile_box.setFixedSize(380, 135)
             status_insist = self.askforNonStyleFile_box.addButton('确认', QMessageBox.ButtonRole.NoRole)
             self.askforNonStyleFile_box.addButton('重新选择', QMessageBox.ButtonRole.YesRole)
@@ -99,7 +102,8 @@ class AutoSubtitle_class(QtWidgets.QMainWindow, Ui_AutoSubtitle):
             print("源文件路径有误")
         if not self.checkStyle(styleFilePath):
             self.askforNonStyleFile_box = QMessageBox(QMessageBox.Icon.Question, '文件格式未识别',
-                                                      '该文件不是ass文件，确认要选择该文件吗？\t\t\n', flags=Qt.WindowType.WindowStaysOnTopHint)
+                                                      '该文件不是ass文件，确认要选择该文件吗？\t\t\n',
+                                                      flags=Qt.WindowType.WindowStaysOnTopHint)
             self.askforNonStyleFile_box.setFixedSize(380, 135)
             status_insist = self.askforNonStyleFile_box.addButton('确认', QMessageBox.ButtonRole.NoRole)
             self.askforNonStyleFile_box.addButton('重新选择', QMessageBox.ButtonRole.YesRole)
@@ -180,6 +184,18 @@ class AutoSubtitle_class(QtWidgets.QMainWindow, Ui_AutoSubtitle):
         self.updateOPstyle()
         if not (Path(self.openPath).is_file() and is_path_exists_or_creatable(self.savePath)):
             QMessageBox.warning(self, '路径不正确', '请选择正确的路径!\t\t\n', QMessageBox.StandardButton.Ok)
+        elif os.path.exists(self.savePath):
+            self.askforOverWrite_box = QMessageBox(QMessageBox.Icon.Question, '覆盖', '已存在该字幕文件\n'
+                                                                                    '是否要覆盖？\t\t\n',
+                                                   flags=Qt.WindowType.WindowStaysOnTopHint)
+            self.askforOverWrite_box.setFixedSize(380, 135)
+            status_reset = self.askforOverWrite_box.addButton('覆盖', QMessageBox.ButtonRole.YesRole)
+            self.askforOverWrite_box.addButton('取消', QMessageBox.ButtonRole.NoRole)
+            self.askforOverWrite_box.exec()
+            if self.askforOverWrite_box.clickedButton() == status_reset:
+                self.finish = True
+                print('开始打轴...')
+                self.close()
         else:
             self.finish = True
             print('开始打轴...')
@@ -188,7 +204,8 @@ class AutoSubtitle_class(QtWidgets.QMainWindow, Ui_AutoSubtitle):
 
     def defaultStyleSheet(self):
         self.askforResetStyleSheet_box = QMessageBox(QMessageBox.Icon.Question, '重置', '重置后，您修改的所有内容将丢失\n'
-                                                                                        '是否要重置为默认内容？\t\t\n',flags=Qt.WindowType.WindowStaysOnTopHint)
+                                                                                      '是否要重置为默认内容？\t\t\n',
+                                                     flags=Qt.WindowType.WindowStaysOnTopHint)
         self.askforResetStyleSheet_box.setFixedSize(380, 135)
         status_reset = self.askforResetStyleSheet_box.addButton('重置', QMessageBox.ButtonRole.YesRole)
         self.askforResetStyleSheet_box.addButton('取消', QMessageBox.ButtonRole.NoRole)
@@ -201,8 +218,9 @@ class AutoSubtitle_class(QtWidgets.QMainWindow, Ui_AutoSubtitle):
     def saveStyleSheet(self):
         try:
             self.askforSaveStyleSheet_box = QMessageBox(QMessageBox.Icon.Question, '保存', '随意改动此表可能会导致生成字幕失败\n'
-                                                                                           '请确保您明白自己在做什么\n'
-                                                                                           '是否继续保存？\t\t\n',flags=Qt.WindowType.WindowStaysOnTopHint)
+                                                                                         '请确保您明白自己在做什么\n'
+                                                                                         '是否继续保存？\t\t\n',
+                                                        flags=Qt.WindowType.WindowStaysOnTopHint)
             self.askforSaveStyleSheet_box.setFixedSize(380, 135)
             status_save = self.askforSaveStyleSheet_box.addButton('保存', QMessageBox.ButtonRole.YesRole)
             self.askforSaveStyleSheet_box.addButton('取消', QMessageBox.ButtonRole.NoRole)
@@ -218,9 +236,9 @@ class AutoSubtitle_class(QtWidgets.QMainWindow, Ui_AutoSubtitle):
         except configparser.Error as e:
             QMessageBox.warning(self, "失败", "格式错误，无法保存", QMessageBox.StandardButton.Ok)
 
-
     def saveDefaultConfig(self):
-        self.askforSaveDefaultConfig_box = QMessageBox(QMessageBox.Icon.Question, '保存', '是否要保存默认配置?',flags=Qt.WindowType.WindowStaysOnTopHint)
+        self.askforSaveDefaultConfig_box = QMessageBox(QMessageBox.Icon.Question, '保存', '是否要保存默认配置?',
+                                                       flags=Qt.WindowType.WindowStaysOnTopHint)
         self.askforSaveDefaultConfig_box.setFixedSize(380, 135)
         status_save = self.askforSaveDefaultConfig_box.addButton('保存', QMessageBox.ButtonRole.YesRole)
         self.askforSaveDefaultConfig_box.addButton('取消', QMessageBox.ButtonRole.NoRole)

@@ -45,23 +45,10 @@ jobs:
         name: AutoSubtitle
         path: AutoSubtitle.zip
 
-    - name: Create Release
-      id: create_release
-      uses: actions/create-release@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        tag_name: v1.2.1
-        release_name: Release ${{ github.ref }} (dev)
-        body: TODO New Release
-        draft: false
-        prerelease: false
-
     - name: Upload Release
       uses: xresloader/upload-to-github-release@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         file: "AutoSubtitle.zip"
-        release_id: ${{ steps.create_release.outputs.id }}
-        tags: true
+        draft: false

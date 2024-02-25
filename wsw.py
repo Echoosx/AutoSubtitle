@@ -107,12 +107,15 @@ def get_people(img):
     orangered_rate = get_color_rate(img, np.array([3, 214, 211]), np.array([11, 255, 248]))
     lightorange_rate = get_color_rate(img, np.array([12, 94, 215]), np.array([17, 128, 248]))
     lightbluegreen_rate = get_color_rate(img, np.array([76, 36, 195]), np.array([92, 62, 213]))
-
+    tomorrow_rate = get_color_rate(img, np.array([0, 0, 251]), np.array([174, 10, 255]))
     rate_list = [kage_rate, shidi_rate, hisa_rate, yome_rate, botisu_rate, owner_rate, lightyellow_rate, pink_rate,
                  lightgreen_rate, brown_rate, darkblue_rate, brightpurple_rate, redbrown_rate, fleshpink_rate,
-                 yellowbrown_rate, darkgreen_rate, brightgreen_rate, orangered_rate, lightorange_rate, lightbluegreen_rate]
-    people_list = ["kage", "shidi", "hisa", "yome", "botisu", "owner", "lightyellow", "pink", "lightgreen", "brown", "darkblue",
-                   "brightpurple", "redbrown", "fleshpink", "yellowbrown", "darkgreen", "brightgreen", "orangered", "lightorange", "lightbluegreen"]
+                 yellowbrown_rate, darkgreen_rate, brightgreen_rate, orangered_rate, lightorange_rate,
+                 lightbluegreen_rate, tomorrow_rate]
+    people_list = ["kage", "shidi", "hisa", "yome", "botisu", "owner", "lightyellow", "pink", "lightgreen", "brown",
+                   "darkblue",
+                   "brightpurple", "redbrown", "fleshpink", "yellowbrown", "darkgreen", "brightgreen", "orangered",
+                   "lightorange", "lightbluegreen", "tomorrow"]
 
     max_rate = max(rate_list)
     if max_rate < 0.2:
@@ -192,49 +195,64 @@ def autosub(videopath, subpath):
         frame_rate = round(source_video.get(5), 2)
         while True:
             ret, frame = source_video.read()
-            # print(current_frame_num)
-            if ret == False:
+            if not ret:
                 break
 
-            current_pic = frame[950:1045, 810:910]
+            # current_pic = frame[950:1045, 810:910]
+            current_pic = frame[990:1050, 910:1100]
             assert 0 not in current_pic.shape, "视频分辨率应为1920*1080"
             pic_current_hash = phash(current_pic)
             hmdistant = hamming_distance(last_pic_hash, pic_current_hash)
 
-            if op_match_times < 2:
-                match_op_pic = frame
-                match_op_hash = phash(match_op_pic)
-                # print(hamming_distance(match_op_hash,opening[0]))
-                if match_op_hash in opening:
-                    if op_match_times == 0:
-                        # print(str(current_frame_num) + " | 开场白起点")
-                        op_bg_num = current_frame_num
-                        add_op(frame_rate, begin_frame_num)
-                    op = bool(1 - op)
-                    op_match_times += 1
-                    if op_match_times == 2:
-                        # print(str(current_frame_num) + " | 开场白结束")
-                        print(
-                            f'{str(op_bg_num)} <-> '
-                            + str(
-                                current_frame_num + int((28 / 17) * frame_rate)
-                            )
-                            + " | 开场白"
-                        )
+            switch_pic = frame[940:1060, 360:1540]
+            switch_hash = phash(switch_pic)
 
-                        begin_frame_num = current_frame_num + int((28 / 17) * frame_rate)
-                        last_frame_num = begin_frame_num
-                if (op):
-                    current_frame_num += 1
-                    # print(match_op_hash)
-                    continue
+            # debug
+            # print(current_frame_num)
+            # print(switch_hash + "\n")
+
+            # if op_match_times < 2:
+            #     match_op_pic = frame
+            #     match_op_hash = phash(match_op_pic)
+            #     # print(hamming_distance(match_op_hash,opening[0]))
+            #     if match_op_hash in opening:
+            #         if op_match_times == 0:
+            #             # print(str(current_frame_num) + " | 开场白起点")
+            #             op_bg_num = current_frame_num
+            #             add_op(frame_rate, begin_frame_num)
+            #         op = bool(1 - op)
+            #         op_match_times += 1
+            #         if op_match_times == 2:
+            #             # print(str(current_frame_num) + " | 开场白结束")
+            #             print(
+            #                 f'{str(op_bg_num)} <-> '
+            #                 + str(
+            #                     current_frame_num + int((28 / 17) * frame_rate)
+            #                 )
+            #                 + " | 开场白"
+            #             )
+            #
+            #             begin_frame_num = current_frame_num + int((28 / 17) * frame_rate)
+            #             last_frame_num = begin_frame_num
+            #     if (op):
+            #         current_frame_num += 1
+            #         # print(match_op_hash)
+            #         continue
 
             # print(str(current_frame_num)+" | "+ match_op_hash)
-            if (hmdistant > 13) and (current_frame_num != 0):
-                if current_frame_num - last_frame_num > (frame_rate / 2):
+            if hamming_distance(switch_hash,'1000110001011000111100100000000000000000000000000000000000000000') < 5:
+                trans = True  # 识别转场
+            if (hmdistant > 16) and (current_frame_num != 0):
+                # if current_frame_num - last_frame_num > (frame_rate / 2):
+                if current_frame_num - last_frame_num > (frame_rate / 2) - 5:
                     people = get_people(people_pic)
 
+                    # debug
                     # cv2.imwrite(f'output/undefined_{current_frame_num}.jpg', frame)
+                    if trans:
+                        people = "trans"
+                        trans = False
+                        begin_frame_num = begin_frame_num + int(frame_rate / 10) + 5
 
                     print(
                         f'{str(sub_num)} | {str(current_frame_num - 1)} <-> '
@@ -258,8 +276,8 @@ def autosub(videopath, subpath):
                 last_frame_num = current_frame_num
 
             last_pic_hash = pic_current_hash
-            # people_pic = frame[960:1080, 800:1100]
-            people_pic = frame[980:1050, 800:1120]
+            people_pic = frame[980:1050, 910:1100]
+            # people_pic = frame[980:1050, 800:1120]
             people_hash = phash(people_pic)
             current_frame_num += 1
     else:

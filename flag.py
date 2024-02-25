@@ -20,11 +20,10 @@ opening_old = ['1000011010001100010000000000000000000000000000000000000000000000
                '1100100000010000110010111001011001100100001000000001001011000001']
 opening_new = ['1110010111001100000100010111000010010000000100000001001100000110',
                '1110010110001110000100110010001010011000000110000000001100000110',
-               '1101010010110011010000111001000101100000000100000011100010000001',
-               '1110010111000100000100010111000010010000000100000001001100000110']
+               '1101010010110011010001111001000101100000000100000011100010000001']
 
 
-subtitle_head = """
+subtitle_head = f"""
 [Script Info]
 Title: AutoSubtitle Aegisub file
 ScriptType: v4.00+
@@ -39,7 +38,7 @@ Audio File: $$FILE$$
 Video File: $$FILE$$
 
 [V4+ Styles]
-""" + stylecode + """
+{stylecode}
 
 [Events]
 Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
@@ -209,6 +208,7 @@ def autosub(videopath, subpath, newOP=False):
         frame_rate = round(source_video.get(5), 2)
         while True:
             ret, frame = source_video.read()
+            # debug
             # print(current_frame_num)
             if not ret:
                 break
@@ -224,8 +224,9 @@ def autosub(videopath, subpath, newOP=False):
             if op_match_times < 2:
                 match_op_pic = frame
                 match_op_hash = phash(match_op_pic)
-                # print(match_op_hash)
-                # print(op_match_times)
+
+                # debug
+                # print(match_op_hash + '\n')
                 if match_op_hash in opening:
                     if op_match_times == 0:
                         print(str(current_frame_num) + " | 开场白起点")
@@ -245,7 +246,8 @@ def autosub(videopath, subpath, newOP=False):
             if hamming_distance(switch_hash, '1010010011000000101010001100000001000100000001011000011010100000') < 10:
                 trans = True  # 识别转场
             if (hmdistant > 13) and (current_frame_num != 0):
-                if current_frame_num - last_frame_num > (frame_rate / 2):
+                if current_frame_num - last_frame_num > (frame_rate / 2) - 5:
+
                     people = get_people(people_pic)
                     if trans:
                         people = "trans"

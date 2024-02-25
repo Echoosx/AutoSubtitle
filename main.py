@@ -1,14 +1,16 @@
 import GUI
 import argparse
 import sys
-from config import configInit
+from config import configInit, getGlobalConfig, setGlobalConfig
+import ctypes
 
 
 def getInput():
     parser = argparse.ArgumentParser(description='Process some integers.')
     parser.add_argument('videoTypeStr', type=str, help='视频类型，可接受的参数: flag wsw', choices=['flag', 'wsw'])
     parser.add_argument('openPath', type=str, help='输入视频文件路径')
-    parser.add_argument('-o', type=str, default=None, required=False, help='输出字幕文件路径，默认输出为视频目录下同名ass文件')
+    parser.add_argument('-o', type=str, default=None, required=False,
+                        help='输出字幕文件路径，默认输出为视频目录下同名ass文件')
     parser.add_argument('-s', type=str, default='new', required=False, help='flag系列OP类型，可接受：old、new，默认为new',
                         choices=['old', 'new'])
     args = parser.parse_args()
@@ -24,11 +26,11 @@ def getInput():
 
 def main():
     if len(sys.argv) > 1:
-        print("当前为命令行模式")
+        # print("当前为命令行模式")
         print('开始打轴...')
         inputList = getInput()
     else:
-        print("当前为GUI模式")
+        # print("当前为GUI模式")
         print("正在呼起GUI...")
         inputList = GUI.runGUI()
     if inputList[2] == 0:
@@ -37,6 +39,13 @@ def main():
     elif inputList[2] == 1:
         from wsw import autosub
         autosub(inputList[0], inputList[1])
+
+
+def is_admin():
+    try:
+        return ctypes.windll.shell32.IsUserAnAdmin()
+    except:
+        return False
 
 
 if __name__ == '__main__':

@@ -11,6 +11,7 @@ from verifyPath import is_path_exists_or_creatable
 import configparser
 import re
 from config import globalConfigPath, styleSheetPath, flagStylePath, mixedStylePath, styleSheetBackup
+from config import getGlobalConfig, setGlobalConfig
 
 
 class AutoSubtitle_class(QtWidgets.QMainWindow, Ui_AutoSubtitle):
@@ -186,7 +187,7 @@ class AutoSubtitle_class(QtWidgets.QMainWindow, Ui_AutoSubtitle):
             QMessageBox.warning(self, '路径不正确', '请选择正确的路径!\t\t\n', QMessageBox.StandardButton.Ok)
         elif os.path.exists(self.savePath):
             self.askforOverWrite_box = QMessageBox(QMessageBox.Icon.Question, '覆盖', '已存在该字幕文件\n'
-                                                                                    '是否要覆盖？\t\t\n',
+                                                                                      '是否要覆盖？\t\t\n',
                                                    flags=Qt.WindowType.WindowStaysOnTopHint)
             self.askforOverWrite_box.setFixedSize(380, 135)
             status_reset = self.askforOverWrite_box.addButton('覆盖', QMessageBox.ButtonRole.YesRole)
@@ -204,7 +205,7 @@ class AutoSubtitle_class(QtWidgets.QMainWindow, Ui_AutoSubtitle):
 
     def defaultStyleSheet(self):
         self.askforResetStyleSheet_box = QMessageBox(QMessageBox.Icon.Question, '重置', '重置后，您修改的所有内容将丢失\n'
-                                                                                      '是否要重置为默认内容？\t\t\n',
+                                                                                        '是否要重置为默认内容？\t\t\n',
                                                      flags=Qt.WindowType.WindowStaysOnTopHint)
         self.askforResetStyleSheet_box.setFixedSize(380, 135)
         status_reset = self.askforResetStyleSheet_box.addButton('重置', QMessageBox.ButtonRole.YesRole)
@@ -218,8 +219,8 @@ class AutoSubtitle_class(QtWidgets.QMainWindow, Ui_AutoSubtitle):
     def saveStyleSheet(self):
         try:
             self.askforSaveStyleSheet_box = QMessageBox(QMessageBox.Icon.Question, '保存', '随意改动此表可能会导致生成字幕失败\n'
-                                                                                         '请确保您明白自己在做什么\n'
-                                                                                         '是否继续保存？\t\t\n',
+                                                                                           '请确保您明白自己在做什么\n'
+                                                                                           '是否继续保存？\t\t\n',
                                                         flags=Qt.WindowType.WindowStaysOnTopHint)
             self.askforSaveStyleSheet_box.setFixedSize(380, 135)
             status_save = self.askforSaveStyleSheet_box.addButton('保存', QMessageBox.ButtonRole.YesRole)
@@ -260,22 +261,17 @@ class AutoSubtitle_class(QtWidgets.QMainWindow, Ui_AutoSubtitle):
                     isSuccess = False
 
             # 默认视频类型
-            config = configparser.ConfigParser()
-            globalConfigDict = {}
+
             if self.flagRadioButton.isChecked():
-                globalConfigDict['default_videotype'] = "0"
+                setGlobalConfig('config', 'default_videotype', 0)
             else:
-                globalConfigDict['default_videotype'] = "1"
+                setGlobalConfig('config', 'default_videotype', 1)
 
             # 默认字幕文本类型
             if self.useDebugSubtextRadioButton.isChecked():
-                globalConfigDict['debug_subtitle'] = "1"
+                setGlobalConfig('config', 'debug_subtitle', 1)
             else:
-                globalConfigDict['debug_subtitle'] = "0"
-
-            config['config'] = globalConfigDict
-            with open(globalConfigPath, 'w') as configfile:
-                config.write(configfile)
+                setGlobalConfig('config', 'debug_subtitle', 0)
 
             if isSuccess:
                 QMessageBox.information(self, "成功", "默认配置已保存", QMessageBox.StandardButton.Ok)
@@ -300,11 +296,11 @@ class AutoSubtitle_class(QtWidgets.QMainWindow, Ui_AutoSubtitle):
             return False
 
     def initAll(self):
-        config = configparser.ConfigParser()
-        config.read(globalConfigPath, encoding='utf-8')
-        global_config_dict = {section: dict(config[section]) for section in config.sections()}['config']
+        # config = configparser.ConfigParser()
+        # config.read(globalConfigPath, encoding='utf-8')
+        # global_config_dict = {section: dict(config[section]) for section in config.sections()}['config']
         # 默认视频类型同步
-        defaultVideoType = int(global_config_dict['default_videotype'])
+        defaultVideoType = int(getGlobalConfig("config", "default_videotype"))
         self.videoTypeList.setCurrentIndex(defaultVideoType)
         if defaultVideoType == 0:
             self.flagRadioButton.setChecked(True)
@@ -312,7 +308,7 @@ class AutoSubtitle_class(QtWidgets.QMainWindow, Ui_AutoSubtitle):
             self.mixedRadioButton.setChecked(True)
 
         # 字幕生成调试模式同步
-        debugSubText = int(global_config_dict['debug_subtitle'])
+        debugSubText = int(getGlobalConfig("config", "debug_subtitle"))
         if debugSubText == 0:
             self.unuseDebugSubtextRadioButton.setChecked(True)
         else:
@@ -322,6 +318,19 @@ class AutoSubtitle_class(QtWidgets.QMainWindow, Ui_AutoSubtitle):
         with open(styleSheetPath, 'r', encoding='utf-8') as file:
             stylesheet = file.read()
         self.styleSheetEdit.setPlainText(stylesheet)
+
+
+# def noticeAdminRun():
+#     if getGlobalConfig("config", "font_init") == "0" and getGlobalConfig("config", "ignore_init") == "0":
+#         noticeAdminRun_box = QMessageBox(QMessageBox.Icon.Information, '提示',
+#                                          '右键该程序，选择“以管理员身份运行”可自动安装所需字体\n如不需安装字体，请点击不再提醒',
+#                                          flags=Qt.WindowType.WindowStaysOnTopHint)
+#         noticeAdminRun_box.setFixedSize(380, 135)
+#         noticeAdminRun_box.addButton('关闭', QMessageBox.ButtonRole.NoRole)
+#         is_ignore = noticeAdminRun_box.addButton('不再提醒', QMessageBox.ButtonRole.NoRole)
+#         noticeAdminRun_box.exec()
+#         if noticeAdminRun_box.clickedButton() == is_ignore:
+#             setGlobalConfig("config", "ignore_init", 1)
 
 
 def runGUI():

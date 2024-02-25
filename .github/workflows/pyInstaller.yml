@@ -27,10 +27,17 @@ jobs:
         pip install pyinstaller
 
     - name: dl upx
-      run: python .github\getLatestUPX.py; 7z x upx.zip; mv upx-* upx;
+      run: |
+        python .github\getLatestUPX.py
+        7z x upx.zip; mv upx-* upx
 
     - name: Package application with PyInstaller
-      run: pyinstaller --upx-dir upx AutoSubtitle.spec -y ; mv dist/AutoSubtitle ./ ; Compress-Archive -Path AutoSubtitle -DestinationPath AutoSubtitle.zip
+      run: |
+        pyinstaller --upx-dir upx AutoSubtitle.spec -y
+        mv dist/AutoSubtitle ./
+        cp -r fonts/ AutoSubtitle/
+        cp readme.txt AutoSubtitle/使用说明.txt
+        Compress-Archive -Path AutoSubtitle -DestinationPath AutoSubtitle.zip
 
     - name: Upload artifact
       uses: actions/upload-artifact@v3
@@ -44,4 +51,5 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         file: "AutoSubtitle.zip"
-        draft: false
+        tags: true
+        draft: true

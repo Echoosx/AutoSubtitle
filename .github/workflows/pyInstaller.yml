@@ -39,17 +39,19 @@ jobs:
         cp readme.txt AutoSubtitle/使用说明.txt
         Compress-Archive -Path AutoSubtitle -DestinationPath AutoSubtitle.zip
 
-    - name: Upload artifact
-      uses: actions/upload-artifact@v3
-      with:
-        name: AutoSubtitle
-        path: AutoSubtitle.zip
+    - name: Package application with PyInstaller
+      run: |
+        pyinstaller --upx-dir upx AutoSubtitle.spec -y
+        Compress-Archive -Path ./dist/AutoSubtitle -DestinationPath ./dist/AutoSubtitle_without_fonts.zip
+        
+        cp -r fonts/ ./dist/AutoSubtitle/
+        cp readme.txt ./dist/AutoSubtitle/使用说明.txt
+        Compress-Archive -Path ./dist/AutoSubtitle -DestinationPath ./dist/AutoSubtitle.zip
 
-    - name: release
+    - name: Upload Release
       uses: xresloader/upload-to-github-release@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        file: "AutoSubtitle.zip"
-        tags: true
-        draft: true
+        file: "./dist/*.zip"
+        draft: false

@@ -5,6 +5,8 @@
 
 [![Release](https://img.shields.io/github/v/release/Echoosx/AutoSubtitle)](https://github.com/Echoosx/AutoSubtitle/releases/latest)
 [![Build](https://github.com/Echoosx/AutoSubtitle/workflows/Package%20Application%20with%20Pyinstaller/badge.svg?branch=master)](https://github.com/Echoosx/AutoSubtitle/tree/master/.github/workflows/pyInstaller.yml)
+[![Bilibili](https://img.shields.io/badge/BILIBILI-%E7%81%B0%E5%92%95%E5%A8%98%E2%80%93%E7%81%B0%E9%A3%8E%E5%AD%97%E5%B9%95%E7%BB%84-ff69b4?logo=bilibili&color=ff69b4
+)](https://space.bilibili.com/28968096/)
 
 ## 安装
 下载`AutoSubtitle.zip`并解压 ，双击`AutoSubtitle.exe`文件即可运行

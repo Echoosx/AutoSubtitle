@@ -28,27 +28,22 @@ jobs:
 
     - name: dl upx
       run: |
-        python .github\getLatestUPX.py
+        python .github/getLatestUPX.py
         7z x upx.zip; mv upx-* upx
 
     - name: Package application with PyInstaller
       run: |
         pyinstaller --upx-dir upx AutoSubtitle.spec -y
-        mv dist/AutoSubtitle ./
-        cp -r fonts/ AutoSubtitle/
-        cp readme.txt AutoSubtitle/使用说明.txt
-        Compress-Archive -Path AutoSubtitle -DestinationPath AutoSubtitle.zip
-
-    - name: Upload artifact
-      uses: actions/upload-artifact@v3
-      with:
-        name: AutoSubtitle
-        path: AutoSubtitle.zip
+        Compress-Archive -Path ./dist/AutoSubtitle -DestinationPath ./dist/AutoSubtitle_without_fonts.zip
+        
+        cp -r fonts/ ./dist/AutoSubtitle/
+        cp readme.txt ./dist/AutoSubtitle/使用说明.txt
+        Compress-Archive -Path ./dist/AutoSubtitle -DestinationPath ./dist/AutoSubtitle.zip
 
     - name: Upload Release
       uses: xresloader/upload-to-github-release@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        file: "AutoSubtitle.zip"
+        file: "./dist/*.zip"
         draft: false

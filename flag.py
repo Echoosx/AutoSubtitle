@@ -15,13 +15,15 @@ config.read(globalConfigPath)
 debug = False if {section: dict(config[section]) for section in config.sections()}['config'][
                      'debug_subtitle'] == "0" else True
 
-opening_old = ['1000011010001100010000000000000000000000000000000000000000000000',
-               '1100100000010000110010111001011101100100001000000001001011000001',
-               '1100100000010000110010111001011001100100001000000001001011000001']
-opening_new = ['1110010111001100000100010111000010010000000100000001001100000110',
-               '1110010110001110000100110010001010011000000110000000001100000110',
-               '1101010010110011010001111001000101100000000100000011100010000001']
-
+# opening_old = ['1000011010001100010000000000000000000000000000000000000000000000',
+#                '1100100000010000110010111001011101100100001000000001001011000001',
+#                '1100100000010000110010111001011001100100001000000001001011000001']
+# opening_new = ['1110010111001100000100010111000010010000000100000001001100000110',
+#                '1110010110001110000100110010001010011000000110000000001100000110',
+#                '1101010010110011010001111001000101100000000100000011100010000001',
+#                '1101010010110011010000111001000101100000000110000011100000000001']
+opening_old = ('1010001000010101100010000000010010011001001000001000100000000000', 315, 5)
+opening_new = ('1110010111001100000100010111000010010000000100000001001100000110', 184, 2)
 
 subtitle_head = f"""
 [Script Info]
@@ -94,33 +96,35 @@ def frames_to_timecode(framerate, frames):
 
 
 def get_people(img):
-    mobuo_rate = get_color_rate(img, np.array([100, 185, 225]), np.array([110, 225, 255]))
-    flag_rate = get_color_rate(img, np.array([27, 155, 240]), np.array([37, 215, 255]))
-    renai_rate = get_color_rate(img, np.array([150, 70, 225]), np.array([160, 90, 255]))
-    seizon_rate = get_color_rate(img, np.array([75, 150, 230]), np.array([80, 190, 255]))
-    mobumi_rate = get_color_rate(img, np.array([20, 90, 245]), np.array([25, 120, 255]))
-    lightpurple_rate = get_color_rate(img, np.array([125, 93, 194]), np.array([132, 125, 221]))
+    mobuo_rate = get_color_rate(img, np.array([101, 125, 212]), np.array([106, 211, 255]))
+    flag_rate = get_color_rate(img, np.array([30, 130, 244]), np.array([35, 205, 255]))
+    renai_rate = get_color_rate(img, np.array([148, 52, 214]), np.array([159, 103, 255]))
+    seizon_rate = get_color_rate(img, np.array([73, 89, 231]), np.array([81, 179, 255]))
+    mobumi_rate = get_color_rate(img, np.array([20, 57, 217]), np.array([28, 120, 255]))
+    lightpurple_rate = get_color_rate(img, np.array([126, 88, 159]), np.array([134, 141, 227]))
     dongyun_rate = get_color_rate(img, np.array([0, 83, 225]), np.array([10, 125, 255]))
-    yanghong_rate = get_color_rate(img, np.array([158, 164, 207]), np.array([171, 194, 255]))
-    siturenn_rate = get_color_rate(img, np.array([90, 75, 205]), np.array([95, 145, 255]))
-    darkgreen_rate = get_color_rate(img, np.array([70, 210, 120]), np.array([75, 255, 155]))
-    rose_rate = 0
-    kami_rate = get_color_rate(img, np.array([25, 110, 245]), np.array([35, 130, 255]))
-    darkred_rate = get_color_rate(img, np.array([175, 240, 210]), np.array([180, 255, 225]))
-    green_rate = get_color_rate(img, np.array([62, 79, 205]), np.array([70, 255, 255]))
-    hametsu_rate = get_color_rate(img, np.array([85, 209, 181]), np.array([90, 255, 211]))
-    nana_rate = get_color_rate(img, np.array([7, 151, 240]), np.array([10, 187, 255]))
-    red_rate = get_color_rate(img, np.array([175, 148, 214]), np.array([180, 175, 251]))
-    lightpink_rate = get_color_rate(img, np.array([159, 103, 219]), np.array([169, 137, 255]))
-    blue_rate = get_color_rate(img, np.array([119, 115, 221]), np.array([122, 134, 249]))
-    lightgreen_rate = get_color_rate(img, np.array([50, 85, 231]), np.array([63, 134, 255]))
+    yanghong_rate = get_color_rate(img, np.array([159, 168, 198]), np.array([165, 219, 240]))
+    siturenn_rate = get_color_rate(img, np.array([84, 56, 214]), np.array([95, 130, 255]))
+    rose_rate = get_color_rate(img, np.array([168, 122, 172]), np.array([172, 210, 245]))
+    green_rate = get_color_rate(img, np.array([55, 53, 191]), np.array([72, 117, 235]))
+    hametsu_rate = get_color_rate(img, np.array([82, 167, 199]), np.array([87, 247, 255]))
+    nana_rate = get_color_rate(img, np.array([3, 109, 192]), np.array([11, 183, 250]))
+    red_rate = get_color_rate(img, np.array([164, 139, 195]), np.array([176, 190, 231]))
+    lightpink_rate = get_color_rate(img, np.array([158, 95, 202]), np.array([166, 149, 255]))
+    blue_rate = get_color_rate(img, np.array([117, 96, 194]), np.array([125, 145, 252]))
+    lightgreen_rate = get_color_rate(img, np.array([51, 61, 242]), np.array([62, 131, 255]))
+    kami_rate = get_color_rate(img, np.array([22, 16, 231]), np.array([36, 83, 255]))
+    winered_rate = get_color_rate(img, np.array([158, 183, 169]), np.array([167, 252, 221]))
+    darkred_rate = get_color_rate(img, np.array([172, 221, 175]), np.array([177, 255, 233]))
 
     narrator_rate = get_color_rate(img, np.array([0, 0, 225]), np.array([175, 5, 255]))
-    rate_list = [mobuo_rate, flag_rate, renai_rate, seizon_rate, mobumi_rate, blue_rate, lightpurple_rate, dongyun_rate, red_rate,
-                 yanghong_rate, siturenn_rate, darkgreen_rate, rose_rate, kami_rate, darkred_rate,
-                 green_rate, hametsu_rate, nana_rate, lightpink_rate, lightgreen_rate]
-    people_list = ["mobuo", "flag", "renai", "seizon", "mobumi", "blue", "lightpurple", "dongyun", "red", "yanghong",
-                   "siturenn", "darkgreen", "rose", "kami", "darkred", "green", "hametsu", "nana", "lightpink", "lightgreen"]
+
+    rate_list = [mobuo_rate, flag_rate, renai_rate, seizon_rate, mobumi_rate, lightpurple_rate, dongyun_rate,
+                 yanghong_rate, siturenn_rate, rose_rate, green_rate, hametsu_rate, nana_rate, red_rate, lightpink_rate,
+                 blue_rate, lightgreen_rate, kami_rate, winered_rate, darkred_rate]
+    people_list = ["mobuo", "flag", "renai", "seizon", "mobumi", "lightpurple", "dongyun", "yanghong", "siturenn",
+                   "rose", "green", "hametsu", "nana", "red", "lightpink", "blue", "lightgreen", "kami",
+                   "winered", "darkred"]
     max_rate = max(rate_list)
     if max_rate < 0.2:
         if narrator_rate > 25:
@@ -150,38 +154,49 @@ def add_sub(subtext, begintime, endingtime, subpeople):
     sub_num += 1
 
 
-def add_op(frame_rate, begin_frame_num, new=False):
+def add_op(frame_rate, begin_frame_num, new=True):
     if not new:
-        add_sub("没有任何优点的路人男", frames_to_timecode(frame_rate, begin_frame_num),
-                frames_to_timecode(frame_rate, begin_frame_num + (1.87 * frame_rate)), "Opening")
-        add_sub("在路人男面前出现的女孩，她的真实身份是...?", frames_to_timecode(frame_rate, begin_frame_num + (1.87 * frame_rate)),
-                frames_to_timecode(frame_rate, begin_frame_num + (4.57 * frame_rate)), "Opening")
-        add_sub("死亡flag?", frames_to_timecode(frame_rate, begin_frame_num + (4.57 * frame_rate)),
-                frames_to_timecode(frame_rate, begin_frame_num + (5.77 * frame_rate)), "Opening")
-        add_sub("路人男能成功回避死亡flag吗!?", frames_to_timecode(frame_rate, begin_frame_num + (5.77 * frame_rate)),
-                frames_to_timecode(frame_rate, begin_frame_num + (8.47 * frame_rate)), "Opening")
-        add_sub("全力回避flag酱!", frames_to_timecode(frame_rate, begin_frame_num + (8.47 * frame_rate)),
-                frames_to_timecode(frame_rate, begin_frame_num + (10.84 * frame_rate)), "Opening")
+        add_sub("没有任何优点的路人男",
+                frames_to_timecode(frame_rate, begin_frame_num),
+                frames_to_timecode(frame_rate, begin_frame_num + (1.62 * frame_rate)), "Opening")
+        add_sub("在路人男面前出现的女孩，她的真实身份是...?",
+                frames_to_timecode(frame_rate, begin_frame_num + (1.62 * frame_rate)),
+                frames_to_timecode(frame_rate, begin_frame_num + (4.32 * frame_rate)), "Opening")
+        add_sub("死亡flag?",
+                frames_to_timecode(frame_rate, begin_frame_num + (4.32 * frame_rate)),
+                frames_to_timecode(frame_rate, begin_frame_num + (5.52 * frame_rate)), "Opening")
+        add_sub("路人男能成功回避死亡flag吗!?",
+                frames_to_timecode(frame_rate, begin_frame_num + (5.52 * frame_rate)),
+                frames_to_timecode(frame_rate, begin_frame_num + (8.22 * frame_rate)), "Opening")
+        add_sub("全力回避flag酱!",
+                frames_to_timecode(frame_rate, begin_frame_num + (8.22 * frame_rate)),
+                frames_to_timecode(frame_rate, begin_frame_num + (10.59 * frame_rate)), "Opening")
     else:
-        add_sub("立起来了!", frames_to_timecode(frame_rate, begin_frame_num + (2.63 * frame_rate)),
-                frames_to_timecode(frame_rate, begin_frame_num + (3.59 * frame_rate)), "Opening")
-        add_sub("全力回避flag酱!", frames_to_timecode(frame_rate, begin_frame_num + (4.9 * frame_rate)),
-                frames_to_timecode(frame_rate, begin_frame_num + (7.44 * frame_rate)), "Opening")
+        add_sub("立起来了!",
+                frames_to_timecode(frame_rate, begin_frame_num + (2.77 * frame_rate)),
+                frames_to_timecode(frame_rate, begin_frame_num + (4.0 * frame_rate)), "Opening")
+        add_sub("全力回避flag酱!",
+                frames_to_timecode(frame_rate, begin_frame_num + (4.86 * frame_rate)),
+                frames_to_timecode(frame_rate, begin_frame_num + (6.99 * frame_rate)), "Opening")
 
 
 # 视频帧总数
 current_frame_num = begin_frame_num = last_frame_num = 0
 last_pic_hash = ''
 op = trans = False
-op_match_times = op_bg_num = 0
+# op_match_times = op_bg_num = 0
+op_start_frame = 0
+identity_pass = []
+
 sub_num = 1
 Err = False
 
 
 def autosub(videopath, subpath, newOP=False):
     start = time.time()
-    global op_match_times
+    # global op_match_times
     global op
+    global op_start_frame
     global trans
     global last_pic_hash
     global current_frame_num
@@ -193,23 +208,24 @@ def autosub(videopath, subpath, newOP=False):
     global pic_current_hash
     global hamdistant
     global people_pic
-    global people_hash
     global people
     global Err
     global outputFile
+    global identity_pass
+
     opening = opening_new if newOP else opening_old
-    # subtitle = subtitle_head.replace("$$FILE$$", os.path.abspath(videopath))
     outputFile = open(subpath, 'w', encoding='utf-8')
     outputFile.write(subtitle_head.replace("$$FILE$$", os.path.abspath(videopath)))
     source_video = cv2.VideoCapture(videopath)
-    global op_bg_num
-    isOpened = bool(source_video.isOpened())
-    if isOpened:
+
+    if source_video.isOpened():
         frame_rate = round(source_video.get(5), 2)
         while True:
             ret, frame = source_video.read()
             # debug
             # print(current_frame_num)
+            # print(phash(frame))
+
             if not ret:
                 break
 
@@ -221,59 +237,85 @@ def autosub(videopath, subpath, newOP=False):
             switch_pic = frame[940:1060, 360:1540]
             switch_hash = phash(switch_pic)
 
-            if op_match_times < 2:
-                match_op_pic = frame
-                match_op_hash = phash(match_op_pic)
+            if not op and hamming_distance(phash(frame), opening[0]) < 10:
+                if current_frame_num - last_frame_num > (frame_rate / 2) - 5:
 
-                # debug
-                # print(match_op_hash + '\n')
-                if match_op_hash in opening:
-                    if op_match_times == 0:
-                        print(str(current_frame_num) + " | 开场白起点")
-                        op_bg_num = current_frame_num
-                        add_op(frame_rate, op_bg_num, newOP)
-                    op = bool(1 - op)
-                    op_match_times += 1
-                    if op_match_times == 2:
-                        # print(str(current_frame_num) + " | 开场白结束")
-                        print(f'{str(op_bg_num)} <-> {str(current_frame_num)} | 开场白')
-                    begin_frame_num = last_frame_num = current_frame_num + 15
-                if op:
-                    current_frame_num += 1
-                    # print(match_op_hash)
-                    continue
+                    center_count = (current_frame_num - last_frame_num) // 4 - 1
+                    people = get_people(identity_pass[center_count])
+                    identity_pass.clear()
+                    # people = get_people(people_pic)
+
+                    if people == 'undefined' and current_frame_num - last_frame_num < (frame_rate / 2):
+                        pass
+                    else:
+                        print('%3s | %-5d <-> %-5d | hmdst: %-3d | gap: %-3d | %s --> %s | %s'
+                              % (sub_num, begin_frame_num, current_frame_num - 1, hmdistant,
+                                 current_frame_num - last_frame_num,
+                                 frames_to_timecode(frame_rate, begin_frame_num),
+                                 frames_to_timecode(frame_rate, current_frame_num), people))
+
+                        add_sub("示范性字幕" if debug else "", frames_to_timecode(frame_rate, begin_frame_num),
+                                frames_to_timecode(frame_rate, current_frame_num), people)
+
+                print('%d-%d | %-5d <-> %-5d | hmdst: %-3d | gap: %-3d | %s --> %s | OP'
+                      % (sub_num, sub_num + opening[2] - 1, current_frame_num, current_frame_num + opening[1],
+                         hamming_distance(phash(frame), opening[0]),
+                         opening[1], frames_to_timecode(frame_rate, current_frame_num),
+                         frames_to_timecode(frame_rate, current_frame_num + opening[1] + 1)))
+
+                add_op(frame_rate, current_frame_num, newOP)
+                op = True
+                for i in range(opening[1]):
+                    source_video.read()
+                begin_frame_num = last_frame_num = current_frame_num = current_frame_num + opening[1]
+                identity_pass.clear()
 
             if hamming_distance(switch_hash, '1010010011000000101010001100000001000100000001011000011010100000') < 10:
                 trans = True  # 识别转场
             if (hmdistant > 13) and (current_frame_num != 0):
                 if current_frame_num - last_frame_num > (frame_rate / 2) - 5:
-
-                    people = get_people(people_pic)
-                    if trans:
+                    if not trans:
+                        center_count = (current_frame_num - last_frame_num) // 4 - 1
+                        people = get_people(identity_pass[center_count])
+                        identity_pass.clear()
+                        # people = get_people(people_pic)
+                    else:
                         people = "trans"
                         trans = False
                         begin_frame_num = begin_frame_num + int(frame_rate / 10) - 3
 
-                    print(
-                        f'{sub_num} | {current_frame_num - 1} <-> {current_frame_num} | hmdst: {hmdistant} | gap: {current_frame_num - last_frame_num} | {frames_to_timecode(frame_rate, begin_frame_num)} --> {frames_to_timecode(frame_rate, current_frame_num)} | people: {people}')
+                    if (people == 'undefined' or people == 'narrator') and current_frame_num - last_frame_num < (
+                            frame_rate / 2):
+                        pass
+                    else:
+                        # debug
+                        # cv2.imwrite(f'output/{videoName}/frame_{current_frame_num}.jpg', frame)
 
-                    add_sub("示范性字幕" if debug else "", frames_to_timecode(frame_rate, begin_frame_num),
-                            frames_to_timecode(frame_rate, current_frame_num), people)
+                        print('%3s | %-5d <-> %-5d | hmdst: %-3d | gap: %-3d | %s --> %s | %s'
+                              % (sub_num, begin_frame_num, current_frame_num - 1, hmdistant,
+                                 current_frame_num - last_frame_num,
+                                 frames_to_timecode(frame_rate, begin_frame_num),
+                                 frames_to_timecode(frame_rate, current_frame_num), people))
+
+                        add_sub("示范性字幕" if debug else "", frames_to_timecode(frame_rate, begin_frame_num),
+                                frames_to_timecode(frame_rate, current_frame_num), people)
 
                 begin_frame_num = current_frame_num
                 last_frame_num = current_frame_num
 
             last_pic_hash = pic_current_hash
             people_pic = frame[940:1040, 800:1100]
-            people_hash = phash(people_pic)
+
+            # identify by slide window
+            if current_frame_num % 2 == 0:
+                identity_pass.append(people_pic)
+
             current_frame_num += 1
     else:
         print("源视频读取出错")
         Err = True
     print("finish!")
-    # if not Err:
-    #     with open(subpath, 'w+', encoding='utf-8') as q:
-    #         q.write(subtitle)
+
     end = time.time()
     print(f'耗时：{str(end - start)}秒')
     return Err

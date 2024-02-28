@@ -15,26 +15,26 @@ mobuo = 路人男#正文#1
 flag = 死亡flag#正文#1
 seizon = 生存flag#正文#1
 renai = 恋爱flag#正文#1
-Opening = 开场白
-trans = 转场#1
 mobumi = 小美#正文#1
 lightpurple = 淡紫色#正文#1
 dongyun = 东云色#正文#1
 yanghong = 洋红色#正文#1
-undefined = 未定义#正文#1
-narrator = 旁白#1
 siturenn = 失恋flag#正文#1
 hametsu = 毁灭flag#正文#1
+lightgreen = 死神No.13#正文#1
 rose = 玫瑰色#正文#1
+winered = 酒红色#正文#1
 kami = 神#正文#1
 darkred = 深红色#正文#1
-darkgreen = 未定义#正文#1
 green = 绿色#正文#1
 nana = 娜娜#正文#1
 red = 愤怒#正文#1
 lightpink = 嫉妒#正文#1
 blue = 蓝色#正文#1
-lightgreen = 死神No.13#正文#1
+undefined = 未定义#正文#1
+Opening = 开场白
+trans = 转场#1
+narrator = 旁白#1
 
 
 [mixed-blood]
@@ -117,6 +117,7 @@ Style: 淡紫色#正文#1,Resource Han Rounded CN,107,&H00D97092,&H00FFFFFF,&H00
 Style: 深红色#正文#1,Resource Han Rounded CN,107,&H00251AF0,&H00FFFFFF,&H00000000,&H13FFFFFF,-1,0,0,0,100,100,2,0,1,7,0,2,135,135,160,1
 Style: 土黄色#正文#1,Resource Han Rounded CN,107,&H0039B0EB,&H00FFFFFF,&H00000000,&H13FFFFFF,-1,0,0,0,100,100,2,0,1,7,0,2,135,135,160,1
 Style: 玫瑰色#正文#1,Resource Han Rounded CN,107,&H007848FE,&H00FFFFFF,&H00000000,&H13FFFFFF,-1,0,0,0,100,100,2,0,1,7,0,2,135,135,160,1
+Style: 酒红色#正文#1,Resource Han Rounded CN,107,&H008A25E1,&H00FFFFFF,&H00000000,&H13FFFFFF,-1,0,0,0,100,100,2,0,1,7,0,2,135,135,160,1
 Style: 橙色#正文#1,Resource Han Rounded CN,107,&H005183FC,&H00FFFFFF,&H00000000,&H13FFFFFF,-1,0,0,0,100,100,2,0,1,7,0,2,135,135,160,1
 Style: 蓝色#正文#1,Resource Han Rounded CN,107,&H00F7797C,&H00FFFFFF,&H00000000,&H13FFFFFF,-1,0,0,0,100,100,2,0,1,7,0,2,135,135,160,1
 Style: 绿色#正文#1,Resource Han Rounded CN,107,&H0090DB83,&H00FFFFFF,&H00000000,&H13FFFFFF,-1,0,0,0,100,100,2,0,1,7,0,2,135,135,160,1

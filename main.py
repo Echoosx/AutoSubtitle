@@ -23,7 +23,6 @@ def getInput():
     videoType = 0 if videoTypeStr == 'flag' else 1 if videoTypeStr == 'wsw' else exit()
     return openPath, savePath, videoType, newOP
 
-
 def main():
     if len(sys.argv) > 1:
         # print("当前为命令行模式")
@@ -39,13 +38,6 @@ def main():
     elif inputList[2] == 1:
         from wsw import autosub
         autosub(inputList[0], inputList[1])
-
-
-def is_admin():
-    try:
-        return ctypes.windll.shell32.IsUserAnAdmin()
-    except:
-        return False
 
 
 if __name__ == '__main__':

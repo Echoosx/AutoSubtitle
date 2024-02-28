@@ -84,7 +84,7 @@
        <string notr="true"/>
       </property>
       <property name="text">
-       <string>&lt;a href=&quot;https://github.com/Echoosx/AutoSubtitle&quot; style=&quot;color: black;text-decoration: none;&quot;&gt;自动打轴机 v1.2.1&lt;/a&gt;</string>
+       <string>&lt;a href=&quot;https://github.com/Echoosx/AutoSubtitle&quot; style=&quot;color: black;text-decoration: none;&quot;&gt;自动打轴机 v1.2.2&lt;/a&gt;</string>
       </property>
      </widget>
      <widget class="DragAcceptableQLine" name="VideoPathEdit">
@@ -863,7 +863,7 @@
   <slot>setSavePathToDefault()</slot>
  </slots>
  <buttongroups>
-  <buttongroup name="defaultVideoTypeGroup"/>
   <buttongroup name="isDebugSubtextGroup"/>
+  <buttongroup name="defaultVideoTypeGroup"/>
  </buttongroups>
 </ui>

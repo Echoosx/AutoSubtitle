@@ -184,7 +184,6 @@ def add_op(frame_rate, begin_frame_num, new=True):
 current_frame_num = begin_frame_num = last_frame_num = 0
 last_pic_hash = ''
 op = trans = False
-# op_match_times = op_bg_num = 0
 op_start_frame = 0
 identity_pass = []
 
@@ -240,9 +239,8 @@ def autosub(videopath, subpath, newOP=False):
             if not op and hamming_distance(phash(frame), opening[0]) < 10:
                 if current_frame_num - last_frame_num > (frame_rate / 2) - 5:
 
-                    center_count = (current_frame_num - last_frame_num) // 4 - 1
+                    center_count = len(identity_pass) // 2 - 1
                     people = get_people(identity_pass[center_count])
-                    identity_pass.clear()
                     # people = get_people(people_pic)
 
                     if people == 'undefined' and current_frame_num - last_frame_num < (frame_rate / 2):
@@ -275,9 +273,8 @@ def autosub(videopath, subpath, newOP=False):
             if (hmdistant > 13) and (current_frame_num != 0):
                 if current_frame_num - last_frame_num > (frame_rate / 2) - 5:
                     if not trans:
-                        center_count = (current_frame_num - last_frame_num) // 4 - 1
+                        center_count = len(identity_pass) // 2 - 1
                         people = get_people(identity_pass[center_count])
-                        identity_pass.clear()
                         # people = get_people(people_pic)
                     else:
                         people = "trans"
@@ -302,6 +299,7 @@ def autosub(videopath, subpath, newOP=False):
 
                 begin_frame_num = current_frame_num
                 last_frame_num = current_frame_num
+                identity_pass.clear()
 
             last_pic_hash = pic_current_hash
             people_pic = frame[940:1040, 800:1100]

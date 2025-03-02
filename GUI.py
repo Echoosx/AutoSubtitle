@@ -20,7 +20,7 @@ class AutoSubtitle_class(QtWidgets.QMainWindow, Ui_AutoSubtitle):
         self.setupUi(self)
         self.openPath = self.savePath = str()
         self.flagStylePath = self.mixedStylePath = str()
-        self.videoTypeList.addItems(["全力回避Flag酱", "混血万事屋"])
+        self.videoTypeList.addItems(["全力回避Flag酱", "混血万事屋", "HundredNote", "HundredNote彩色", "HundredNote Game"])
         self.videoTypeList.setCurrentIndex(0)
         self.videoType = self.videoTypeList.currentIndex()
         self.finish = False
@@ -139,6 +139,12 @@ class AutoSubtitle_class(QtWidgets.QMainWindow, Ui_AutoSubtitle):
         elif self.videoType == 1:
             self.FlagNewOPcheckBox.setEnabled(False)
             print(f'当前视频类型: 混血万事屋')
+        elif self.videoType == 2:
+            self.FlagNewOPcheckBox.setEnabled(False)
+            print(f'当前视频类型: HundredNote')
+        elif self.videoType == 3:
+            self.FlagNewOPcheckBox.setEnabled(False)
+            print(f'当前视频类型: HundredNote彩色版')
 
     def raiseOpenFile(self):
         video_filter = "视频 (*.webm *.mp4 *.mov *.flv *.mkv *.m4v);;All Files (*)"
@@ -261,11 +267,7 @@ class AutoSubtitle_class(QtWidgets.QMainWindow, Ui_AutoSubtitle):
                     isSuccess = False
 
             # 默认视频类型
-
-            if self.flagRadioButton.isChecked():
-                setGlobalConfig('config', 'default_videotype', 0)
-            else:
-                setGlobalConfig('config', 'default_videotype', 1)
+            setGlobalConfig('config', 'default_videotype', -2 - self.defaultVideoTypeGroup.checkedId())
 
             # 默认字幕文本类型
             if self.useDebugSubtextRadioButton.isChecked():
@@ -304,8 +306,14 @@ class AutoSubtitle_class(QtWidgets.QMainWindow, Ui_AutoSubtitle):
         self.videoTypeList.setCurrentIndex(defaultVideoType)
         if defaultVideoType == 0:
             self.flagRadioButton.setChecked(True)
-        else:
+        elif defaultVideoType == 1:
             self.mixedRadioButton.setChecked(True)
+        elif defaultVideoType == 2:
+            self.HN_whiteRadioButton.setChecked(True)
+        elif defaultVideoType == 3:
+            self.HN_colorRadioButton.setChecked(True)
+        elif defaultVideoType == 4:
+            self.HN_gameRadioButton.setChecked(True)
 
         # 字幕生成调试模式同步
         debugSubText = int(getGlobalConfig("config", "debug_subtitle"))

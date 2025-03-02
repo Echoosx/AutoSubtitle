@@ -24,6 +24,7 @@ debug = False if {section: dict(config[section]) for section in config.sections(
 #                '1101010010110011010000111001000101100000000110000011100000000001']
 opening_old = ('1010001000010101100010000000010010011001001000001000100000000000', 315, 5)
 opening_new = ('1110010111001100000100010111000010010000000100000001001100000110', 184, 2)
+opening_3 = ('1010101010101100010101010011010100110101100100001010100010001000', 616, 1)
 
 subtitle_head = f"""
 [Script Info]
@@ -58,7 +59,7 @@ def phash(img):
     img = img[0:8, 0:8]
     avg = sum(img[i, j] for i, j in itertools.product(range(8), range(8)))
     avg = avg / 64
-    # 获得hsah
+    # 获得hash
     for i, j in itertools.product(range(8), range(8)):
         hash_str = f'{hash_str}1' if img[i, j] > avg else f'{hash_str}0'
     return hash_str
@@ -172,12 +173,32 @@ def add_op(frame_rate, begin_frame_num, new=True):
                 frames_to_timecode(frame_rate, begin_frame_num + (8.22 * frame_rate)),
                 frames_to_timecode(frame_rate, begin_frame_num + (10.59 * frame_rate)), "Opening")
     else:
-        add_sub("立起来了!",
-                frames_to_timecode(frame_rate, begin_frame_num + (2.77 * frame_rate)),
-                frames_to_timecode(frame_rate, begin_frame_num + (4.0 * frame_rate)), "Opening")
-        add_sub("全力回避flag酱!",
-                frames_to_timecode(frame_rate, begin_frame_num + (4.86 * frame_rate)),
-                frames_to_timecode(frame_rate, begin_frame_num + (6.99 * frame_rate)), "Opening")
+        # add_sub("立起来了!",
+        #         frames_to_timecode(frame_rate, begin_frame_num + (2.77 * frame_rate)),
+        #         frames_to_timecode(frame_rate, begin_frame_num + (4.0 * frame_rate)), "Opening")
+        # add_sub("全力回避flag酱!",
+        #         frames_to_timecode(frame_rate, begin_frame_num + (4.86 * frame_rate)),
+        #         frames_to_timecode(frame_rate, begin_frame_num + (6.99 * frame_rate)), "Opening")
+
+        # op_3
+        add_sub("绝对回收Death Flag决不放弃", frames_to_timecode(frame_rate, begin_frame_num + (1.708 * frame_rate)),
+                frames_to_timecode(frame_rate, begin_frame_num + (5.3 * frame_rate)), "Opening")
+        add_sub("干劲满满!", frames_to_timecode(frame_rate, begin_frame_num + (5.583 * frame_rate)),
+                frames_to_timecode(frame_rate, begin_frame_num + (7.583 * frame_rate)), "Opening")
+        add_sub("却总是失败的死神啊!", frames_to_timecode(frame_rate, begin_frame_num + (7.583 * frame_rate)),
+                frames_to_timecode(frame_rate, begin_frame_num + (10.542 * frame_rate)), "Opening")
+        add_sub("但是下次一定会成功回收!", frames_to_timecode(frame_rate, begin_frame_num + (10.542 * frame_rate)),
+                frames_to_timecode(frame_rate, begin_frame_num + (13.043 * frame_rate)), "Opening")
+        add_sub("绝对回收! 绝对回收! 绝对回收!", frames_to_timecode(frame_rate, begin_frame_num + (13.043 * frame_rate)),
+                frames_to_timecode(frame_rate, begin_frame_num + (15.292 * frame_rate)), "Opening")
+        add_sub("Flag绝对回收! 绝对回收!", frames_to_timecode(frame_rate, begin_frame_num + (15.292 * frame_rate)),
+                frames_to_timecode(frame_rate, begin_frame_num + (17.25 * frame_rate)), "Opening")
+        add_sub("DeDeDe Death Flag", frames_to_timecode(frame_rate, begin_frame_num + (17.25 * frame_rate)),
+                frames_to_timecode(frame_rate, begin_frame_num + (18.292 * frame_rate)), "Opening")
+        add_sub("绝对回收! 绝对回收! 绝对回收!", frames_to_timecode(frame_rate, begin_frame_num + (18.292 * frame_rate)),
+                frames_to_timecode(frame_rate, begin_frame_num + (20.333 * frame_rate)), "Opening")
+        add_sub("Flag绝对回收! 绝对回收! Death Flag", frames_to_timecode(frame_rate, begin_frame_num + (20.333 * frame_rate)),
+                frames_to_timecode(frame_rate, begin_frame_num + (25.709 * frame_rate)), "Opening")
 
 
 # 视频帧总数
@@ -212,7 +233,9 @@ def autosub(videopath, subpath, newOP=False):
     global outputFile
     global identity_pass
 
-    opening = opening_new if newOP else opening_old
+    # opening = opening_new if newOP else opening_old
+    # op_3
+    opening = opening_3 if newOP else opening_old
     outputFile = open(subpath, 'w', encoding='utf-8')
     outputFile.write(subtitle_head.replace("$$FILE$$", os.path.abspath(videopath)))
     source_video = cv2.VideoCapture(videopath)
@@ -233,7 +256,8 @@ def autosub(videopath, subpath, newOP=False):
             pic_current_hash = phash(current_pic)
             hmdistant = hamming_distance(last_pic_hash, pic_current_hash)
 
-            switch_pic = frame[940:1060, 360:1540]
+            # switch_pic = frame[940:1060, 360:1540]
+            switch_pic = frame[800:900, 300:1620]  # op_3
             switch_hash = phash(switch_pic)
 
             if not op and hamming_distance(phash(frame), opening[0]) < 10:
@@ -268,8 +292,18 @@ def autosub(videopath, subpath, newOP=False):
                 begin_frame_num = last_frame_num = current_frame_num = current_frame_num + opening[1]
                 identity_pass.clear()
 
-            if hamming_distance(switch_hash, '1010010011000000101010001100000001000100000001011000011010100000') < 10:
+            # if hamming_distance(switch_hash, '1010010011000000101010001100000001000100000001011000011010100000') < 10:
+
+            # op_3
+            if hamming_distance(switch_hash, '1100000001000000000000001000001010100000100001010100010101000101') < 10:
+                if not trans:
+                    add_sub("示范性字幕" if debug else "", frames_to_timecode(frame_rate, begin_frame_num),
+                            frames_to_timecode(frame_rate, current_frame_num), people)
+                    begin_frame_num = current_frame_num
+                    last_frame_num = current_frame_num
+                    identity_pass.clear()
                 trans = True  # 识别转场
+
             if (hmdistant > 13) and (current_frame_num != 0):
                 if current_frame_num - last_frame_num > (frame_rate / 2) - 5:
                     if not trans:
@@ -279,6 +313,7 @@ def autosub(videopath, subpath, newOP=False):
                     else:
                         people = "trans"
                         trans = False
+                        # begin_frame_num = begin_frame_num + 1
                         begin_frame_num = begin_frame_num + int(frame_rate / 10) - 3
 
                     if (people == 'undefined' or people == 'narrator') and current_frame_num - last_frame_num < (

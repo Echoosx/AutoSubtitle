@@ -23,6 +23,7 @@ def getInput():
     videoType = 0 if videoTypeStr == 'flag' else 1 if videoTypeStr == 'wsw' else exit()
     return openPath, savePath, videoType, newOP
 
+
 def main():
     if len(sys.argv) > 1:
         # print("当前为命令行模式")
@@ -37,6 +38,15 @@ def main():
         autosub(inputList[0], inputList[1], inputList[3])
     elif inputList[2] == 1:
         from wsw import autosub
+        autosub(inputList[0], inputList[1])
+    elif inputList[2] == 2:
+        from hundrednote_white import autosub
+        autosub(inputList[0], inputList[1])
+    elif inputList[2] == 3:
+        from hundrednote_color import autosub
+        autosub(inputList[0], inputList[1])
+    elif inputList[2] == 4:
+        from hundrednote_game import autosub
         autosub(inputList[0], inputList[1])
 
 

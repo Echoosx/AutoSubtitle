@@ -8,8 +8,13 @@ dynamicConfigRoot = f'{os.path.dirname(sys.executable)}/config/' if isPacked \
 
 globalConfigPath = dynamicConfigRoot + 'config.ini'
 styleSheetPath = dynamicConfigRoot + 'style.ini'
+
 flagStylePath = dynamicConfigRoot + 'flag.txt'
 mixedStylePath = dynamicConfigRoot + 'mixed.txt'
+HN_whiteStylePath = dynamicConfigRoot + 'hn_white.txt'
+HN_colorStylePath = dynamicConfigRoot + 'hn_color.txt'
+HN_gameStylePath = dynamicConfigRoot + 'hn_game.txt'
+
 styleSheetBackup = """[flag]
 mobuo = 路人男#正文#1
 flag = 死亡flag#正文#1
@@ -61,7 +66,24 @@ brightgreen = 荧光绿色
 orangered = 橘红色
 lightorange = 偏浅橘-棕框色
 lightbluegreen = 浅蓝绿薄荷
-tomorrow = 翌日"""
+tomorrow = 翌日
+
+
+[hundred-color]
+raika = 雷夏#正文#1
+yuito = 結人#正文#1
+keigo = 惠吾#正文#1
+lightgreen = 浅绿色#正文#1
+brightgreen = 荧光绿#正文#1
+skyblue = 天蓝色#正文#1
+brown = 棕色#正文#1
+undefined = 未定义#正文#1
+
+[hundred-white]
+text = 正文
+
+[hundred-game]
+text = 正文"""
 
 
 def setGlobalConfig(part, key, value):
@@ -160,6 +182,32 @@ Style: 旁白,Source Han Serif CN Heavy,105,&H00000000,&H00FFFFFF,&H00FFFFFF,&H9
 Style: 开场白,Source Han Sans CN Heavy,110,&H00FFFFFF,&H00FFFFFF,&H00000000,&H910E0807,-1,0,0,0,100,100,2,0,1,7,4,2,135,135,20,1
 Style: 转场#1,TsangerYuYangT W02,100,&H00FFFFFF,&H000000FF,&H00151833,&H00000000,-1,0,0,0,100,100,0,0,1,8,0,2,10,10,330,1
 Style: 转场#2,TsangerYuYangT W02,100,&H00FFFFFF,&H000000FF,&H00FFFFFF,&H00000000,-1,0,0,0,100,100,0,0,1,12,4,2,10,10,330,1"""
+        )
+
+    if not os.path.exists(HN_colorStylePath):
+        open(HN_colorStylePath, 'w', encoding='utf-8').write(
+            """Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: 雷夏#正文#1,思源黑体 CN Heavy,90,&H0042C2F5,&H00FFFFFF,&H00000000,&H00FFFFFF,0,0,0,0,100,100,1.5,0,1,8,0,2,10,10,155,1
+Style: 結人#正文#1,思源黑体 CN Heavy,90,&H00EA8EBA,&H00FFFFFF,&H00000000,&H00FFFFFF,0,0,0,0,100,100,1.5,0,1,8,0,2,10,10,155,1
+Style: 惠吾#正文#1,思源黑体 CN Heavy,90,&H00C0C0C0,&H00FFFFFF,&H00000000,&H00FFFFFF,0,0,0,0,100,100,1.5,0,1,8,0,2,10,10,155,1
+Style: 浅绿色#正文#1,思源黑体 CN Heavy,90,&H00B1DA7B,&H00000000,&H00000000,&H00FFFFFF,0,0,0,0,100,100,1.5,0,1,8,0,2,10,10,155,1
+Style: 棕色#正文#1,思源黑体 CN Heavy,90,&H00678BA9,&H00FFFFFF,&H00000000,&H00FFFFFF,0,0,0,0,100,100,1.5,0,1,8,0,2,10,10,155,1
+Style: 荧光绿#正文#1,思源黑体 CN Heavy,90,&H0040FD6A,&H00FFFFFF,&H00000000,&H00FFFFFF,0,0,0,0,100,100,1.5,0,1,8,0,2,10,10,155,1
+Style: 天蓝色#正文#1,思源黑体 CN Heavy,90,&H00F9CA06,&H00FFFFFF,&H00000000,&H00FFFFFF,0,0,0,0,100,100,1.5,0,1,8,0,2,10,10,155,1
+Style: 未定义#正文#1,思源黑体 CN Heavy,90,&H00FFFFFF,&H00FFFFFF,&H00000000,&H00FFFFFF,0,0,0,0,100,100,1.5,0,1,8,0,2,10,10,155,1
+Style: 白底#正文#2,思源黑体 CN Heavy,90,&H00FFFFFF,&H00000000,&H00FFFFFF,&H4B000000,0,0,0,0,100,100,1.5,0,1,12,5,2,10,10,155,1"""
+        )
+
+    if not os.path.exists(HN_whiteStylePath):
+        open(HN_whiteStylePath, 'w', encoding='utf-8').write(
+            """Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: 正文,思源黑体 Medium,75,&H00FFFFFF,&H000000FF,&H00000000,&H00000000,-1,0,0,0,100,100,2.4,0,1,2.6,0,2,10,10,90,1"""
+        )
+
+    if not os.path.exists(HN_gameStylePath):
+        open(HN_gameStylePath, 'w', encoding='utf-8').write(
+            """Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: 正文,思源黑体 CN,90,&H00FFFFFF,&H000000FF,&H00000000,&H00000000,-1,0,0,0,100,100,1.6,0,1,3,3.5,2,10,10,0,1"""
         )
 
     if not os.path.exists(styleSheetPath):

@@ -84,7 +84,7 @@
        <string notr="true"/>
       </property>
       <property name="text">
-       <string>&lt;a href=&quot;https://github.com/Echoosx/AutoSubtitle&quot; style=&quot;color: black;text-decoration: none;&quot;&gt;自动打轴机 v1.2.2&lt;/a&gt;</string>
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;https://github.com/Echoosx/AutoSubtitle&quot;&gt;&lt;span style=&quot; color:#000000;&quot;&gt;自动打轴机 v1.3.0&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
      </widget>
      <widget class="DragAcceptableQLine" name="VideoPathEdit">
@@ -551,6 +551,78 @@
        <string notr="true">isDebugSubtextGroup</string>
       </attribute>
      </widget>
+     <widget class="QRadioButton" name="HN_whiteRadioButton">
+      <property name="geometry">
+       <rect>
+        <x>340</x>
+        <y>110</y>
+        <width>51</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Microsoft YaHei</family>
+       </font>
+      </property>
+      <property name="text">
+       <string>HN</string>
+      </property>
+      <property name="checked">
+       <bool>false</bool>
+      </property>
+      <attribute name="buttonGroup">
+       <string notr="true">defaultVideoTypeGroup</string>
+      </attribute>
+     </widget>
+     <widget class="QRadioButton" name="HN_colorRadioButton">
+      <property name="geometry">
+       <rect>
+        <x>400</x>
+        <y>110</y>
+        <width>71</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Microsoft YaHei</family>
+       </font>
+      </property>
+      <property name="text">
+       <string>HN彩色</string>
+      </property>
+      <property name="checked">
+       <bool>false</bool>
+      </property>
+      <attribute name="buttonGroup">
+       <string notr="true">defaultVideoTypeGroup</string>
+      </attribute>
+     </widget>
+     <widget class="QRadioButton" name="HN_gameRadioButton">
+      <property name="geometry">
+       <rect>
+        <x>480</x>
+        <y>110</y>
+        <width>81</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Microsoft YaHei</family>
+       </font>
+      </property>
+      <property name="text">
+       <string>HN Game</string>
+      </property>
+      <property name="checked">
+       <bool>false</bool>
+      </property>
+      <attribute name="buttonGroup">
+       <string notr="true">defaultVideoTypeGroup</string>
+      </attribute>
+     </widget>
     </widget>
     <widget class="QWidget" name="advanced">
      <attribute name="title">
@@ -863,7 +935,7 @@
   <slot>setSavePathToDefault()</slot>
  </slots>
  <buttongroups>
-  <buttongroup name="isDebugSubtextGroup"/>
   <buttongroup name="defaultVideoTypeGroup"/>
+  <buttongroup name="isDebugSubtextGroup"/>
  </buttongroups>
 </ui>

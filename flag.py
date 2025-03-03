@@ -24,7 +24,9 @@ debug = False if {section: dict(config[section]) for section in config.sections(
 #                '1101010010110011010000111001000101100000000110000011100000000001']
 opening_old = ('1010001000010101100010000000010010011001001000001000100000000000', 315, 5)
 opening_new = ('1110010111001100000100010111000010010000000100000001001100000110', 184, 2)
-opening_3 = ('1010101010101100010101010011010100110101100100001010100010001000', 616, 1)
+opening_3_long = ('1000111010010001100100001100101011000011011000010011001010000110', 1450, 18)
+opening_3_short = ('1010101010101100010101010011010100110101100100001010100010001000', 616, 9)
+openings = [opening_old, opening_new, opening_3_long, opening_3_short]
 
 subtitle_head = f"""
 [Script Info]
@@ -155,50 +157,110 @@ def add_sub(subtext, begintime, endingtime, subpeople):
     sub_num += 1
 
 
-def add_op(frame_rate, begin_frame_num, new=True):
-    if not new:
-        add_sub("没有任何优点的路人男",
-                frames_to_timecode(frame_rate, begin_frame_num),
-                frames_to_timecode(frame_rate, begin_frame_num + (1.62 * frame_rate)), "Opening")
-        add_sub("在路人男面前出现的女孩，她的真实身份是...?",
-                frames_to_timecode(frame_rate, begin_frame_num + (1.62 * frame_rate)),
-                frames_to_timecode(frame_rate, begin_frame_num + (4.32 * frame_rate)), "Opening")
-        add_sub("死亡flag?",
-                frames_to_timecode(frame_rate, begin_frame_num + (4.32 * frame_rate)),
-                frames_to_timecode(frame_rate, begin_frame_num + (5.52 * frame_rate)), "Opening")
-        add_sub("路人男能成功回避死亡flag吗!?",
-                frames_to_timecode(frame_rate, begin_frame_num + (5.52 * frame_rate)),
-                frames_to_timecode(frame_rate, begin_frame_num + (8.22 * frame_rate)), "Opening")
-        add_sub("全力回避flag酱!",
-                frames_to_timecode(frame_rate, begin_frame_num + (8.22 * frame_rate)),
-                frames_to_timecode(frame_rate, begin_frame_num + (10.59 * frame_rate)), "Opening")
-    else:
-        # add_sub("立起来了!",
-        #         frames_to_timecode(frame_rate, begin_frame_num + (2.77 * frame_rate)),
-        #         frames_to_timecode(frame_rate, begin_frame_num + (4.0 * frame_rate)), "Opening")
-        # add_sub("全力回避flag酱!",
-        #         frames_to_timecode(frame_rate, begin_frame_num + (4.86 * frame_rate)),
-        #         frames_to_timecode(frame_rate, begin_frame_num + (6.99 * frame_rate)), "Opening")
-
-        # op_3
-        add_sub("绝对回收Death Flag决不放弃", frames_to_timecode(frame_rate, begin_frame_num + (1.708 * frame_rate)),
-                frames_to_timecode(frame_rate, begin_frame_num + (5.3 * frame_rate)), "Opening")
-        add_sub("干劲满满!", frames_to_timecode(frame_rate, begin_frame_num + (5.583 * frame_rate)),
-                frames_to_timecode(frame_rate, begin_frame_num + (7.583 * frame_rate)), "Opening")
-        add_sub("却总是失败的死神啊!", frames_to_timecode(frame_rate, begin_frame_num + (7.583 * frame_rate)),
-                frames_to_timecode(frame_rate, begin_frame_num + (10.542 * frame_rate)), "Opening")
-        add_sub("但是下次一定会成功回收!", frames_to_timecode(frame_rate, begin_frame_num + (10.542 * frame_rate)),
-                frames_to_timecode(frame_rate, begin_frame_num + (13.043 * frame_rate)), "Opening")
-        add_sub("绝对回收! 绝对回收! 绝对回收!", frames_to_timecode(frame_rate, begin_frame_num + (13.043 * frame_rate)),
-                frames_to_timecode(frame_rate, begin_frame_num + (15.292 * frame_rate)), "Opening")
-        add_sub("Flag绝对回收! 绝对回收!", frames_to_timecode(frame_rate, begin_frame_num + (15.292 * frame_rate)),
-                frames_to_timecode(frame_rate, begin_frame_num + (17.25 * frame_rate)), "Opening")
-        add_sub("DeDeDe Death Flag", frames_to_timecode(frame_rate, begin_frame_num + (17.25 * frame_rate)),
-                frames_to_timecode(frame_rate, begin_frame_num + (18.292 * frame_rate)), "Opening")
-        add_sub("绝对回收! 绝对回收! 绝对回收!", frames_to_timecode(frame_rate, begin_frame_num + (18.292 * frame_rate)),
-                frames_to_timecode(frame_rate, begin_frame_num + (20.333 * frame_rate)), "Opening")
-        add_sub("Flag绝对回收! 绝对回收! Death Flag", frames_to_timecode(frame_rate, begin_frame_num + (20.333 * frame_rate)),
-                frames_to_timecode(frame_rate, begin_frame_num + (25.709 * frame_rate)), "Opening")
+def add_op(frame_rate, begin_frame_num, opType):
+    match opType:
+        case 0:
+            add_sub("没有任何优点的路人男",
+                    frames_to_timecode(frame_rate, begin_frame_num),
+                    frames_to_timecode(frame_rate, begin_frame_num + (1.62 * frame_rate)), "Opening")
+            add_sub("在路人男面前出现的女孩，她的真实身份是...?",
+                    frames_to_timecode(frame_rate, begin_frame_num + (1.62 * frame_rate)),
+                    frames_to_timecode(frame_rate, begin_frame_num + (4.32 * frame_rate)), "Opening")
+            add_sub("死亡flag?",
+                    frames_to_timecode(frame_rate, begin_frame_num + (4.32 * frame_rate)),
+                    frames_to_timecode(frame_rate, begin_frame_num + (5.52 * frame_rate)), "Opening")
+            add_sub("路人男能成功回避死亡flag吗!?",
+                    frames_to_timecode(frame_rate, begin_frame_num + (5.52 * frame_rate)),
+                    frames_to_timecode(frame_rate, begin_frame_num + (8.22 * frame_rate)), "Opening")
+            add_sub("全力回避flag酱!",
+                    frames_to_timecode(frame_rate, begin_frame_num + (8.22 * frame_rate)),
+                    frames_to_timecode(frame_rate, begin_frame_num + (10.59 * frame_rate)), "Opening")
+        case 1:
+            add_sub("立起来了!",
+                    frames_to_timecode(frame_rate, begin_frame_num + (2.77 * frame_rate)),
+                    frames_to_timecode(frame_rate, begin_frame_num + (4.0 * frame_rate)), "Opening")
+            add_sub("全力回避flag酱!",
+                    frames_to_timecode(frame_rate, begin_frame_num + (4.86 * frame_rate)),
+                    frames_to_timecode(frame_rate, begin_frame_num + (6.99 * frame_rate)), "Opening")
+        case 2:
+            add_sub("flag回收",
+                    frames_to_timecode(frame_rate, begin_frame_num + (0.40 * frame_rate)),
+                    frames_to_timecode(frame_rate, begin_frame_num + (2.15 * frame_rate)), "narrator")
+            add_sub("是引导灵魂走向正确的命运的",
+                    frames_to_timecode(frame_rate, begin_frame_num + (2.15 * frame_rate)),
+                    frames_to_timecode(frame_rate, begin_frame_num + (4.82 * frame_rate)), "narrator")
+            add_sub("天界之使命",
+                    frames_to_timecode(frame_rate, begin_frame_num + (4.82 * frame_rate)),
+                    frames_to_timecode(frame_rate, begin_frame_num + (6.69 * frame_rate)), "narrator")
+            add_sub("而威胁flag回收的存在——",
+                    frames_to_timecode(frame_rate, begin_frame_num + (6.69 * frame_rate)),
+                    frames_to_timecode(frame_rate, begin_frame_num + (9.23 * frame_rate)), "narrator")
+            add_sub("恶魔，从地狱出现了",
+                    frames_to_timecode(frame_rate, begin_frame_num + (9.23 * frame_rate)),
+                    frames_to_timecode(frame_rate, begin_frame_num + (11.86 * frame_rate)), "narrator")
+            add_sub("没能被回收flag的灵魂",
+                    frames_to_timecode(frame_rate, begin_frame_num + (11.86 * frame_rate)),
+                    frames_to_timecode(frame_rate, begin_frame_num + (14.15 * frame_rate)), "narrator")
+            add_sub("会因为走向错误的命运而堕入地狱",
+                    frames_to_timecode(frame_rate, begin_frame_num + (14.15 * frame_rate)),
+                    frames_to_timecode(frame_rate, begin_frame_num + (17.65 * frame_rate)), "narrator")
+            add_sub("为了阻止试图扩大地狱势力的恶魔",
+                    frames_to_timecode(frame_rate, begin_frame_num + (17.65 * frame_rate)),
+                    frames_to_timecode(frame_rate, begin_frame_num + (20.78 * frame_rate)), "narrator")
+            add_sub("flag们今天也要战斗!",
+                    frames_to_timecode(frame_rate, begin_frame_num + (20.78 * frame_rate)),
+                    frames_to_timecode(frame_rate, begin_frame_num + (22.69 * frame_rate)), "narrator")
+            add_sub("绝对回收Death Flag决不放弃",
+                    frames_to_timecode(frame_rate, begin_frame_num + (24.48 * frame_rate)),
+                    frames_to_timecode(frame_rate, begin_frame_num + (28.04 * frame_rate)), "Opening")
+            add_sub("干劲满满!",
+                    frames_to_timecode(frame_rate, begin_frame_num + (28.32 * frame_rate)),
+                    frames_to_timecode(frame_rate, begin_frame_num + (30.32 * frame_rate)), "Opening")
+            add_sub("却总是失败的死神啊!",
+                    frames_to_timecode(frame_rate, begin_frame_num + (30.32 * frame_rate)),
+                    frames_to_timecode(frame_rate, begin_frame_num + (32.90 * frame_rate)), "Opening")
+            add_sub("但是下次一定会成功回收!",
+                    frames_to_timecode(frame_rate, begin_frame_num + (32.90 * frame_rate)),
+                    frames_to_timecode(frame_rate, begin_frame_num + (35.73 * frame_rate)), "Opening")
+            add_sub("绝对回收! 绝对回收! 绝对回收!",
+                    frames_to_timecode(frame_rate, begin_frame_num + (35.73 * frame_rate)),
+                    frames_to_timecode(frame_rate, begin_frame_num + (37.98 * frame_rate)), "Opening")
+            add_sub("Flag绝对回收! 绝对回收!",
+                    frames_to_timecode(frame_rate, begin_frame_num + (37.98 * frame_rate)),
+                    frames_to_timecode(frame_rate, begin_frame_num + (39.94 * frame_rate)), "Opening")
+            add_sub("DeDeDe Death Flag",
+                    frames_to_timecode(frame_rate, begin_frame_num + (39.94 * frame_rate)),
+                    frames_to_timecode(frame_rate, begin_frame_num + (40.98 * frame_rate)), "Opening")
+            add_sub("绝对回收! 绝对回收! 绝对回收!",
+                    frames_to_timecode(frame_rate, begin_frame_num + (40.98 * frame_rate)),
+                    frames_to_timecode(frame_rate, begin_frame_num + (43.03 * frame_rate)), "Opening")
+            add_sub("Flag绝对回收! 绝对回收! Death Flag",
+                    frames_to_timecode(frame_rate, begin_frame_num + (43.03 * frame_rate)),
+                    frames_to_timecode(frame_rate, begin_frame_num + (48.43 * frame_rate)), "Opening")
+        case 3:
+            # op_3
+            add_sub("绝对回收Death Flag决不放弃",
+                    frames_to_timecode(frame_rate, begin_frame_num + (1.708 * frame_rate)),
+                    frames_to_timecode(frame_rate, begin_frame_num + (5.3 * frame_rate)), "Opening")
+            add_sub("干劲满满!", frames_to_timecode(frame_rate, begin_frame_num + (5.583 * frame_rate)),
+                    frames_to_timecode(frame_rate, begin_frame_num + (7.583 * frame_rate)), "Opening")
+            add_sub("却总是失败的死神啊!", frames_to_timecode(frame_rate, begin_frame_num + (7.583 * frame_rate)),
+                    frames_to_timecode(frame_rate, begin_frame_num + (10.542 * frame_rate)), "Opening")
+            add_sub("但是下次一定会成功回收!", frames_to_timecode(frame_rate, begin_frame_num + (10.542 * frame_rate)),
+                    frames_to_timecode(frame_rate, begin_frame_num + (13.043 * frame_rate)), "Opening")
+            add_sub("绝对回收! 绝对回收! 绝对回收!",
+                    frames_to_timecode(frame_rate, begin_frame_num + (13.043 * frame_rate)),
+                    frames_to_timecode(frame_rate, begin_frame_num + (15.292 * frame_rate)), "Opening")
+            add_sub("Flag绝对回收! 绝对回收!", frames_to_timecode(frame_rate, begin_frame_num + (15.292 * frame_rate)),
+                    frames_to_timecode(frame_rate, begin_frame_num + (17.25 * frame_rate)), "Opening")
+            add_sub("DeDeDe Death Flag", frames_to_timecode(frame_rate, begin_frame_num + (17.25 * frame_rate)),
+                    frames_to_timecode(frame_rate, begin_frame_num + (18.292 * frame_rate)), "Opening")
+            add_sub("绝对回收! 绝对回收! 绝对回收!",
+                    frames_to_timecode(frame_rate, begin_frame_num + (18.292 * frame_rate)),
+                    frames_to_timecode(frame_rate, begin_frame_num + (20.333 * frame_rate)), "Opening")
+            add_sub("Flag绝对回收! 绝对回收! Death Flag",
+                    frames_to_timecode(frame_rate, begin_frame_num + (20.333 * frame_rate)),
+                    frames_to_timecode(frame_rate, begin_frame_num + (25.709 * frame_rate)), "Opening")
 
 
 # 视频帧总数
@@ -212,7 +274,7 @@ sub_num = 1
 Err = False
 
 
-def autosub(videopath, subpath, newOP=False):
+def autosub(videopath, subpath, opType):
     start = time.time()
     # global op_match_times
     global op
@@ -233,9 +295,7 @@ def autosub(videopath, subpath, newOP=False):
     global outputFile
     global identity_pass
 
-    # opening = opening_new if newOP else opening_old
-    # op_3
-    opening = opening_3 if newOP else opening_old
+    opening = openings[opType]
     outputFile = open(subpath, 'w', encoding='utf-8')
     outputFile.write(subtitle_head.replace("$$FILE$$", os.path.abspath(videopath)))
     source_video = cv2.VideoCapture(videopath)
@@ -285,7 +345,7 @@ def autosub(videopath, subpath, newOP=False):
                          opening[1], frames_to_timecode(frame_rate, current_frame_num),
                          frames_to_timecode(frame_rate, current_frame_num + opening[1] + 1)))
 
-                add_op(frame_rate, current_frame_num, newOP)
+                add_op(frame_rate, current_frame_num, opType)
                 op = True
                 for i in range(opening[1]):
                     source_video.read()

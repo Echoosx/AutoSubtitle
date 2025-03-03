@@ -24,7 +24,10 @@ class AutoSubtitle_class(QtWidgets.QMainWindow, Ui_AutoSubtitle):
         self.videoTypeList.setCurrentIndex(0)
         self.videoType = self.videoTypeList.currentIndex()
         self.finish = False
-        self.newOP = True
+        self.opTypes = ["远古OP", "旧OP", "新OP-长", "新OP-短"]
+        self.opType = 2
+        self.FlagOPcomboBox.addItems(self.opTypes)
+        self.FlagOPcomboBox.setCurrentIndex(3)
         self.initAll()
         self.setWindowFlag(Qt.WindowType.WindowStaysOnTopHint, True)
         self.Title.setOpenExternalLinks(True)
@@ -134,16 +137,16 @@ class AutoSubtitle_class(QtWidgets.QMainWindow, Ui_AutoSubtitle):
     def updateVideoType(self):
         self.videoType = self.videoTypeList.currentIndex()
         if self.videoType == 0:
-            self.FlagNewOPcheckBox.setEnabled(True)
+            self.FlagOPcomboBox.setEnabled(True)
             print(f'当前视频类型: 全力回避flag酱')
         elif self.videoType == 1:
-            self.FlagNewOPcheckBox.setEnabled(False)
+            self.FlagOPcomboBox.setEnabled(False)
             print(f'当前视频类型: 混血万事屋')
         elif self.videoType == 2:
-            self.FlagNewOPcheckBox.setEnabled(False)
+            self.FlagOPcomboBox.setEnabled(False)
             print(f'当前视频类型: HundredNote')
         elif self.videoType == 3:
-            self.FlagNewOPcheckBox.setEnabled(False)
+            self.FlagOPcomboBox.setEnabled(False)
             print(f'当前视频类型: HundredNote彩色版')
 
     def raiseOpenFile(self):
@@ -182,8 +185,8 @@ class AutoSubtitle_class(QtWidgets.QMainWindow, Ui_AutoSubtitle):
         return path.split('.')[-1] == "ass"
 
     def updateOPstyle(self):
-        self.newOP = self.FlagNewOPcheckBox.isChecked()
-        print(f'NewOP: {str(self.newOP)}')
+        self.opTpye = self.FlagOPcomboBox.currentIndex()
+        print(f"opType: {self.opTypes[self.opTpye]}")
 
     def tryToStart(self):
         self.checkOpenPath()
@@ -347,7 +350,7 @@ def runGUI():
     GUI_mainWindow.setFixedSize(GUI_mainWindow.width(), GUI_mainWindow.height())
     GUI_mainWindow.show()
     GUI_APP.exec()
-    return GUI_mainWindow.openPath, GUI_mainWindow.savePath, GUI_mainWindow.videoType, GUI_mainWindow.newOP
+    return GUI_mainWindow.openPath, GUI_mainWindow.savePath, GUI_mainWindow.videoType, GUI_mainWindow.opTpye
 
 
 if __name__ == "__main__":

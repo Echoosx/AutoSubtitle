@@ -118,16 +118,22 @@ def get_people(img):
     lightgreen_rate = get_color_rate(img, np.array([51, 61, 242]), np.array([62, 131, 255]))
     kami_rate = get_color_rate(img, np.array([22, 16, 231]), np.array([36, 83, 255]))
     winered_rate = get_color_rate(img, np.array([158, 183, 169]), np.array([167, 252, 221]))
-    darkred_rate = get_color_rate(img, np.array([172, 221, 175]), np.array([177, 255, 233]))
-
+    # 不常用的颜色
+    # darkred_rate = get_color_rate(img, np.array([172, 221, 175]), np.array([177, 255, 233]))
+    # new pattern
+    fen_rate = get_color_rate(img, np.array([2, 161, 191]), np.array([36, 241, 253]))
+    mashiro_rate = get_color_rate(img, np.array([6, 112, 110]), np.array([17, 253, 155]))
+    siratuchi_rate = get_color_rate(img, np.array([0, 178, 120]), np.array([180, 244, 224]))
+    rerooze_rate = get_color_rate(img, np.array([127, 111, 170]), np.array([164, 212, 248]))
+    # new pattern
     narrator_rate = get_color_rate(img, np.array([0, 0, 225]), np.array([175, 5, 255]))
 
-    rate_list = [mobuo_rate, flag_rate, renai_rate, seizon_rate, mobumi_rate, lightpurple_rate, dongyun_rate,
+    rate_list = [mobuo_rate, flag_rate, renai_rate, seizon_rate, mobumi_rate, fen_rate, mashiro_rate, siratuchi_rate , rerooze_rate, lightpurple_rate, dongyun_rate,
                  yanghong_rate, siturenn_rate, rose_rate, green_rate, hametsu_rate, nana_rate, red_rate, lightpink_rate,
-                 blue_rate, lightgreen_rate, kami_rate, winered_rate, darkred_rate]
-    people_list = ["mobuo", "flag", "renai", "seizon", "mobumi", "lightpurple", "dongyun", "yanghong", "siturenn",
+                 blue_rate, lightgreen_rate, kami_rate, winered_rate]
+    people_list = ["mobuo", "flag", "renai", "seizon", "mobumi", "fen", "mashiro", "siratuchi", "rerooze", "lightpurple", "dongyun", "yanghong", "siturenn",
                    "rose", "green", "hametsu", "nana", "red", "lightpink", "blue", "lightgreen", "kami",
-                   "winered", "darkred"]
+                   "winered"]
     max_rate = max(rate_list)
     if max_rate < 0.2:
         if narrator_rate > 25:

@@ -25,7 +25,7 @@ class AutoSubtitle_class(QtWidgets.QMainWindow, Ui_AutoSubtitle):
         self.videoType = self.videoTypeList.currentIndex()
         self.finish = False
         self.opTypes = ["远古OP", "旧OP", "新OP-长", "新OP-短"]
-        self.opType = 2
+        self.opType = 3
         self.FlagOPcomboBox.addItems(self.opTypes)
         self.FlagOPcomboBox.setCurrentIndex(3)
         self.initAll()

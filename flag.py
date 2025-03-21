@@ -60,7 +60,7 @@ for key, subkey in config_dict.items():
         subkey['disabled'] = True
     else:
         subkey['disabled'] = False
-print(config_dict)
+# print(config_dict)
 
 
 def phash(img):
@@ -156,7 +156,7 @@ def get_people(img):
                  for key, subkey in config_dict.items()
                  if 'filter_lower' in config_dict[key] and 'filter_upper' in config_dict[key]
                  and not config_dict[key]['disabled']]
-    print(dict(zip(people_list, rate_list)))
+    # print(dict(zip(people_list, rate_list)))
     max_rate = max(rate_list)
     if max_rate < 0.2:
         if narrator_rate > 25:

@@ -14,7 +14,156 @@ mixedStylePath = dynamicConfigRoot + 'mixed.txt'
 HN_whiteStylePath = dynamicConfigRoot + 'hn_white.txt'
 HN_colorStylePath = dynamicConfigRoot + 'hn_color.txt'
 HN_gameStylePath = dynamicConfigRoot + 'hn_game.txt'
+# testing
+flagConfigPath = dynamicConfigRoot + 'flag_config.ini'
+flagConfigBackup = """[mobuo]
+style = 路人男#正文#1
+filter_lower = 101,125,212
+filter_upper = 106,211,255
 
+[flag]
+style = 死亡flag#正文#1
+filter_lower = 30,130,244
+filter_upper = 35,205,255
+
+[seizon]
+style = 生存flag#正文#1
+filter_lower = 73,89,231
+filter_upper = 81,179,255
+
+[renai]
+style = 恋爱flag#正文#1
+filter_lower = 148,52,214
+filter_upper = 159,103,255
+
+[mobumi]
+style = 小美#正文#1
+filter_lower = 20,57,217
+filter_upper = 28,120,255
+
+[lightpurple]
+style = 淡紫色#正文#1
+filter_lower = 126,88,159
+filter_upper = 134,141,227
+
+[dongyun]
+style = 东云色#正文#1
+filter_lower = 0,83,225
+filter_upper = 10,125,255
+
+[yanghong]
+style = 洋红色#正文#1
+filter_lower = 159,168,198
+filter_upper = 165,219,240
+
+[siturenn]
+style = 失恋flag#正文#1
+filter_lower = 84,56,214
+filter_upper = 95,130,255
+
+[hametsu]
+style = 毁灭flag#正文#1
+filter_lower = 82,167,199
+filter_upper = 87,247,255
+
+[lightgreen]
+style = 死神No.13#正文#1
+filter_lower = 51,61,242
+filter_upper = 62,131,255
+
+[fen]
+style = 芬#正文#1
+filter_lower = 2,161,191
+filter_upper = 36,241,253
+
+[mashiro]
+style = 真白老师#正文黑#1
+filter_lower = 6,112,110
+filter_upper = 17,253,155
+
+[siratuchi]
+style = 白土#正文#1
+filter_lower = 0,190,161
+filter_upper = 179,234,216
+disabled = 1
+
+[rerooze]
+style = 雷洛泽#正文#1
+filter_lower = 139,116,188
+filter_upper = 161,198,233
+
+[rose]
+style = 玫瑰色#正文#1
+filter_lower = 168,122,172
+filter_upper = 172,210,245
+disabled = 1
+
+[winered]
+style = 酒红色#正文#1
+filter_lower = 158,183,169
+filter_upper = 167,252,221
+disabled = 1
+
+[kami]
+style = 神#正文#1
+filter_lower = 22,16,231
+filter_upper = 36,83,255
+
+[darkred]
+style = 深红色#正文#1
+filter_lower = 172,221,175
+filter_upper = 177,255,233
+
+[green]
+style = 绿色#正文#1
+filter_lower = 55,53,191
+filter_upper = 72,117,235
+
+[nana]
+style = 娜娜#正文#1
+filter_lower = 1,118,190
+filter_upper = 7,176,254
+
+[red]
+style = 愤怒#正文#1
+filter_lower = 164,139,195
+filter_upper = 176,190,231
+
+[purple]
+style = 贪婪#正文#1
+filter_lower = 135,52,159
+filter_upper = 147,145,225
+
+[lightpink]
+style = 嫉妒#正文#1
+filter_lower = 158,95,202
+filter_upper = 166,149,255
+
+[orange]
+style = 橙色#正文#1
+filter_lower = 3,109,192
+filter_upper = 11,183,250
+
+[blue]
+style = 蓝色#正文#1
+filter_lower = 117,96,194
+filter_upper = 125,145,252
+
+[undefined]
+style = 未定义#正文#1
+
+[Opening]
+style = 开场白
+
+[trans]
+style = 转场#1
+
+[narrator]
+style = 旁白#1
+filter_lower = 0,0,225
+filter_upper = 175,5,255
+disabled = 1
+"""
 styleSheetBackup = """[flag]
 mobuo = 路人男#正文#1
 flag = 死亡flag#正文#1
@@ -38,7 +187,9 @@ darkred = 深红色#正文#1
 green = 绿色#正文#1
 nana = 娜娜#正文#1
 red = 愤怒#正文#1
+purple = 贪婪#正文#1
 lightpink = 嫉妒#正文#1
+orange = 橙色#正文#1
 blue = 蓝色#正文#1
 undefined = 未定义#正文#1
 Opening = 开场白
@@ -223,3 +374,6 @@ Style: 正文,思源黑体 CN,90,&H00FFFFFF,&H000000FF,&H00000000,&H00000000,-1,
 
     if not os.path.exists(styleSheetPath):
         open(styleSheetPath, 'w', encoding='utf-8').write(styleSheetBackup)
+
+    if not os.path.exists(flagConfigPath):
+        open(flagConfigPath, 'w', encoding='utf-8').write(flagConfigBackup)

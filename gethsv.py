@@ -14,7 +14,7 @@ def nothing(x):
 # img_original = cv2.imread("demo/mixed/hisa.jpg")[970:1070, 360:1540]
 
 # flag
-img_original = cv2.imread("demo/masiro.png")[915:1070, 360:1540]
+img_original = cv2.imread("test/siratuchi.png")[915:1070, 360:1540]
 
 # 颜色空间的转换
 img_hsv = cv2.cvtColor(img_original, cv2.COLOR_BGR2HSV)
@@ -41,7 +41,9 @@ while (1):
     img_specifiedColor = cv2.bitwise_and(img_original, img_original, mask=img_target)
     cv2.imshow(winName, img_specifiedColor)
     if cv2.waitKey(1) == ord('q'):
-        print("get_color_rate(img, np.array([{}, {}, {}]), np.array([{}, {}, {}]))".format(lowerbH, lowerbS, lowerbV,
-                                                                                           upperbH, upperbS, upperbV))
+        # print("get_color_rate(img, np.array([{}, {}, {}]), np.array([{}, {}, {}]))".format(lowerbH, lowerbS, lowerbV,
+        #                                                                                    upperbH, upperbS, upperbV))
+        print("filter_lower = {},{},{}\nfilter_upper = {},{},{}".format(lowerbH, lowerbS, lowerbV,
+                                                                    upperbH, upperbS, upperbV))
         break
 cv2.destroyAllWindows()

@@ -374,3 +374,6 @@ Style: 正文,思源黑体 CN,90,&H00FFFFFF,&H000000FF,&H00000000,&H00000000,-1,
 
     if not os.path.exists(styleSheetPath):
         open(styleSheetPath, 'w', encoding='utf-8').write(styleSheetBackup)
+
+    if not os.path.exists(flagConfigPath):
+        open(styleSheetPath, 'w', encoding='utf-8').write(flagConfigBackup)

@@ -5,7 +5,7 @@ import time
 import os
 import numpy as np
 import configparser
-from config import flagStylePath, globalConfigPath, styleSheetPath
+from config import flagStylePath, globalConfigPath, styleSheetPath, flagConfigPath
 
 # import easygui as eg
 
@@ -48,6 +48,19 @@ Video File: $$FILE$$
 [Events]
 Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
 """
+config2 = configparser.ConfigParser()
+config2.read(flagConfigPath, encoding='utf-8')
+config_dict = {section: dict(config2[section]) for section in config2.sections()}
+for key, subkey in config_dict.items():
+    if 'filter_lower' in subkey:
+        subkey['filter_lower'] = [int(i) for i in subkey['filter_lower'].split(',')]
+    if 'filter_upper' in subkey:
+        subkey['filter_upper'] = [int(i) for i in subkey['filter_upper'].split(',')]
+    if 'disabled' in subkey and config2.getboolean(key, 'disabled'):
+        subkey['disabled'] = True
+    else:
+        subkey['disabled'] = False
+print(config_dict)
 
 
 def phash(img):
@@ -99,41 +112,51 @@ def frames_to_timecode(framerate, frames):
 
 
 def get_people(img):
-    mobuo_rate = get_color_rate(img, np.array([101, 125, 212]), np.array([106, 211, 255]))
-    flag_rate = get_color_rate(img, np.array([30, 130, 244]), np.array([35, 205, 255]))
-    renai_rate = get_color_rate(img, np.array([148, 52, 214]), np.array([159, 103, 255]))
-    seizon_rate = get_color_rate(img, np.array([73, 89, 231]), np.array([81, 179, 255]))
-    mobumi_rate = get_color_rate(img, np.array([20, 57, 217]), np.array([28, 120, 255]))
-    lightpurple_rate = get_color_rate(img, np.array([126, 88, 159]), np.array([134, 141, 227]))
-    dongyun_rate = get_color_rate(img, np.array([0, 83, 225]), np.array([10, 125, 255]))
-    yanghong_rate = get_color_rate(img, np.array([159, 168, 198]), np.array([165, 219, 240]))
-    siturenn_rate = get_color_rate(img, np.array([84, 56, 214]), np.array([95, 130, 255]))
-    rose_rate = get_color_rate(img, np.array([168, 122, 172]), np.array([172, 210, 245]))
-    green_rate = get_color_rate(img, np.array([55, 53, 191]), np.array([72, 117, 235]))
-    hametsu_rate = get_color_rate(img, np.array([82, 167, 199]), np.array([87, 247, 255]))
-    nana_rate = get_color_rate(img, np.array([3, 109, 192]), np.array([11, 183, 250]))
-    red_rate = get_color_rate(img, np.array([164, 139, 195]), np.array([176, 190, 231]))
-    lightpink_rate = get_color_rate(img, np.array([158, 95, 202]), np.array([166, 149, 255]))
-    blue_rate = get_color_rate(img, np.array([117, 96, 194]), np.array([125, 145, 252]))
-    lightgreen_rate = get_color_rate(img, np.array([51, 61, 242]), np.array([62, 131, 255]))
-    kami_rate = get_color_rate(img, np.array([22, 16, 231]), np.array([36, 83, 255]))
-    winered_rate = get_color_rate(img, np.array([158, 183, 169]), np.array([167, 252, 221]))
-    # 不常用的颜色
-    # darkred_rate = get_color_rate(img, np.array([172, 221, 175]), np.array([177, 255, 233]))
-    # new pattern
-    fen_rate = get_color_rate(img, np.array([2, 161, 191]), np.array([36, 241, 253]))
-    mashiro_rate = get_color_rate(img, np.array([6, 112, 110]), np.array([17, 253, 155]))
-    siratuchi_rate = get_color_rate(img, np.array([0, 178, 120]), np.array([180, 244, 224]))
-    rerooze_rate = get_color_rate(img, np.array([127, 111, 170]), np.array([164, 212, 248]))
+    # mobuo_rate = get_color_rate(img, np.array([101, 125, 212]), np.array([106, 211, 255]))
+    # flag_rate = get_color_rate(img, np.array([30, 130, 244]), np.array([35, 205, 255]))
+    # renai_rate = get_color_rate(img, np.array([148, 52, 214]), np.array([159, 103, 255]))
+    # seizon_rate = get_color_rate(img, np.array([73, 89, 231]), np.array([81, 179, 255]))
+    # mobumi_rate = get_color_rate(img, np.array([20, 57, 217]), np.array([28, 120, 255]))
+    # lightpurple_rate = get_color_rate(img, np.array([126, 88, 159]), np.array([134, 141, 227]))
+    # dongyun_rate = get_color_rate(img, np.array([0, 83, 225]), np.array([10, 125, 255]))
+    # yanghong_rate = get_color_rate(img, np.array([159, 168, 198]), np.array([165, 219, 240]))
+    # siturenn_rate = get_color_rate(img, np.array([84, 56, 214]), np.array([95, 130, 255]))
+    # rose_rate = get_color_rate(img, np.array([168, 122, 172]), np.array([172, 210, 245]))
+    # green_rate = get_color_rate(img, np.array([55, 53, 191]), np.array([72, 117, 235]))
+    # hametsu_rate = get_color_rate(img, np.array([82, 167, 199]), np.array([87, 247, 255]))
+    # # nana_rate = get_color_rate(img, np.array([3, 109, 192]), np.array([11, 183, 250]))
+    # nana_rate = get_color_rate(img, np.array([1, 118, 190]), np.array([7, 176, 254]))
+    # orange_rate = get_color_rate(img, np.array([3, 109, 192]), np.array([11, 183, 250]))
+    # purple_rate = get_color_rate(img, np.array([135, 52, 159]), np.array([147, 145, 225]))
+    # red_rate = get_color_rate(img, np.array([164, 139, 195]), np.array([176, 190, 231]))
+    # lightpink_rate = get_color_rate(img, np.array([158, 95, 202]), np.array([166, 149, 255]))
+    # blue_rate = get_color_rate(img, np.array([117, 96, 194]), np.array([125, 145, 252]))
+    # lightgreen_rate = get_color_rate(img, np.array([51, 61, 242]), np.array([62, 131, 255]))
+    # kami_rate = get_color_rate(img, np.array([22, 16, 231]), np.array([36, 83, 255]))
+    # # 不常用的颜色
+    # # winered_rate = get_color_rate(img, np.array([158, 183, 169]), np.array([167, 252, 221]))
+    # # darkred_rate = get_color_rate(img, np.array([172, 221, 175]), np.array([177, 255, 233]))
+    # # new pattern
+    # fen_rate = get_color_rate(img, np.array([2, 161, 191]), np.array([36, 241, 253]))
+    # mashiro_rate = get_color_rate(img, np.array([6, 112, 110]), np.array([17, 253, 155]))
+    # siratuchi_rate = get_color_rate(img, np.array([176, 213, 190]), np.array([180, 230, 210]))
+    # rerooze_rate = get_color_rate(img, np.array([139, 116, 188]), np.array([161, 198, 233]))
     # new pattern
     narrator_rate = get_color_rate(img, np.array([0, 0, 225]), np.array([175, 5, 255]))
 
-    rate_list = [mobuo_rate, flag_rate, renai_rate, seizon_rate, mobumi_rate, fen_rate, mashiro_rate, siratuchi_rate , rerooze_rate, lightpurple_rate, dongyun_rate,
-                 yanghong_rate, siturenn_rate, rose_rate, green_rate, hametsu_rate, nana_rate, red_rate, lightpink_rate,
-                 blue_rate, lightgreen_rate, kami_rate, winered_rate]
-    people_list = ["mobuo", "flag", "renai", "seizon", "mobumi", "fen", "mashiro", "siratuchi", "rerooze", "lightpurple", "dongyun", "yanghong", "siturenn",
-                   "rose", "green", "hametsu", "nana", "red", "lightpink", "blue", "lightgreen", "kami",
-                   "winered"]
+    # rate_list = [mobuo_rate, flag_rate, renai_rate, seizon_rate, mobumi_rate, fen_rate, mashiro_rate, siratuchi_rate , rerooze_rate, lightpurple_rate, dongyun_rate,
+    #              yanghong_rate, siturenn_rate, rose_rate, green_rate, hametsu_rate, nana_rate,purple_rate, red_rate, lightpink_rate, orange_rate,
+    #              blue_rate, lightgreen_rate, kami_rate]
+    # people_list = ["mobuo", "flag", "renai", "seizon", "mobumi", "fen", "mashiro", "siratuchi", "rerooze", "lightpurple", "dongyun", "yanghong", "siturenn",
+    #                "rose", "green", "hametsu", "nana","purple", "red", "lightpink","orange", "blue", "lightgreen", "kami"]
+    people_list = [key for key in config_dict
+                   if 'filter_lower' in config_dict[key] and 'filter_upper' in config_dict[key]
+                   and not config_dict[key]['disabled']]
+    rate_list = [get_color_rate(img, np.array(subkey['filter_lower']), np.array(subkey['filter_upper']))
+                 for key, subkey in config_dict.items()
+                 if 'filter_lower' in config_dict[key] and 'filter_upper' in config_dict[key]
+                 and not config_dict[key]['disabled']]
+    print(dict(zip(people_list, rate_list)))
     max_rate = max(rate_list)
     if max_rate < 0.2:
         if narrator_rate > 25:
@@ -146,13 +169,15 @@ def get_people(img):
     return people_list[rate_list.index(max_rate)]
 
 
+# def people2style(people):
+#     config = configparser.ConfigParser()
+#     config.read(styleSheetPath, encoding='utf-8')
+#
+#     style_dict = {section: dict(config[section]) for section in config.sections()}['flag']
+#     return style_dict[people.lower()]
+
 def people2style(people):
-    config = configparser.ConfigParser()
-    config.read(styleSheetPath, encoding='utf-8')
-
-    style_dict = {section: dict(config[section]) for section in config.sections()}['flag']
-    return style_dict[people.lower()]
-
+    return config_dict[people]['style']
 
 def add_sub(subtext, begintime, endingtime, subpeople):
     global sub_num

@@ -48,6 +48,9 @@ def main():
     elif inputList[2] == 4:
         from hundrednote_game import autosub
         autosub(inputList[0], inputList[1])
+    elif inputList[2] == 5:
+        from parako import autosub
+        autosub(inputList[0], inputList[1])
 
 
 if __name__ == '__main__':

@@ -14,8 +14,10 @@ mixedStylePath = dynamicConfigRoot + 'mixed.txt'
 HN_whiteStylePath = dynamicConfigRoot + 'hn_white.txt'
 HN_colorStylePath = dynamicConfigRoot + 'hn_color.txt'
 HN_gameStylePath = dynamicConfigRoot + 'hn_game.txt'
-# testing
+parakoStylePath = dynamicConfigRoot + 'parako.txt'
+
 flagConfigPath = dynamicConfigRoot + 'flag_config.ini'
+parakoConfigPath = dynamicConfigRoot + 'parako_config.ini'
 flagConfigBackup = """[mobuo]
 style = 路人男#正文#1
 filter_lower = 101,125,212
@@ -164,6 +166,54 @@ filter_lower = 0,0,225
 filter_upper = 175,5,255
 disabled = 1
 """
+parakoConfigBackup = """[undefined]
+style = 未定义#正文#1
+
+[hikaru]
+style = 多多光#正文#1
+filter_lower = 84,91,121
+filter_upper = 93,255,225
+
+[masa]
+style = 黑井正义#正文#1
+filter_lower = 2,87,168
+filter_upper = 11,183,255
+
+[pink]
+style = 粉色#正文#1
+filter_lower = 152,93,198
+filter_upper = 159,135,255
+
+[purple]
+style = 紫色#正文#1
+filter_lower = 138,130,155
+filter_upper = 148,183,255
+
+[red]
+style = 红色#正文#1
+filter_lower = 172,154,155
+filter_upper = 181,223,254
+
+[darkblue]
+style = 深蓝#正文#1
+filter_lower = 118,127,167
+filter_upper = 127,177,255
+
+[blue]
+style = 蓝色#正文#1
+filter_lower = 102,138,187
+filter_upper = 107,226,255
+
+[lime]
+style = 黄绿#正文#1
+filter_lower = 34,109,229
+filter_upper = 46,181,255
+
+[green]
+style = 绿色#正文#1
+filter_lower = 63,89,210
+filter_upper = 71,213,255"""
+
 styleSheetBackup = """[flag]
 mobuo = 路人男#正文#1
 flag = 死亡flag#正文#1
@@ -372,8 +422,31 @@ Style: 正文,思源黑体 Medium,75,&H00FFFFFF,&H000000FF,&H00000000,&H00000000
 Style: 正文,思源黑体 CN,90,&H00FFFFFF,&H000000FF,&H00000000,&H00000000,-1,0,0,0,100,100,1.6,0,1,3,3.5,2,10,10,0,1"""
         )
 
+    if not os.path.exists(parakoStylePath):
+        open(parakoStylePath, 'w', encoding='utf-8').write(
+            """Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: 未定义#正文#1,Resource Han Rounded CN,90,&H00C7C805,&H00FFFFFF,&H00202A34,&H910E0807,-1,0,0,0,100,100,2,0,1,3,0,2,135,135,140,1
+Style: 多多光#正文#1,Resource Han Rounded CN,90,&H00C7C805,&H00FFFFFF,&H00202A34,&H910E0807,-1,0,0,0,100,100,2,0,1,3,0,2,135,135,140,1
+Style: 黑井正义#正文#1,Resource Han Rounded CN,90,&H00587FF9,&H00FFFFFF,&H0637282C,&H910E0807,-1,0,0,0,100,100,2,0,1,3,0,2,135,135,140,1
+Style: 粉色#正文#1,Resource Han Rounded CN,90,&H00DD7EFB,&H00FFFFFF,&H00480742,&H910E0807,-1,0,0,0,100,100,2,0,1,3,0,2,135,135,140,1
+Style: 紫色#正文#1,Resource Han Rounded CN,90,&H00F954CA,&H00FFFFFF,&H003A1758,&H910E0807,-1,0,0,0,100,100,2,0,1,3,0,2,135,135,140,1
+Style: 红色#正文#1,Resource Han Rounded CN,90,&H003827F6,&H00FFFFFF,&H001A403F,&H910E0807,-1,0,0,0,100,100,2,0,1,3,0,2,135,135,140,1
+Style: 蓝色#正文#1,Resource Han Rounded CN,90,&H00F79D2A,&H00FFFFFF,&H00462F4D,&H910E0807,-1,0,0,0,100,100,2,0,1,3,0,2,135,135,140,1
+Style: 深蓝#正文#1,Resource Han Rounded CN,90,&H00FA5356,&H00FFFFFF,&H0031344D,&H910E0807,-1,0,0,0,100,100,2,0,1,3,0,2,135,135,140,1
+Style: 绿色#正文#1,Resource Han Rounded CN,90,&H006EFC3F,&H00FFFFFF,&H0023233B,&H910E0807,-1,0,0,0,100,100,2,0,1,3,0,2,135,135,140,1
+Style: 黄绿#正文#1,Resource Han Rounded CN,90,&H0054FFB2,&H00FFFFFF,&H00092748,&H910E0807,-1,0,0,0,100,100,2,0,1,3,0,2,135,135,140,1
+Style: 白色#正文#1,Resource Han Rounded CN,90,&H00FFFFFF,&H00FFFFFF,&H00222222,&H910E0807,-1,0,0,0,100,100,2,0,1,3,0,2,135,135,140,1
+Style: 黑色#正文#1,Resource Han Rounded CN,90,&H00000000,&H00FFFFFF,&H00222222,&H910E0807,-1,0,0,0,100,100,2,0,1,0,0,2,135,135,140,1
+Style: 白边框#正文#2,Resource Han Rounded CN,90,&H00FFFFFF,&H00FFFFFF,&H00FFFFFF,&H17000000,-1,0,0,0,100,100,2,0,1,10,0,2,135,135,140,1
+Style: 译注,Source Han Sans CN,80,&H00FFFFFF,&H00FFFFFF,&H00000000,&H910E0807,-1,0,0,0,100,100,2,0,1,5,2,7,50,0,50,1
+Style: 标题,Resource Han Rounded CN,120,&H00FFFFFF,&H00FFFFFF,&H00000000,&H910E0807,-1,0,0,0,100,100,2,0,1,7,0,2,135,135,160,1"""
+            )
+
     if not os.path.exists(styleSheetPath):
         open(styleSheetPath, 'w', encoding='utf-8').write(styleSheetBackup)
 
     if not os.path.exists(flagConfigPath):
         open(flagConfigPath, 'w', encoding='utf-8').write(flagConfigBackup)
+
+    if not os.path.exists(parakoConfigPath):
+        open(parakoConfigPath, 'w', encoding='utf-8').write(parakoConfigBackup)

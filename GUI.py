@@ -20,7 +20,7 @@ class AutoSubtitle_class(QtWidgets.QMainWindow, Ui_AutoSubtitle):
         self.setupUi(self)
         self.openPath = self.savePath = str()
         self.flagStylePath = self.mixedStylePath = str()
-        self.videoTypeList.addItems(["全力回避Flag酱", "混血万事屋", "HundredNote", "HundredNote彩色", "HundredNote Game"])
+        self.videoTypeList.addItems(["全力回避Flag酱", "混血万事屋", "HundredNote", "HundredNote彩色", "HundredNote Game", "超能力高校"])
         self.videoTypeList.setCurrentIndex(0)
         self.videoType = self.videoTypeList.currentIndex()
         self.finish = False
@@ -148,6 +148,12 @@ class AutoSubtitle_class(QtWidgets.QMainWindow, Ui_AutoSubtitle):
         elif self.videoType == 3:
             self.FlagOPcomboBox.setEnabled(False)
             print(f'当前视频类型: HundredNote彩色版')
+        elif self.videoType == 4:
+            self.FlagOPcomboBox.setEnabled(False)
+            print(f'当前视频类型: HundredNote Game')
+        elif self.videoType == 5:
+            self.FlagOPcomboBox.setEnabled(False)
+            print(f'当前视频类型: 超能力高校')
 
     def raiseOpenFile(self):
         video_filter = "视频 (*.webm *.mp4 *.mov *.flv *.mkv *.m4v);;All Files (*)"
@@ -317,6 +323,8 @@ class AutoSubtitle_class(QtWidgets.QMainWindow, Ui_AutoSubtitle):
             self.HN_colorRadioButton.setChecked(True)
         elif defaultVideoType == 4:
             self.HN_gameRadioButton.setChecked(True)
+        # elif defaultVideoType == 5:
+        #     self.parakoRadioButton.setChecked(True)
 
         # 字幕生成调试模式同步
         debugSubText = int(getGlobalConfig("config", "debug_subtitle"))

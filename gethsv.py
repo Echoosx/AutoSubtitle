@@ -14,7 +14,7 @@ def nothing(x):
 # img_original = cv2.imread("demo/mixed/hisa.jpg")[970:1070, 360:1540]
 
 # flag
-img_original = cv2.imread("test/siratuchi.png")[915:1070, 360:1540]
+img_original = cv2.imread("test/green.png")[915:1070, 360:1540]
 
 # 颜色空间的转换
 img_hsv = cv2.cvtColor(img_original, cv2.COLOR_BGR2HSV)

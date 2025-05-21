@@ -176,6 +176,7 @@ def get_people(img):
 def people2style(people):
     return config_dict[people]['style']
 
+
 def add_sub(subtext, begintime, endingtime, subpeople):
     global sub_num
     style = people2style(subpeople)

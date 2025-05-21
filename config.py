@@ -120,6 +120,8 @@ Style: 译注,Source Han Sans CN,80,&H00FFFFFF,&H00FFFFFF,&H00000000,&H910E0807,
 Style: 标题,Resource Han Rounded CN,120,&H00FFFFFF,&H00FFFFFF,&H00000000,&H910E0807,-1,0,0,0,100,100,2,0,1,7,0,2,135,135,160,1"""
 
 flagConfigPath = dynamicConfigRoot + 'flag_config.ini'
+mixedConfigPath = dynamicConfigRoot + 'mixed_config.ini'
+HN_colorConfigPath = dynamicConfigRoot + 'hn_color_config.ini'
 parakoConfigPath = dynamicConfigRoot + 'parako_config.ini'
 
 flagConfigBackup = """[mobuo]
@@ -255,6 +257,7 @@ style = 蓝色#正文#1
 filter_lower = 117,96,194
 filter_upper = 125,145,252
 
+;以下样式为保留样式，请勿移除
 [undefined]
 style = 未定义#正文#1
 
@@ -266,14 +269,157 @@ style = 转场#1
 
 [narrator]
 style = 旁白#1
-filter_lower = 0,0,225
-filter_upper = 175,5,255
-disabled = 1
 """
-parakoConfigBackup = """[undefined]
-style = 未定义#正文#1
+mixedConfigBackup = """[hisa]
+style = 冰雨
+filter_lower = 84,74,247
+filter_upper = 95,107,255
 
-[hikaru]
+[shidi]
+style = 希迪
+filter_lower = 28,147,249
+filter_upper = 33,207,255
+
+[kage]
+style = 千夜
+filter_lower = 174,187,193
+filter_upper = 180,255,255
+
+[yome]
+style = 约梅
+filter_lower = 15,187,223
+filter_upper = 19,255,255
+
+[botisu]
+style = 波提斯
+filter_lower = 139,58,200
+filter_upper = 149,86,226
+
+[owner]
+style = 欧娜
+filter_lower = 0,74,165
+filter_upper = 179,106,196
+
+[lightyellow]
+style = 淡黄色（洛伊可）
+filter_lower = 21,63,238
+filter_upper = 27,97,255
+
+[pink]
+style = 粉色（米提）
+filter_lower = 144,96,223
+filter_upper = 155,137,255
+
+[lightgreen]
+style = 淡绿色（路易）
+filter_lower = 60,59,248
+filter_upper = 67,84,255
+
+[brown]
+style = 棕褐色（马查索）
+filter_lower = 3,47,156
+filter_upper = 16,72,177
+
+[darkblue]
+style = 深蓝色
+filter_lower = 116,88,226
+filter_upper = 122,117,255
+
+[brightpurple]
+style = 亮紫色
+filter_lower = 134,131,224
+filter_upper = 140,160,255
+
+[fleshpink]
+style = 肉粉棕色
+filter_lower = 0,78,228
+filter_upper = 4,106,251
+
+[yellowbrown]
+style = 黄褐色
+filter_lower = 20,85,178
+filter_upper = 25,123,195
+
+[darkgreen]
+style = 深绿色
+filter_lower = 73,80,144
+filter_upper = 79,117,161
+
+[brightgreen]
+style = 荧光绿色
+filter_lower = 46,200,244
+filter_upper = 54,255,255
+
+[orangered]
+style = 橘红色
+filter_lower = 3,214,211
+filter_upper = 11,255,248
+
+[lightorange]
+style = 偏浅橘-棕框色
+filter_lower = 12,94,215
+filter_upper = 17,128,248
+
+[lightbluegreen]
+style = 浅蓝绿薄荷
+filter_lower = 76,36,195
+filter_upper = 92,62,213
+
+[tomorrow]
+style = 翌日
+filter_lower = 0,0,251
+filter_upper = 174,10,255
+
+;以下样式为保留样式，请勿移除
+[Opening]
+style = 开场白
+
+[undefined]
+style = 未定义
+
+[Trans]
+style = 转场#1
+"""
+HN_colorConfigBackup = """[raika]
+style = 雷夏#正文#1
+filter_lower = 20,158,231
+filter_upper = 25,194,255
+
+[yuito]
+style = 結人#正文#1
+filter_lower = 132,92,229
+filter_upper = 138,118,255
+
+[keigo]
+style = 惠吾#正文#1
+filter_lower = 0,0,183
+filter_upper = 0,0,200
+
+[lightgreen]
+style = 浅绿色#正文#1
+filter_lower = 69,100,230
+filter_upper = 76,121,255
+
+[brightgreen]
+style = 荧光绿#正文#1
+filter_lower = 49,163,247
+filter_upper = 55,205,255
+
+[skyblue]
+style = 天蓝色#正文#1
+filter_lower = 91,187,218
+filter_upper = 95,242,255
+
+[brown]
+style = 棕色#正文#1
+filter_lower = 11,71,157
+filter_upper = 21,111,175
+
+;以下样式为保留样式，请勿移除
+[undefined]
+style = 未定义#正文#1
+"""
+parakoConfigBackup = """[hikaru]
 style = 多多光#正文#1
 filter_lower = 84,91,121
 filter_upper = 93,255,225
@@ -316,7 +462,12 @@ filter_upper = 46,181,255
 [green]
 style = 绿色#正文#1
 filter_lower = 63,89,210
-filter_upper = 71,213,255"""
+filter_upper = 71,213,255
+
+;以下样式为保留样式，请勿移除
+[undefined]
+style = 未定义#正文#1
+"""
 
 styleSheetBackup = """[flag]
 mobuo = 路人男#正文#1
@@ -446,6 +597,12 @@ debug_subtitle = 1"""
 
     if not os.path.exists(flagConfigPath):
         open(flagConfigPath, 'w', encoding='utf-8').write(flagConfigBackup)
+
+    if not os.path.exists(mixedConfigPath):
+        open(mixedConfigPath, 'w', encoding='utf-8').write(mixedConfigBackup)
+
+    if not os.path.exists(HN_colorConfigPath):
+        open(HN_colorConfigPath, 'w', encoding='utf-8').write(HN_colorConfigBackup)
 
     if not os.path.exists(parakoConfigPath):
         open(parakoConfigPath, 'w', encoding='utf-8').write(parakoConfigBackup)

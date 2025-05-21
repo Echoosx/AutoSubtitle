@@ -5,7 +5,7 @@ import time
 import os
 import numpy as np
 import configparser
-from config import HN_colorStylePath, globalConfigPath, styleSheetPath
+from config import HN_colorStylePath, globalConfigPath, styleSheetPath, HN_colorConfigPath
 
 stylecode = open(HN_colorStylePath, 'r', encoding="utf-8").read()
 config = configparser.ConfigParser()
@@ -36,7 +36,15 @@ Video File: $$FILE$$
 [Events]
 Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
 """
-
+config2 = configparser.ConfigParser()
+config2.read(HN_colorConfigPath, encoding='utf-8')
+config_dict = {section: dict(config2[section]) for section in config2.sections()}
+for key, subkey in config_dict.items():
+    if 'filter_lower' in subkey:
+        subkey['filter_lower'] = [int(i) for i in subkey['filter_lower'].split(',')]
+    if 'filter_upper' in subkey:
+        subkey['filter_upper'] = [int(i) for i in subkey['filter_upper'].split(',')]
+    subkey['disabled'] = 'disabled' in subkey and config2.getboolean(key, 'disabled')
 
 def phash(img):
     # 加载并调整图片为32x32灰度图片
@@ -87,16 +95,22 @@ def frames_to_timecode(framerate, frames):
 
 
 def get_people(img):
-    yuito_rate = get_color_rate(img, np.array([132, 92, 229]), np.array([138, 118, 255]))
-    raika_rate = get_color_rate(img, np.array([20, 158, 231]), np.array([25, 194, 255]))
-    keigo_rate = get_color_rate(img, np.array([0, 0, 183]), np.array([0, 0, 200]))
-    lightgreen_rate = get_color_rate(img, np.array([69, 100, 230]), np.array([76, 121, 255]))
-    brown_rate = get_color_rate(img, np.array([11, 71, 157]), np.array([21, 111, 175]))
-    brightgreen_rate = get_color_rate(img, np.array([49, 163, 247]), np.array([55, 205, 255]))
-    skyblue_rate = get_color_rate(img, np.array([91, 187, 218]), np.array([95, 242, 255]))
-    rate_list = [yuito_rate, raika_rate, keigo_rate, lightgreen_rate, brown_rate, skyblue_rate, brightgreen_rate]
-    people_list = ["yuito", "raika", "keigo", "lightgreen", "brown", "skyblue", "brightgreen"]
-
+    # yuito_rate = get_color_rate(img, np.array([132, 92, 229]), np.array([138, 118, 255]))
+    # raika_rate = get_color_rate(img, np.array([20, 158, 231]), np.array([25, 194, 255]))
+    # keigo_rate = get_color_rate(img, np.array([0, 0, 183]), np.array([0, 0, 200]))
+    # lightgreen_rate = get_color_rate(img, np.array([69, 100, 230]), np.array([76, 121, 255]))
+    # brown_rate = get_color_rate(img, np.array([11, 71, 157]), np.array([21, 111, 175]))
+    # brightgreen_rate = get_color_rate(img, np.array([49, 163, 247]), np.array([55, 205, 255]))
+    # skyblue_rate = get_color_rate(img, np.array([91, 187, 218]), np.array([95, 242, 255]))
+    # rate_list = [yuito_rate, raika_rate, keigo_rate, lightgreen_rate, brown_rate, skyblue_rate, brightgreen_rate]
+    # people_list = ["yuito", "raika", "keigo", "lightgreen", "brown", "skyblue", "brightgreen"]
+    people_list = [key for key in config_dict
+                   if 'filter_lower' in config_dict[key] and 'filter_upper' in config_dict[key]
+                   and not config_dict[key]['disabled']]
+    rate_list = [get_color_rate(img, np.array(subkey['filter_lower']), np.array(subkey['filter_upper']))
+                 for key, subkey in config_dict.items()
+                 if 'filter_lower' in config_dict[key] and 'filter_upper' in config_dict[key]
+                 and not config_dict[key]['disabled']]
     max_rate = max(rate_list)
     if max_rate < 0.2:
         return "undefined"
@@ -105,11 +119,7 @@ def get_people(img):
 
 
 def people2style(people):
-    config = configparser.ConfigParser()
-    config.read(styleSheetPath, encoding='utf-8')
-
-    style_dict = {section: dict(config[section]) for section in config.sections()}['hundred-color']
-    return style_dict[people.lower()]
+    return config_dict[people]['style']
 
 
 def add_sub(subtext, begintime, endingtime, subpeople):

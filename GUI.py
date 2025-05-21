@@ -10,16 +10,20 @@ from GUI_style import Ui_AutoSubtitle
 from verifyPath import is_path_exists_or_creatable
 import configparser
 import re
-from config import (globalConfigPath, styleSheetPath,
-                    flagStylePath, mixedStylePath, HN_whiteStylePath, HN_colorStylePath, HN_gameStylePath, parakoStylePath,
-                    flagStyleBackup, mixedStyleBackup, HN_whiteStyleBackup, HN_gameStyleBackup, HN_colorStyleBackup, parakoStyleBackup
+from config import (flagStylePath, mixedStylePath, HN_whiteStylePath, HN_colorStylePath, HN_gameStylePath, parakoStylePath,
+                    flagStyleBackup, mixedStyleBackup, HN_whiteStyleBackup, HN_gameStyleBackup, HN_colorStyleBackup, parakoStyleBackup,
+                    flagConfigPath, mixedConfigPath, HN_colorConfigPath, parakoConfigPath,
+                    flagConfigBackup, mixedConfigBackup, HN_colorConfigBackup, parakoConfigBackup,
                     )
 from config import getGlobalConfig, setGlobalConfig
+from getcsv_builtin import getcsv
 
 
 class AutoSubtitle_class(QtWidgets.QMainWindow, Ui_AutoSubtitle):
     stylePathList = [flagStylePath, mixedStylePath, HN_whiteStylePath, HN_colorStylePath, HN_gameStylePath, parakoStylePath]
     styleBackupList = [flagStyleBackup, mixedStyleBackup, HN_whiteStyleBackup, HN_gameStyleBackup, HN_colorStyleBackup, parakoStyleBackup]
+    configPathList = [flagConfigPath, mixedConfigPath, HN_colorConfigPath, parakoConfigPath]
+    configBackupList = [flagConfigBackup, mixedConfigBackup, HN_colorConfigBackup, parakoConfigBackup]
     def __init__(self):
         super(AutoSubtitle_class, self).__init__()
         self.setupUi(self)
@@ -34,7 +38,7 @@ class AutoSubtitle_class(QtWidgets.QMainWindow, Ui_AutoSubtitle):
         self.styleTypeList.setCurrentIndex(0)
         self.styleType = self.styleTypeList.currentIndex()
         self.configTypeList.addItems(
-            ["全力回避Flag酱", "混血万事屋", "HundredNote", "HundredNote彩色", "HundredNote Game", "超能力高校"])
+            ["全力回避Flag酱", "混血万事屋", "HundredNote彩色", "超能力高校"])
         self.configTypeList.setCurrentIndex(0)
         self.configType = self.configTypeList.currentIndex()
         self.finish = False
@@ -234,18 +238,18 @@ class AutoSubtitle_class(QtWidgets.QMainWindow, Ui_AutoSubtitle):
 
     def updateStyleType(self):
         self.styleType = self.styleTypeList.currentIndex()
-        if self.styleType == 0:
-            print(f'当前样式表: 全力回避flag酱')
-        elif self.styleType == 1:
-            print(f'当前样式表: 混血万事屋')
-        elif self.styleType == 2:
-            print(f'当前样式表: HundredNote')
-        elif self.styleType == 3:
-            print(f'当前样式表: HundredNote彩色版')
-        elif self.styleType == 4:
-            print(f'当前样式表: HundredNote Game')
-        elif self.styleType == 5:
-            print(f'当前样式表: 超能力高校')
+        # if self.styleType == 0:
+        #     print(f'当前样式表: 全力回避flag酱')
+        # elif self.styleType == 1:
+        #     print(f'当前样式表: 混血万事屋')
+        # elif self.styleType == 2:
+        #     print(f'当前样式表: HundredNote')
+        # elif self.styleType == 3:
+        #     print(f'当前样式表: HundredNote彩色版')
+        # elif self.styleType == 4:
+        #     print(f'当前样式表: HundredNote Game')
+        # elif self.styleType == 5:
+        #     print(f'当前样式表: 超能力高校')
         with open(self.stylePathList[self.styleType], 'r', encoding='utf-8') as file:
             stylesheet = file.read()
         self.StylePathEdit.clear()
@@ -283,7 +287,6 @@ class AutoSubtitle_class(QtWidgets.QMainWindow, Ui_AutoSubtitle):
         else:
             self.StylePathEdit.clear()
 
-
     def defaultStyleSheet(self):
         self.askforResetStyleSheet_box = QMessageBox(QMessageBox.Icon.Question, '重置', '重置后，您修改的所有内容将丢失\n'
                                                                                         '是否要重置为默认内容？\n'
@@ -314,18 +317,58 @@ class AutoSubtitle_class(QtWidgets.QMainWindow, Ui_AutoSubtitle):
 
     def updateConfigType(self):
         self.configType = self.configTypeList.currentIndex()
-        if self.configType == 0:
-            print(f'当前配置文件: 全力回避flag酱')
-        elif self.configType == 1:
-            print(f'当前配置文件: 混血万事屋')
-        elif self.configType == 2:
-            print(f'当前配置文件: HundredNote')
-        elif self.configType == 3:
-            print(f'当前配置文件: HundredNote彩色版')
-        elif self.configType == 4:
-            print(f'当前配置文件: HundredNote Game')
-        elif self.configType == 5:
-            print(f'当前配置文件: 超能力高校')
+        # if self.configType == 0:
+        #     print(f'当前配置文件: 全力回避flag酱')
+        # elif self.configType == 1:
+        #     print(f'当前配置文件: 混血万事屋')
+        # elif self.configType == 2:
+        #     print(f'当前配置文件: HundredNote彩色版')
+        # elif self.configType == 3:
+        #     print(f'当前配置文件: 超能力高校')
+        with open(self.configPathList[self.configType], 'r', encoding='utf-8') as file:
+            configsheet = file.read()
+        self.configSheetEdit.setPlainText(configsheet)
+
+    def raiseImageSelect(self):
+        styleFilePath, openStatus = QFileDialog.getOpenFileName(self, '请选择图片文件', filter="图片 (*.jpg *.jpeg *.png);;All Files (*)")
+        if openStatus:
+            self.ColorPathEdit.setText(styleFilePath)
+            self.raiseGetColor()
+
+    def raiseGetColor(self):
+        imagePath = self.ColorPathEdit.text()
+        self.ColorPathEdit.setEnabled(False)
+        self.ColorChooseButton.setEnabled(False)
+        self.configColorOutput.setPlainText(getcsv(imagePath))
+        self.ColorPathEdit.setEnabled(True)
+        self.ColorChooseButton.setEnabled(True)
+
+    def defaultConfigSheet(self):
+        self.askforResetConfigSheet_box = QMessageBox(QMessageBox.Icon.Question, '重置', '重置后，您修改的所有内容将丢失\n'
+                                                                                        '是否要重置为默认内容？\n'
+                                                                                        '重置后如要保存请点击保存。\n',
+                                                     flags=Qt.WindowType.WindowStaysOnTopHint)
+        self.askforResetConfigSheet_box.setFixedSize(380, 135)
+        status_reset = self.askforResetConfigSheet_box.addButton('重置', QMessageBox.ButtonRole.YesRole)
+        self.askforResetConfigSheet_box.addButton('取消', QMessageBox.ButtonRole.NoRole)
+        self.askforResetConfigSheet_box.exec()
+        if self.askforResetConfigSheet_box.clickedButton() == status_reset:
+            self.configSheetEdit.setPlainText(self.configBackupList[self.configType])
+
+    def saveConfigSheet(self):
+        self.askforSaveConfigSheet_box = QMessageBox(QMessageBox.Icon.Question, '保存', '随意改动此文件可能会导致生成字幕样式异常或生成失败\n'
+                                                                                       '请确保您明白自己在做什么\n'
+                                                                                       '是否继续保存？\t\t\n',
+                                                    flags=Qt.WindowType.WindowStaysOnTopHint)
+        self.askforSaveConfigSheet_box.setFixedSize(380, 135)
+        status_save = self.askforSaveConfigSheet_box.addButton('保存', QMessageBox.ButtonRole.YesRole)
+        self.askforSaveConfigSheet_box.addButton('取消', QMessageBox.ButtonRole.NoRole)
+        self.askforSaveConfigSheet_box.exec()
+        if self.askforSaveConfigSheet_box.clickedButton() == status_save:
+            configsheet = self.configSheetEdit.toPlainText()
+            with open(self.configPathList[self.configType], 'w', encoding='utf-8') as file:
+                file.write(configsheet)
+            QMessageBox.information(self, "成功", "颜色配置已保存", QMessageBox.StandardButton.Ok)
 
     def saveDefaultConfig(self):
         self.askforSaveDefaultConfig_box = QMessageBox(QMessageBox.Icon.Question, '保存', '是否要保存默认配置?',

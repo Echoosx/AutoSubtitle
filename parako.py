@@ -5,18 +5,17 @@ import time
 import os
 import numpy as np
 import configparser
-from config import HN_colorStylePath, globalConfigPath, styleSheetPath, HN_colorConfigPath
+from config import parakoStylePath, globalConfigPath, parakoConfigPath
 
-stylecode = open(HN_colorStylePath, 'r', encoding="utf-8").read()
+# import easygui as eg
+
+stylecode = open(parakoStylePath, 'r', encoding="utf-8").read()
 config = configparser.ConfigParser()
 config.read(globalConfigPath)
 debug = False if {section: dict(config[section]) for section in config.sections()}['config'][
                      'debug_subtitle'] == "0" else True
 
-opening = ['1001000110010001011010010110011010010110010010010100101010010010',
-           '1100001101101100001111101101001111100001001111101001011101101001']
-
-subtitle_head = """
+subtitle_head = f"""
 [Script Info]
 Title: AutoSubtitle Aegisub file
 ScriptType: v4.00+
@@ -31,13 +30,13 @@ Audio File: $$FILE$$
 Video File: $$FILE$$
 
 [V4+ Styles]
-""" + stylecode + """
+{stylecode}
 
 [Events]
 Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
 """
 config2 = configparser.ConfigParser()
-config2.read(HN_colorConfigPath, encoding='utf-8')
+config2.read(parakoConfigPath, encoding='utf-8')
 config_dict = {section: dict(config2[section]) for section in config2.sections()}
 for key, subkey in config_dict.items():
     if 'filter_lower' in subkey:
@@ -45,6 +44,8 @@ for key, subkey in config_dict.items():
     if 'filter_upper' in subkey:
         subkey['filter_upper'] = [int(i) for i in subkey['filter_upper'].split(',')]
     subkey['disabled'] = 'disabled' in subkey and config2.getboolean(key, 'disabled')
+# print(config_dict)
+
 
 def phash(img):
     # 加载并调整图片为32x32灰度图片
@@ -57,7 +58,7 @@ def phash(img):
     img = img[0:8, 0:8]
     avg = sum(img[i, j] for i, j in itertools.product(range(8), range(8)))
     avg = avg / 64
-    # 获得hsah
+    # 获得hash
     for i, j in itertools.product(range(8), range(8)):
         hash_str = f'{hash_str}1' if img[i, j] > avg else f'{hash_str}0'
     return hash_str
@@ -95,15 +96,6 @@ def frames_to_timecode(framerate, frames):
 
 
 def get_people(img):
-    # yuito_rate = get_color_rate(img, np.array([132, 92, 229]), np.array([138, 118, 255]))
-    # raika_rate = get_color_rate(img, np.array([20, 158, 231]), np.array([25, 194, 255]))
-    # keigo_rate = get_color_rate(img, np.array([0, 0, 183]), np.array([0, 0, 200]))
-    # lightgreen_rate = get_color_rate(img, np.array([69, 100, 230]), np.array([76, 121, 255]))
-    # brown_rate = get_color_rate(img, np.array([11, 71, 157]), np.array([21, 111, 175]))
-    # brightgreen_rate = get_color_rate(img, np.array([49, 163, 247]), np.array([55, 205, 255]))
-    # skyblue_rate = get_color_rate(img, np.array([91, 187, 218]), np.array([95, 242, 255]))
-    # rate_list = [yuito_rate, raika_rate, keigo_rate, lightgreen_rate, brown_rate, skyblue_rate, brightgreen_rate]
-    # people_list = ["yuito", "raika", "keigo", "lightgreen", "brown", "skyblue", "brightgreen"]
     people_list = [key for key in config_dict
                    if 'filter_lower' in config_dict[key] and 'filter_upper' in config_dict[key]
                    and not config_dict[key]['disabled']]
@@ -111,12 +103,22 @@ def get_people(img):
                  for key, subkey in config_dict.items()
                  if 'filter_lower' in config_dict[key] and 'filter_upper' in config_dict[key]
                  and not config_dict[key]['disabled']]
+    # print(dict(zip(people_list, rate_list)))
     max_rate = max(rate_list)
     if max_rate < 0.2:
         return "undefined"
-    else:
-        return people_list[rate_list.index(max_rate)]
+    # else:
+    #     if len([x for x in rate_list if x > 4]) > 1:
+    #         return "undefined"
+    return people_list[rate_list.index(max_rate)]
 
+
+# def people2style(people):
+#     config = configparser.ConfigParser()
+#     config.read(styleSheetPath, encoding='utf-8')
+#
+#     style_dict = {section: dict(config[section]) for section in config.sections()}['flag']
+#     return style_dict[people.lower()]
 
 def people2style(people):
     return config_dict[people]['style']
@@ -135,16 +137,18 @@ def add_sub(subtext, begintime, endingtime, subpeople):
 current_frame_num = begin_frame_num = last_frame_num = 0
 last_pic_hash = ''
 op = trans = False
-op_match_times = op_bg_num = 0
+op_start_frame = 0
 identity_pass = []
+
 sub_num = 1
 Err = False
 
 
 def autosub(videopath, subpath):
     start = time.time()
-    global op_match_times
+    # global op_match_times
     global op
+    global op_start_frame
     global trans
     global last_pic_hash
     global current_frame_num
@@ -164,43 +168,50 @@ def autosub(videopath, subpath):
     outputFile = open(subpath, 'w', encoding='utf-8')
     outputFile.write(subtitle_head.replace("$$FILE$$", os.path.abspath(videopath)))
     source_video = cv2.VideoCapture(videopath)
-    global op_bg_num
-    isOpened = bool(source_video.isOpened())
-    if isOpened:
+
+    if source_video.isOpened():
         frame_rate = round(source_video.get(5), 2)
         while True:
             ret, frame = source_video.read()
+            # debug
+            # print(current_frame_num)
+            # print(phash(frame))
+
             if not ret:
                 break
 
-            current_pic = frame[950:1050, 910:1100]
+            current_pic = frame[950:1045, 810:910]
             assert 0 not in current_pic.shape, "视频分辨率应为1920*1080"
             pic_current_hash = phash(current_pic)
             hmdistant = hamming_distance(last_pic_hash, pic_current_hash)
-
-            # if hamming_distance(switch_hash,'1000110001011000111100100000000000000000000000000000000000000000') < 5:
-            #     trans = True  # 识别转场
-            if (hmdistant > 16) and (current_frame_num != 0):
-                # if current_frame_num - last_frame_num > (frame_rate / 2):
+            if (hmdistant > 13) and (current_frame_num != 0):
                 if current_frame_num - last_frame_num > (frame_rate / 2) - 5:
                     center_count = len(identity_pass) // 2 - 1
                     people = get_people(identity_pass[center_count])
+                    # people = get_people(people_pic)
 
-                    print('%3s | %-5d <-> %-5d | hmdst: %-3d | gap: %-3d | %s --> %s | %s'
-                          % (sub_num, begin_frame_num, current_frame_num - 1, hmdistant,
-                             current_frame_num - last_frame_num,
-                             frames_to_timecode(frame_rate, begin_frame_num),
-                             frames_to_timecode(frame_rate, current_frame_num), people))
+                    if (people == 'undefined') and current_frame_num - last_frame_num < (
+                            frame_rate / 2):
+                        pass
+                    else:
+                        # debug
+                        # cv2.imwrite(f'output/{videoName}/frame_{current_frame_num}.jpg', frame)
 
-                    add_sub("示范性字幕" if debug else "", frames_to_timecode(frame_rate, begin_frame_num),
-                            frames_to_timecode(frame_rate, current_frame_num), people)
+                        print('%3s | %-5d <-> %-5d | hmdst: %-3d | gap: %-3d | %s --> %s | %s'
+                              % (sub_num, begin_frame_num, current_frame_num - 1, hmdistant,
+                                 current_frame_num - last_frame_num,
+                                 frames_to_timecode(frame_rate, begin_frame_num),
+                                 frames_to_timecode(frame_rate, current_frame_num), people))
+
+                        add_sub("示范性字幕" if debug else "", frames_to_timecode(frame_rate, begin_frame_num),
+                                frames_to_timecode(frame_rate, current_frame_num), people)
 
                 begin_frame_num = current_frame_num
                 last_frame_num = current_frame_num
                 identity_pass.clear()
 
             last_pic_hash = pic_current_hash
-            people_pic = frame[980:1050, 910:1100]
+            people_pic = frame[965:1040, 800:1100]
 
             # identify by slide window
             if current_frame_num % 2 == 0:
@@ -211,6 +222,7 @@ def autosub(videopath, subpath):
         print("源视频读取出错")
         Err = True
     print("finish!")
+
     end = time.time()
     print(f'耗时：{str(end - start)}秒')
     return Err

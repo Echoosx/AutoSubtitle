@@ -2,12 +2,15 @@
 <ui version="4.0">
  <class>AutoSubtitle</class>
  <widget class="QMainWindow" name="AutoSubtitle">
+  <property name="enabled">
+   <bool>true</bool>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
     <width>632</width>
-    <height>281</height>
+    <height>321</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -30,12 +33,15 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QTabWidget" name="tabWidget">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>0</x>
       <y>0</y>
       <width>631</width>
-      <height>281</height>
+      <height>321</height>
      </rect>
     </property>
     <property name="font">
@@ -43,16 +49,34 @@
       <family>Microsoft YaHei</family>
      </font>
     </property>
+    <property name="cursor">
+     <cursorShape>ArrowCursor</cursorShape>
+    </property>
+    <property name="layoutDirection">
+     <enum>Qt::LeftToRight</enum>
+    </property>
     <property name="autoFillBackground">
      <bool>false</bool>
     </property>
     <property name="styleSheet">
      <string notr="true"/>
     </property>
+    <property name="tabPosition">
+     <enum>QTabWidget::North</enum>
+    </property>
     <property name="currentIndex">
      <number>0</number>
     </property>
     <widget class="QWidget" name="runsub">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
+     <property name="acceptDrops">
+      <bool>false</bool>
+     </property>
+     <property name="autoFillBackground">
+      <bool>false</bool>
+     </property>
      <attribute name="title">
       <string>运行</string>
      </attribute>
@@ -91,7 +115,7 @@
       <property name="geometry">
        <rect>
         <x>20</x>
-        <y>80</y>
+        <y>90</y>
         <width>461</width>
         <height>31</height>
        </rect>
@@ -105,6 +129,9 @@
       <property name="statusTip">
        <string/>
       </property>
+      <property name="readOnly">
+       <bool>true</bool>
+      </property>
       <property name="placeholderText">
        <string>可以将视频拖拽到这里</string>
       </property>
@@ -113,7 +140,7 @@
       <property name="geometry">
        <rect>
         <x>500</x>
-        <y>80</y>
+        <y>90</y>
         <width>101</width>
         <height>31</height>
        </rect>
@@ -130,33 +157,12 @@
        <string>选择视频</string>
       </property>
      </widget>
-     <widget class="QCheckBox" name="FlagNewOPcheckBox">
-      <property name="geometry">
-       <rect>
-        <x>500</x>
-        <y>11</y>
-        <width>101</width>
-        <height>20</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>Microsoft YaHei</family>
-       </font>
-      </property>
-      <property name="text">
-       <string>flag系列新OP</string>
-      </property>
-      <property name="checked">
-       <bool>true</bool>
-      </property>
-     </widget>
      <widget class="QComboBox" name="videoTypeList">
       <property name="geometry">
        <rect>
-        <x>370</x>
-        <y>40</y>
-        <width>231</width>
+        <x>420</x>
+        <y>50</y>
+        <width>181</width>
         <height>25</height>
        </rect>
       </property>
@@ -173,7 +179,7 @@
       <property name="geometry">
        <rect>
         <x>20</x>
-        <y>130</y>
+        <y>140</y>
         <width>461</width>
         <height>31</height>
        </rect>
@@ -187,6 +193,9 @@
       <property name="acceptDrops">
        <bool>false</bool>
       </property>
+      <property name="readOnly">
+       <bool>false</bool>
+      </property>
       <property name="placeholderText">
        <string>请选择字幕文件保存路径</string>
       </property>
@@ -197,8 +206,8 @@
       </property>
       <property name="geometry">
        <rect>
-        <x>360</x>
-        <y>10</y>
+        <x>280</x>
+        <y>50</y>
         <width>131</width>
         <height>21</height>
        </rect>
@@ -219,7 +228,7 @@
       <property name="geometry">
        <rect>
         <x>500</x>
-        <y>130</y>
+        <y>140</y>
         <width>101</width>
         <height>31</height>
        </rect>
@@ -237,7 +246,7 @@
       <property name="geometry">
        <rect>
         <x>20</x>
-        <y>180</y>
+        <y>190</y>
         <width>581</width>
         <height>41</height>
        </rect>
@@ -273,114 +282,52 @@
        <bool>false</bool>
       </property>
      </widget>
+     <widget class="QComboBox" name="FlagOPcomboBox">
+      <property name="geometry">
+       <rect>
+        <x>500</x>
+        <y>20</y>
+        <width>101</width>
+        <height>22</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_8">
+      <property name="geometry">
+       <rect>
+        <x>422</x>
+        <y>20</y>
+        <width>71</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="autoFillBackground">
+       <bool>false</bool>
+      </property>
+      <property name="text">
+       <string>flag OP类型</string>
+      </property>
+     </widget>
      <zorder>Title</zorder>
      <zorder>VideoPathEdit</zorder>
-     <zorder>FlagNewOPcheckBox</zorder>
      <zorder>videoTypeList</zorder>
      <zorder>SubtitleSavePathEdit</zorder>
      <zorder>Title_2</zorder>
      <zorder>saveButton</zorder>
      <zorder>startButton</zorder>
      <zorder>chooseButton</zorder>
+     <zorder>FlagOPcomboBox</zorder>
+     <zorder>label_8</zorder>
     </widget>
     <widget class="QWidget" name="default">
      <attribute name="title">
       <string>默认</string>
      </attribute>
-     <widget class="DragAcceptableQLine" name="flagStylePathEdit">
-      <property name="geometry">
-       <rect>
-        <x>20</x>
-        <y>20</y>
-        <width>441</width>
-        <height>31</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>Microsoft YaHei</family>
-        <pointsize>10</pointsize>
-       </font>
-      </property>
-      <property name="acceptDrops">
-       <bool>false</bool>
-      </property>
-      <property name="statusTip">
-       <string/>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-      <property name="placeholderText">
-       <string>请选择全力回避flag酱打轴默认样式</string>
-      </property>
-     </widget>
-     <widget class="DragAcceptableQLine" name="mixedStylePathEdit">
-      <property name="geometry">
-       <rect>
-        <x>20</x>
-        <y>70</y>
-        <width>441</width>
-        <height>31</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>Microsoft YaHei</family>
-        <pointsize>10</pointsize>
-       </font>
-      </property>
-      <property name="acceptDrops">
-       <bool>false</bool>
-      </property>
-      <property name="statusTip">
-       <string/>
-      </property>
-      <property name="placeholderText">
-       <string>请选择混血万事屋打轴默认样式</string>
-      </property>
-     </widget>
-     <widget class="QToolButton" name="flagStyleSelect">
-      <property name="geometry">
-       <rect>
-        <x>480</x>
-        <y>20</y>
-        <width>121</width>
-        <height>31</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>Microsoft YaHei</family>
-       </font>
-      </property>
-      <property name="text">
-       <string>选择flag默认样式</string>
-      </property>
-     </widget>
-     <widget class="QToolButton" name="mixedStyleSelect">
-      <property name="geometry">
-       <rect>
-        <x>480</x>
-        <y>70</y>
-        <width>121</width>
-        <height>31</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>Microsoft YaHei</family>
-       </font>
-      </property>
-      <property name="text">
-       <string>选择混血默认样式</string>
-      </property>
-     </widget>
      <widget class="QPushButton" name="saveDefaultButton">
       <property name="geometry">
        <rect>
-        <x>220</x>
-        <y>200</y>
+        <x>210</x>
+        <y>150</y>
         <width>171</width>
         <height>41</height>
        </rect>
@@ -399,7 +346,7 @@
       <property name="geometry">
        <rect>
         <x>20</x>
-        <y>160</y>
+        <y>110</y>
         <width>361</width>
         <height>41</height>
        </rect>
@@ -418,7 +365,7 @@
       <property name="geometry">
        <rect>
         <x>120</x>
-        <y>110</y>
+        <y>20</y>
         <width>110</width>
         <height>20</height>
        </rect>
@@ -442,7 +389,7 @@
       <property name="geometry">
        <rect>
         <x>240</x>
-        <y>110</y>
+        <y>20</y>
         <width>95</width>
         <height>20</height>
        </rect>
@@ -466,7 +413,7 @@
       <property name="geometry">
        <rect>
         <x>20</x>
-        <y>100</y>
+        <y>10</y>
         <width>111</width>
         <height>41</height>
        </rect>
@@ -485,7 +432,7 @@
       <property name="geometry">
        <rect>
         <x>20</x>
-        <y>130</y>
+        <y>70</y>
         <width>91</width>
         <height>41</height>
        </rect>
@@ -504,7 +451,7 @@
       <property name="geometry">
        <rect>
         <x>120</x>
-        <y>140</y>
+        <y>80</y>
         <width>95</width>
         <height>20</height>
        </rect>
@@ -528,7 +475,7 @@
       <property name="geometry">
        <rect>
         <x>240</x>
-        <y>140</y>
+        <y>80</y>
         <width>95</width>
         <height>20</height>
        </rect>
@@ -555,7 +502,7 @@
       <property name="geometry">
        <rect>
         <x>340</x>
-        <y>110</y>
+        <y>20</y>
         <width>51</width>
         <height>20</height>
        </rect>
@@ -579,7 +526,7 @@
       <property name="geometry">
        <rect>
         <x>400</x>
-        <y>110</y>
+        <y>20</y>
         <width>71</width>
         <height>20</height>
        </rect>
@@ -603,7 +550,7 @@
       <property name="geometry">
        <rect>
         <x>480</x>
-        <y>110</y>
+        <y>20</y>
         <width>81</width>
         <height>20</height>
        </rect>
@@ -623,17 +570,47 @@
        <string notr="true">defaultVideoTypeGroup</string>
       </attribute>
      </widget>
+     <widget class="QRadioButton" name="parakoRadioButton">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>120</x>
+        <y>50</y>
+        <width>91</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Microsoft YaHei</family>
+       </font>
+      </property>
+      <property name="cursor">
+       <cursorShape>ArrowCursor</cursorShape>
+      </property>
+      <property name="text">
+       <string>超能力高校</string>
+      </property>
+      <property name="checked">
+       <bool>false</bool>
+      </property>
+      <attribute name="buttonGroup">
+       <string notr="true">defaultVideoTypeGroup</string>
+      </attribute>
+     </widget>
     </widget>
-    <widget class="QWidget" name="advanced">
+    <widget class="QWidget" name="style">
      <attribute name="title">
-      <string>高级</string>
+      <string>样式</string>
      </attribute>
      <widget class="QLabel" name="label_2">
       <property name="geometry">
        <rect>
-        <x>20</x>
+        <x>410</x>
         <y>10</y>
-        <width>81</width>
+        <width>41</width>
         <height>21</height>
        </rect>
       </property>
@@ -644,16 +621,16 @@
        </font>
       </property>
       <property name="text">
-       <string>样式名对照表</string>
+       <string>样式表</string>
       </property>
      </widget>
      <widget class="QPlainTextEdit" name="styleSheetEdit">
       <property name="geometry">
        <rect>
         <x>20</x>
-        <y>30</y>
+        <y>80</y>
         <width>461</width>
-        <height>221</height>
+        <height>201</height>
        </rect>
       </property>
       <property name="font">
@@ -670,7 +647,7 @@
       <property name="geometry">
        <rect>
         <x>500</x>
-        <y>220</y>
+        <y>250</y>
         <width>111</width>
         <height>31</height>
        </rect>
@@ -683,7 +660,7 @@
       <property name="geometry">
        <rect>
         <x>500</x>
-        <y>180</y>
+        <y>210</y>
         <width>111</width>
         <height>31</height>
        </rect>
@@ -696,22 +673,245 @@
       <property name="geometry">
        <rect>
         <x>490</x>
-        <y>40</y>
+        <y>80</y>
         <width>131</width>
-        <height>131</height>
+        <height>121</height>
        </rect>
       </property>
       <property name="text">
-       <string>自定义样式名对照表
-参照格式：
-说话人 = 样式名
-
-[flag]和[mixed-blood]
-下方分别是两类视频的
-样式名对照表</string>
+       <string>本处可修改生成字幕文
+件的默认样式表。</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+      </property>
+     </widget>
+     <widget class="QComboBox" name="styleTypeList">
+      <property name="geometry">
+       <rect>
+        <x>460</x>
+        <y>10</y>
+        <width>151</width>
+        <height>22</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="DragAcceptableQLine" name="StylePathEdit">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>40</y>
+        <width>461</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Microsoft YaHei</family>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="statusTip">
+       <string/>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="readOnly">
+       <bool>true</bool>
+      </property>
+      <property name="placeholderText">
+       <string>从文件导入，可将文件拖曳至这里</string>
+      </property>
+     </widget>
+     <widget class="QToolButton" name="StyleChooseButton">
+      <property name="geometry">
+       <rect>
+        <x>500</x>
+        <y>40</y>
+        <width>111</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Microsoft YaHei</family>
+       </font>
+      </property>
+      <property name="contextMenuPolicy">
+       <enum>Qt::DefaultContextMenu</enum>
+      </property>
+      <property name="text">
+       <string>选择文件</string>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="config">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
+     <attribute name="title">
+      <string>配置</string>
+     </attribute>
+     <widget class="QPlainTextEdit" name="configSheetEdit">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>40</y>
+        <width>221</width>
+        <height>241</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Microsoft YaHei</family>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="plainText">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QComboBox" name="configTypeList">
+      <property name="geometry">
+       <rect>
+        <x>460</x>
+        <y>10</y>
+        <width>151</width>
+        <height>22</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_7">
+      <property name="geometry">
+       <rect>
+        <x>490</x>
+        <y>80</y>
+        <width>131</width>
+        <height>121</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>本页可修改打轴机颜色
+识别配置文件
+左侧为配置文件编辑区
+右侧为颜色调试区</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="defaultConfigSheetButton">
+      <property name="geometry">
+       <rect>
+        <x>500</x>
+        <y>210</y>
+        <width>111</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>重置</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="saveConfigSheetButton">
+      <property name="geometry">
+       <rect>
+        <x>500</x>
+        <y>250</y>
+        <width>111</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>保存</string>
+      </property>
+     </widget>
+     <widget class="QPlainTextEdit" name="configColorOutput">
+      <property name="geometry">
+       <rect>
+        <x>260</x>
+        <y>80</y>
+        <width>221</width>
+        <height>201</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Microsoft YaHei</family>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="plainText">
+       <string/>
+      </property>
+     </widget>
+     <widget class="DragAcceptableQLine" name="ColorPathEdit">
+      <property name="geometry">
+       <rect>
+        <x>260</x>
+        <y>40</y>
+        <width>221</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Microsoft YaHei</family>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="statusTip">
+       <string/>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="readOnly">
+       <bool>true</bool>
+      </property>
+      <property name="placeholderText">
+       <string>从文件导入，可将文件拖曳至这里</string>
+      </property>
+     </widget>
+     <widget class="QToolButton" name="ColorChooseButton">
+      <property name="geometry">
+       <rect>
+        <x>500</x>
+        <y>40</y>
+        <width>111</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Microsoft YaHei</family>
+       </font>
+      </property>
+      <property name="contextMenuPolicy">
+       <enum>Qt::DefaultContextMenu</enum>
+      </property>
+      <property name="text">
+       <string>选择图片</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_6">
+      <property name="geometry">
+       <rect>
+        <x>370</x>
+        <y>10</y>
+        <width>81</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Microsoft YaHei</family>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>颜色配置文件</string>
       </property>
      </widget>
     </widget>
@@ -737,8 +937,8 @@
    <slot>raiseOpenFile()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>502</x>
-     <y>104</y>
+     <x>504</x>
+     <y>139</y>
     </hint>
     <hint type="destinationlabel">
      <x>411</x>
@@ -753,8 +953,8 @@
    <slot>raiseSaveFile()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>502</x>
-     <y>154</y>
+     <x>504</x>
+     <y>189</y>
     </hint>
     <hint type="destinationlabel">
      <x>484</x>
@@ -769,8 +969,8 @@
    <slot>tryToStart()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>286</x>
-     <y>204</y>
+     <x>288</x>
+     <y>239</y>
     </hint>
     <hint type="destinationlabel">
      <x>404</x>
@@ -785,8 +985,8 @@
    <slot>updateSavePath()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>106</x>
-     <y>154</y>
+     <x>108</x>
+     <y>189</y>
     </hint>
     <hint type="destinationlabel">
      <x>25</x>
@@ -801,28 +1001,12 @@
    <slot>updateVideoType()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>547</x>
-     <y>74</y>
+     <x>549</x>
+     <y>99</y>
     </hint>
     <hint type="destinationlabel">
      <x>572</x>
      <y>168</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>FlagNewOPcheckBox</sender>
-   <signal>stateChanged(int)</signal>
-   <receiver>AutoSubtitle</receiver>
-   <slot>updateOPstyle()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>586</x>
-     <y>51</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>624</x>
-     <y>4</y>
     </hint>
    </hints>
   </connection>
@@ -833,8 +1017,8 @@
    <slot>updateOpenPath()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>294</x>
-     <y>109</y>
+     <x>296</x>
+     <y>144</y>
     </hint>
     <hint type="destinationlabel">
      <x>293</x>
@@ -850,7 +1034,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>557</x>
-     <y>219</y>
+     <y>249</y>
     </hint>
     <hint type="destinationlabel">
      <x>315</x>
@@ -866,7 +1050,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>557</x>
-     <y>259</y>
+     <y>289</y>
     </hint>
     <hint type="destinationlabel">
      <x>315</x>
@@ -881,8 +1065,8 @@
    <slot>saveDefaultConfig()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>307</x>
-     <y>244</y>
+     <x>301</x>
+     <y>215</y>
     </hint>
     <hint type="destinationlabel">
      <x>315</x>
@@ -891,34 +1075,146 @@
    </hints>
   </connection>
   <connection>
-   <sender>flagStyleSelect</sender>
-   <signal>clicked()</signal>
+   <sender>FlagOPcomboBox</sender>
+   <signal>currentIndexChanged(int)</signal>
    <receiver>AutoSubtitle</receiver>
-   <slot>raiseFlagStyleSelect()</slot>
+   <slot>updateOPstyle()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>542</x>
-     <y>59</y>
+     <x>529</x>
+     <y>55</y>
     </hint>
     <hint type="destinationlabel">
-     <x>315</x>
-     <y>140</y>
+     <x>485</x>
+     <y>-63</y>
     </hint>
    </hints>
   </connection>
   <connection>
-   <sender>mixedStyleSelect</sender>
-   <signal>clicked()</signal>
+   <sender>styleTypeList</sender>
+   <signal>currentIndexChanged(int)</signal>
    <receiver>AutoSubtitle</receiver>
-   <slot>raiseMixedStyleSelect()</slot>
+   <slot>updateStyleType()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>542</x>
-     <y>109</y>
+     <x>547</x>
+     <y>50</y>
     </hint>
     <hint type="destinationlabel">
-     <x>315</x>
-     <y>140</y>
+     <x>296</x>
+     <y>-4</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>configTypeList</sender>
+   <signal>currentIndexChanged(int)</signal>
+   <receiver>AutoSubtitle</receiver>
+   <slot>updateConfigType()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>512</x>
+     <y>50</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>467</x>
+     <y>-187</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>StyleChooseButton</sender>
+   <signal>clicked()</signal>
+   <receiver>AutoSubtitle</receiver>
+   <slot>raiseStyleSelect()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>602</x>
+     <y>85</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>433</x>
+     <y>-106</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>StylePathEdit</sender>
+   <signal>dropAccepted()</signal>
+   <receiver>AutoSubtitle</receiver>
+   <slot>updateStyleSheet()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>126</x>
+     <y>82</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>249</x>
+     <y>-148</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>ColorPathEdit</sender>
+   <signal>dropAccepted()</signal>
+   <receiver>AutoSubtitle</receiver>
+   <slot>raiseGetColor()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>423</x>
+     <y>86</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>401</x>
+     <y>-97</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>ColorChooseButton</sender>
+   <signal>clicked()</signal>
+   <receiver>AutoSubtitle</receiver>
+   <slot>raiseImageSelect()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>567</x>
+     <y>82</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>441</x>
+     <y>-21</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>defaultConfigSheetButton</sender>
+   <signal>clicked()</signal>
+   <receiver>AutoSubtitle</receiver>
+   <slot>defaultConfigSheet()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>545</x>
+     <y>258</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>541</x>
+     <y>-62</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>saveConfigSheetButton</sender>
+   <signal>clicked()</signal>
+   <receiver>AutoSubtitle</receiver>
+   <slot>saveConfigSheet()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>573</x>
+     <y>300</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>561</x>
+     <y>-69</y>
     </hint>
    </hints>
   </connection>
@@ -933,6 +1229,14 @@
   <slot>updateVideoType()</slot>
   <slot>updateOPstyle()</slot>
   <slot>setSavePathToDefault()</slot>
+  <slot>updateStyleType()</slot>
+  <slot>updateConfigType()</slot>
+  <slot>raiseStyleSelect()</slot>
+  <slot>updateStyleSheet()</slot>
+  <slot>raiseGetColor()</slot>
+  <slot>raiseImageSelect()</slot>
+  <slot>defaultConfigSheet()</slot>
+  <slot>saveConfigSheet()</slot>
  </slots>
  <buttongroups>
   <buttongroup name="defaultVideoTypeGroup"/>

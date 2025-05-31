@@ -56,10 +56,7 @@ for key, subkey in config_dict.items():
         subkey['filter_lower'] = [int(i) for i in subkey['filter_lower'].split(',')]
     if 'filter_upper' in subkey:
         subkey['filter_upper'] = [int(i) for i in subkey['filter_upper'].split(',')]
-    if 'disabled' in subkey and config2.getboolean(key, 'disabled'):
-        subkey['disabled'] = True
-    else:
-        subkey['disabled'] = False
+    subkey['disabled'] = 'disabled' in subkey and config2.getboolean(key, 'disabled')
 # print(config_dict)
 
 
@@ -178,6 +175,7 @@ def get_people(img):
 
 def people2style(people):
     return config_dict[people]['style']
+
 
 def add_sub(subtext, begintime, endingtime, subpeople):
     global sub_num
